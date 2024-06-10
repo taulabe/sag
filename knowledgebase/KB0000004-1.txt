@@ -1,0 +1,2 @@
+En el caso de las Precision, se necesita realizar la optimizacion de los recursos del sistema con la herramienta Dell Precision Optimizer.
+Se necesita enfocar los recursos usando y activando el perfil Adobe Photoshop que se encuentra preregistrado.

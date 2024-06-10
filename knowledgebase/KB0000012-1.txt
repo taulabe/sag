@@ -1,0 +1,8 @@
+1- Abrir "Conexion a Escritorio Remoto"
+2- ingresar al servidor de dominio.
+3- Abrir "Usuario y Equipos de Active Directory" 
+4- Buscar el usuario en el arbol de dominio.
+5- Clic derecho en el usuario y seleccionar propiedades.
+6- abrir la pestaña cuenta.
+7- Seleccionar desbloquear usuario.
+8- aceptar

@@ -1,0 +1,21 @@
+ENLAZAR CDP A PRESTAMO COMO GARANTIA AUTOMATICA
+
+Herramienta: SMA
+Informacion necesaria:
+	* Cuenta del afiliado
+	* Nombre del afiliado
+	* Numero de CDP en SMA
+	* Numero de solicitud/es de prestamos a enlazar
+
+PASOS
+1. Ingresar al SMA en el modulo de clientes.
+2. En el menu supervisor, dar clic en VER DATOS SOLICITUD DE CREDITO
+3. Ingresar credenciales de cajero para acceder a la solicitud
+4. En la forma MACC04_01_01 Ingresar el numero de solicitud del prestamo y dar clic en buscar
+5. Seleccionar la pestaña GARANTIAS AUTOMATICAS
+6. Ingresar el numero de cuenta y clic en buscar
+7. Clic en el recuadro Tipo y con F9 para mostrar la lista de DPFS disponibles
+8. Seleccionar el DPF correspondiente
+9. Dar clic en grabar
+
+Nota: Repetir estos pasos para los prestamos o por si un prestamo tiene mas de un DPF agregado como garantia

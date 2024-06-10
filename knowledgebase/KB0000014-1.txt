@@ -1,0 +1,9 @@
+Desbloqueo de Base de Datos
+
+1- se abre o ingresa al Toad.
+2- ingresa usuario y contraseña correspondiente y lo confirma con el boton Connect.
+3- ingresamos al menu Schema Browse.
+4- ingresamos al sub-menu Users.
+5- seleccionamos el usuario a desbloquear.
+6- Damos clic derecho y seleccionamos Unlock.
+7- cierra el Toad fin del proceso.

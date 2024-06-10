@@ -1,0 +1,7 @@
+Reseteo de contraseña en Windows
+
+1- Ingresar con los usuarios correspondientes en el servidor de Dominio.
+2- Buscar la oficina a la que pertenece el solicitante.
+3- Dar clic derecho sobre el nombre de la persona a Restablecer Contraseña.
+4- Ingresar y confirmar nueva contraseña.
+5- presionar el botón Aceptar para finalizar el proceso.

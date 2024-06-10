@@ -1,0 +1,8 @@
+1- Abrir Toad
+2- En SQL Editor colocar lo siguiente y cambiando "USUARIO" por el usuario de la persona:
+	select sid,serial#,inst_id from gv$session where username='USUARIO';
+3- Ejecutar el query con F9. se obtendran una serie de lineas que son variables de sesion y autenticacion de la base de datos.
+4- siempre en SQL Editor, colocar lo siguiente por linea y cambiar los valores segun la lineas obtenidos con anterioridad:
+	alter system kill session '53,61097,@1';
+5- ejecutar cada linea.
+6- ir a SMA y liberar el cajero. 

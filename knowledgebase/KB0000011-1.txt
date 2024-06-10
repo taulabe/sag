@@ -1,0 +1,9 @@
+Pasos para cambiar de formato un documento en linea.
+
+1- Abrir el documento alojado en OneDrive.
+2- descargar el documento.
+3- Abrir documento con excel 2016 o version mas reciente.
+4- click en archivo y seleccionar la opcion "Guardar como".
+5- Seleccionar donde se guardara el documento y en listbox de formatos seleccionar otro formato, ejemplo: Libro de Excel 97-2003.
+6- dar clic en guardar.
+7- subir el documento a OneDrive y abrirlo. 

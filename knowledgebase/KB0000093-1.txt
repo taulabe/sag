@@ -1,0 +1,9 @@
+Cambio de estaus de prestama
+-------------------------------------------
+Herramienta: SMA
+
+Pasos:
+1. Se consulta la cuenta del afiliado
+2. Dar clic derecho sobre el saldo del prestamo con el que desea cambiar el estatus
+3. En el campo estatus, elegir vigente, atrazado o vencido, de acuerdo a la fecha de vencimiento del prestamos
+4. Guardar los cambios.

@@ -1,0 +1,29 @@
+Prestamo desembolsado con fecha adelantada
+------------------------------------------------
+Datos:
+Fecha de posteo: 09-07-2019
+Fecha efectiva:  20-07-2019
+
+Correccion:
+1. Se ingresa a la cuenta y en las propiedades del prestamo se cambian las fecha del prestamo:
+	- Fecha de vencimiento
+	- Fecha otorgado
+	- Fecha primer pago
+	- Fecha proximo pago
+	- Fecha de ultima transaccion
+Nota: estas fechas van de acorde al plazo cambiar con cuidado.
+
+2. Se corrige la fecha del historico de transacciones.
+	- Para esta parte de usan las formas para prestamo
+
+3. Se recrea el plan de pagos
+	- Prestamos y Cobranza > Procesos > Recrear pla de pagos
+		* Se ingresa la cuenta del afiliado mas el numero de prestamo para traer los parametros del prestamo
+		* Luego clic en Aceptar
+
+4. Se cambia la fecha de desembolso en la aprobacion del credito
+	- Supervisor > Ver aprobaciones de credito
+		* Se ingresa el numero de la solicitud y en la ultima pestaña se cambia la fecha.
+
+
+5. Se debe revisar el calculo de los intereses que esten correctos.

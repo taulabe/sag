@@ -1,0 +1,12 @@
+1.	Reboot the firewall by pressing the power button or entering CTRL+ALT+DEL.
+
+2.	Select Emergency Maintenance Mode at the second boot menu. You can ignore the first menu to boot into the VCD/current/alternate slice.
+
+3.	Press ENTER when asked what shell patch to use. The system prompt appears. 
+
+4.	Enter the following command to change your password:  cf adminuser modify username=<name> password=<newpassword>, where <name> is the administrator account username and <newpassword> is the new password you want to set for the account. 
+NOTE: Each special character in a password needs to be delimited with a backslash (\). For example, for the password abcd!234, you need to specify abcd\!234. 
+
+5.	Reboot to the Operational kernel using the following command: shutdown -r now 
+
+6.	You can now log into the appliance using your new password.

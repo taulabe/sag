@@ -1,0 +1,187 @@
+/* Formatted on 5/9/2019 10:36:56 AM (QP5 v5.313) */
+DECLARE
+    l_idcia                  CHAR (3);
+    l_idsuc                  CHAR (3);
+    l_clinocta               CHAR (9);
+    l_iddepto                NUMBER (3);
+    l_idmunicipio            NUMBER;
+    l_idbarriocol            NUMBER;
+    l_direccionadic          VARCHAR2 (500);
+    l_descripcionbarriocol   VARCHAR2 (60);
+    v_barrio                 mac_m07.descripbarriocol%TYPE;
+    v_adicional              mac_c00.cli_direccionadic%TYPE;
+    v_concat                 VARCHAR2 (1024);
+    sqlno                    NUMBER;
+    sqlmsg                   VARCHAR (300);
+
+    -- datos generales de la cuenta aperturada
+    CURSOR c0
+    IS
+        SELECT cli.idcia,
+               cli.IDSUC,
+               cli.CLI_NOCTA         AS clinocta,
+               cli.cod_DEPTO         AS iddepto,
+               cli.cod_MUNIC         AS idmunicipio,
+               cli.cod_BARRI         AS idbarriocol,
+               cli.DESCRIPBARRIOCOL  AS barriocol,
+               cli.CLI_DIRECCIONADIC AS DIRECCIONADIC
+          FROM sma.afiliado_dir cli
+         WHERE cli.idcia = '010' AND cli.idsuc = '002';
+BEGIN
+    FOR r0 IN c0
+    LOOP
+        -- actualizar variables
+        l_idcia := r0.idcia;
+        l_idsuc := r0.idsuc;
+        l_clinocta := r0.clinocta;
+        l_iddepto := r0.iddepto;
+        l_idmunicipio := r0.idmunicipio;
+        l_idbarriocol := r0.idbarriocol;
+        l_direccionadic := r0.direccionadic;
+        l_descripcionbarriocol := r0.barriocol;
+
+        IF l_descripcionbarriocol = 'NO EXISTE'
+        THEN
+            v_barrio := 'NO EXISTE';
+
+            -- Información de la direccion adicional
+            SELECT TRIM (
+                       TRANSLATE (cli_direccionadic,
+                                  CHR (10) || CHR (13) || CHR (39) || '"|',
+                                  ' '))
+              INTO v_adicional
+              FROM sma.mac_c00
+             WHERE     idcia = l_idcia
+                   AND idsuc = l_idsuc
+                   AND cli_nocta = l_clinocta;
+        ELSIF l_descripcionbarriocol <> 'NO EXISTE'
+        THEN
+            -- Información del barrio
+            SELECT TRIM (
+                       TRANSLATE (descripbarriocol,
+                                  CHR (10) || CHR (13) || CHR (39) || '"|',
+                                  ' '))
+              INTO v_barrio
+              FROM sma.mac_m07
+             WHERE     idcia = l_idcia
+                   AND idsuc = l_idsuc
+                   AND iddepto = l_iddepto
+                   AND idmunicipio = l_idmunicipio
+                   AND idbarriocol = l_idbarriocol;
+
+
+            -- Información de la direccion adicional
+            SELECT TRIM (
+                       TRANSLATE (cli_direccionadic,
+                                  CHR (10) || CHR (13) || CHR (39) || '"|',
+                                  ' '))
+              INTO v_adicional
+              FROM sma.mac_c00
+             WHERE     idcia = l_idcia
+                   AND idsuc = l_idsuc
+                   AND cli_nocta = l_clinocta;
+        END IF;
+
+        -- Variable concatenada
+        v_concat := v_barrio || ' *** ' || v_adicional;
+
+
+        -- Update de SMA.MAC_C00 - DIRECCION ADICIONAL
+        /*UPDATE SMA.MAC_C00
+           SET CLI_DIRECCIONADIC = v_concat
+         WHERE IDCIA = l_idcia AND IDSUC = l_idsuc AND CLI_NOCTA = l_clinocta;*/
+        DBMS_OUTPUT.put_line (
+               'Concatenado: '
+            || l_idcia
+            || '-'
+            || l_idsuc
+            || '-'
+            || l_clinocta
+            || ' -- '
+            || v_concat);
+    END LOOP;
+EXCEPTION
+    WHEN OTHERS
+    THEN
+        -- capturar descripción del error
+        sqlno := SQLCODE;
+        sqlmsg := SQLERRM;
+        DBMS_OUTPUT.put_line ('Error: ' || sqlno);
+        DBMS_OUTPUT.put_line ('Mensaje: ' || sqlmsg);
+        DBMS_OUTPUT.put_line (
+            'Mensaje: ' || l_idcia || '-' || l_idsuc || '-' || l_clinocta);
+END;
+/
+
+
+
+
+
+
+/* Formatted on 5/9/2019 10:16:24 AM (QP5 v5.313) */
+-- TOTAL DE AFILIADOS POR OFICINA
+
+SELECT COUNT (*) AS total_afiliados
+  FROM sma.mac_c00
+ WHERE idcia = '010' and idsuc not in ('009');
+
+-- AFILIADOS CON CAMPOS NULOS O CON CEROS
+
+SELECT count(*) conteo
+  FROM SMA.MAC_C00  P
+       LEFT JOIN SMA.MAC_M05 DP
+           ON     P.IDCIA = DP.IDCIA
+              AND P.IDSUC = DP.IDSUC
+              AND P.CLI_IDDEPTO = DP.IDDEPTO
+       LEFT JOIN SMA.MAC_M06 MU
+           ON     P.IDCIA = MU.IDCIA
+              AND P.IDSUC = MU.IDSUC
+              AND MU.IDDEPTO = P.CLI_IDDEPTO
+              AND MU.IDMUNICIPIO = P.CLI_IDMUNICIPIO
+       LEFT JOIN SMA.MAC_M07 BO
+           ON     P.IDCIA = BO.IDCIA
+              AND P.IDSUC = BO.IDSUC
+              AND P.CLI_IDDEPTO = BO.IDDEPTO
+              AND P.CLI_IDMUNICIPIO = BO.IDMUNICIPIO
+              AND P.CLI_BARRIOCOL = BO.IDBARRIOCOL
+ WHERE     p.idcia = '010'
+       AND p.idsuc = '007'
+       AND (   NVL (TRIM (DP.DESCRIPDEPTO), 'NO EXISTE') = 'NO EXISTE'
+            OR NVL (TRIM (MU.DESCRIPMUNICIPIO), 'NO EXISTE') = 'NO EXISTE'
+            OR NVL (TRIM (BO.DESCRIPBARRIOCOL), 'NO EXISTE') = 'NO EXISTE');
+
+-- CLIENTES CON CAMPOS COMPLETOS PERO QUE NO EXISTE EL BARRIO O COLONIA
+
+SELECT p.IDCIA,
+       p.IDSUC,
+       p.CLI_NOCTA,
+       NVL (TRIM (DP.DESCRIPDEPTO), 'NO EXISTE')     DESCRIPDEPTO,
+       NVL (TRIM (MU.DESCRIPMUNICIPIO), 'NO EXISTE') DESCRIPMUNICIPIO,
+       NVL (TRIM (BO.DESCRIPBARRIOCOL), 'NO EXISTE') DESCRIPBARRIOCOL,
+       P.CLI_IDDEPTO                                 COD_DEPTO,
+       P.CLI_IDMUNICIPIO                             COD_MUNIC,
+       P.CLI_BARRIOCOL                               COD_BARRI
+  FROM SMA.MAC_C00  P
+       LEFT JOIN SMA.MAC_M05 DP
+           ON     P.IDCIA = DP.IDCIA
+              AND P.IDSUC = DP.IDSUC
+              AND P.CLI_IDDEPTO = DP.IDDEPTO
+       LEFT JOIN SMA.MAC_M06 MU
+           ON     P.IDCIA = MU.IDCIA
+              AND P.IDSUC = MU.IDSUC
+              AND MU.IDDEPTO = P.CLI_IDDEPTO
+              AND MU.IDMUNICIPIO = P.CLI_IDMUNICIPIO
+       LEFT JOIN SMA.MAC_M07 BO
+           ON     P.IDCIA = BO.IDCIA
+              AND P.IDSUC = BO.IDSUC
+              AND P.CLI_IDDEPTO = BO.IDDEPTO
+              AND P.CLI_IDMUNICIPIO = BO.IDMUNICIPIO
+              AND P.CLI_BARRIOCOL = BO.IDBARRIOCOL
+ WHERE     p.idcia = '010'
+       AND p.idsuc = '008'
+       AND (   NVL (TRIM (DP.DESCRIPDEPTO), 'NO EXISTE') = 'NO EXISTE'
+            OR NVL (TRIM (MU.DESCRIPMUNICIPIO), 'NO EXISTE') = 'NO EXISTE'
+            OR NVL (TRIM (BO.DESCRIPBARRIOCOL), 'NO EXISTE') = 'NO EXISTE')
+       AND P.CLI_IDDEPTO > 0
+       AND P.CLI_IDMUNICIPIO > 0
+       AND P.CLI_BARRIOCOL > 0;

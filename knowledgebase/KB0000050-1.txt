@@ -1,0 +1,30 @@
+PASOS PARA LIBERAR DPF
+------------------------------------------
+
+HERRAMIENTA TOAD
+-------------------------------------------
+1. Ingresar al TOAD
+2. Abrir el Schema Browser
+3. Seleccionar el usuario SMA
+4. Buscar la tabla MAC_C01_10
+5. Filtrar por los datos de la cuenta del cliente
+6. Identificar el numero de deposito y borrar esos registros
+7. Aplica COMMIT a los datos borrados
+
+
+HERRAMIENTA SMA
+-------------------------------------------
+1. Ingresar al SMA 
+2. Ingresar la oficina que se desea trabajar
+3. Seleccionar el menu Cajeros >> Apertura del cajero
+	(Abrir cajero en caso de estar cerrado)
+4. Seleccionar el menu Cajeros >> Transacciones de Cajero
+	Ingresar los datos de ID SMA y PASSWD
+5. Consultar la cuenta del cliente
+	Ej. 010	- 003 - 000019976
+6. El la seccion Depositos a Plazo dar clic sobre el saldo del DPF que desea cancelar
+7. Clic derecho y seleccionar la opcion Propiedades.
+8. En el campo Cantidad Congelada debe estar en .00
+   De tener un valor, debe escribir 0
+9. Guardar los cambios y salir de las propiedades
+10. Salir de la cuenta.

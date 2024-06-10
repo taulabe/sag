@@ -1,0 +1,2 @@
+el cambio se realiza copiando en la siguiente direccion el fondo de pantalla \\DCTAULABE\FondoPantalla o entrando al servidor DCTAUALBE, el archivo debe tener el siguiente nombre: "walpaper.jpg", solo aclarando que la imagen tiene que estar en formato JPG y los equipos tendrian que cerrar sesion e iniciar para hacer efectivo el cambio.
+Con respecto a la resolucion de la imagen, en su mayoria ha funcionado a 1440x900.

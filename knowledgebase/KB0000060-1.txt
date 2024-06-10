@@ -1,0 +1,5 @@
+Solucion bilateral
+--------------------------------------------------
+En este caso la solucion está dentro de Seguros Equidad.
+* Deben revisar los parametros de la VPN.
+* Revisar parametros de las ACL.

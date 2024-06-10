@@ -1,0 +1,7 @@
+En la pantalla de McAfee encryption se debe hacer lo siguiente:
+
+1- dar click en el boton de opciones.
+2- dar click en el boton recuperacion
+3- seleccionar el modo de autorecuperacion o self-recovery.
+4- ingresar el nombre de usuario y dar clic en siguiente
+5- el usuario debe contestar las preguntas de seguridad y se le pedira el cambio de clave

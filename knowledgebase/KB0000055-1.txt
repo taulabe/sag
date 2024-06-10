@@ -1,0 +1,9 @@
+Bloque de usuarios al SMA desde la base de datos
+---------------------------------------------------------
+1. Ingresar al TOAD
+2. Seleccionar el Schema Browser
+3. Seleccionar usuarios
+4. Buscar el usuario a trabajar y darclic derecho 
+5. Seleccionar la opcion Expire Account
+6. Doble clic en el usuario
+7. Marcar la casilla Account is locked

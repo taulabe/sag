@@ -1,0 +1,12 @@
+Actualizacion de saldos dañados con valor 0 o en blanco
+
+1. Revisar la cuenta en SMA en el Historial de Transacciones
+   	* Verificar que los ahorros a la vista contenga valores
+	* Verificar las transacciones en el historial de transacciones e identificar desde que transaccion se ocasiono el problema
+   
+   En la cuenta de ahorro la cuenta esta con saldo valor 0 y en el hitorial la cuenta deberia tener saldo segun la ultima transaccion.
+
+2. abrir las formas de Ahorros y Aportaciones
+3. Ingresar los parametros de la cuenta del afiliado como la cuenta de ahorros
+4. En la seccion de arriba deb aparecer el saldo en valor 0 o en blanco, se debera colocar el saldo de la ultima transaccion.
+5. Guardar los cambios y revisar la cuenta nuevamente 

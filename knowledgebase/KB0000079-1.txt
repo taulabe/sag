@@ -1,0 +1,18 @@
+Resetear Contraseña de SMA
+----------------------------------
+Herramienta: TOAD
+
+
+Pasos:
+
+1. Ingresar al TOAD
+2. Seleccionar Schema Browser
+3. Seleccionar la pestaña u opcion USER o USUARIOS
+4. Buscar le usuario al que se desea resetear la contraseña
+5. Dar doble clic en el usuario
+6. Ingresar la contraseña en las casillas NEW PASSWORD y VERIFY NEW PASSWORD
+7. Si desea puede marcar la casilla PASSWORD EXPIRED para que pida cambio al primer inicio
+8. Clic en el boton OK
+
+
+Saludos

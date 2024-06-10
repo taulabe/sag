@@ -1,0 +1,5 @@
+- Revisar cable de red de impresora.
+- Apgar la impresora Ricoh utilizando el boton de apagado del aparato.
+- desconectar el cable de energia de la impresora.
+- conectar cable y encender la impresora.
+- realizar pruebas ping y de impresion.

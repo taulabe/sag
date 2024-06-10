@@ -1,0 +1,5 @@
+TMP_MACC02 Ahorros a la vista(retirable menores etc) y aportaciones.
+TMP_MACC01 Todo relacionado con prestamos.
+TMP_MACC03 EXTRICTAMENTE DEPOSITOS A PLAZOS
+
+ANTES DE PONER LOS DATOS PRESIONAR F7 y se ingresa los datos y el numero de prestamos

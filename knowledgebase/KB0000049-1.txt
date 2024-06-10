@@ -1,0 +1,29 @@
+Problemas al procesar planilla
+----------------------------------------------------------
+Nota: Los valores de la planilla previa deben ser iguales a los valores de la planilla a procesar, este problema
+generalmente se da cuando al momento de procesarla suben mas de una vez el archivo de excel, eso causa que en la
+tabla de planillas retenidas se guarden N cantidad de veces los mismos datos.
+
+Para esto se requiere usar el TOAD como herramienta
+
+1. Ingresar al TOAD
+2. Seleccionar el Schema Browser
+3. Seleccionar el esquema MPE
+4. Ubicar la tabla MPE_PLANILLAS_RETENIDAS y MPE_PLANILLAS_RET_DET
+5. Aplicar el filtro de acuerdo a la planilla que se esta trabajando
+6. Generar un insert statement para los datos a borrar para las dos tablas y guardarlos
+7. Eliminar los datos de las dos tablas
+8. Darle COMMIT para guardar los cambios
+
+
+USUARIO FINAL
+------------------------------------------------
+1. Ingresar al modulo de planillas
+2. Ingresar a Procesos >> Procesar Planillas
+3. Ubicar la planilla con la que desea trabajar y dar clic en el boton Procesar
+4. En la seccion de Carga de Planilla Retenida debe adjuntar el archivo CSV
+5. Dar clic en el boton Cargar
+6. Verificar que los datos de la planilla retenida con la planilla previsa coinsidan
+7. Dar clic en el boton Datos Correctos
+8. Dar clic en guardar y luego en finalizar
+

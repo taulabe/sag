@@ -1,0 +1,4 @@
+No genera la hoja de lavado de activos
+-----------------------------------------------------------
+Este problema se púdo deber a problemas con el ingreso de la tasa cambiaria.
+Es necesario revisar en otro momento cuando se presente el mismo escenario.

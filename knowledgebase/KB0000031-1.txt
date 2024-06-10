@@ -1,0 +1,87 @@
+/* Formatted on 04/05/2012 11:15:18 a.m. (QP5 v5.115.810.9015) */
+-- buscar en respaldo
+select tc_idcodcajero,count(*) 
+from sma.mac_i00_bk0
+where SUBSTR (tc_notransac, 1, 12) = '150718010009'
+group by tc_idcodcajero
+order by tc_idcodcajero;
+
+-- buscar no de partida
+select * from sma.mca_g07
+where idsuc='009' and fchaposteo='18-jul-2015' and idmodulo='MAC'
+order by nopda,noseq;
+
+
+-- historico
+select tc_idcodcajero,count(*) 
+from sma.mac_i00_hst
+where SUBSTR (tc_notransac, 1, 12) = '150718010009'
+group by tc_idcodcajero
+order by tc_idcodcajero;
+
+
+-- buscar transaccion
+select * from sma.mac_i00_bk0
+where tc_notransac ='13101101000700254';
+
+-- transaccional
+select * 
+from sma.mac_c06
+where no_transac ='13101101000700254';
+
+
+--
+INSERT INTO sma.mac_i00_hst (idcia, idsuc, cli_nocta,
+                             cli_tipocta, cli_subtipocta, id_moneda,
+                             tc_fchaposteo, tc_horaposteo, tc_fchaefva,
+                             tc_idcodcajero, tc_idcodtrans, tc_idterminal,
+                             tc_cs_idusuario, tc_fchacambio, tc_fchaulttrans,
+                             tc_fchappago, tc_referencia, tc_nocheque,
+                             tc_ck_benef, tc_ctalm, tc_c0,
+                             tc_c1, tc_c2, tc_c3,
+                             tc_c4, tc_c5, tc_c6,
+                             tc_c7, tc_c8, tc_c9,
+                             tc_c10, tc_c11, tc_c12,
+                             tc_c13, tc_c14, tc_c15,
+                             tc_c16, tc_c17, tc_c18,
+                             tc_c19, tc_c20, tc_desc,
+                             cli_nosec, tc_digver, tc_tasacambio,
+                             tc_ptmo_status, tc_ptmo_idgarantia, tc_ptmo_ftefinanc,
+                             tc_notransac, idbanco, tc_reversada,
+                             iddiariof, nopda)
+   SELECT idcia, idsuc, cli_nocta,
+          cli_tipocta, cli_subtipocta, id_moneda,
+          tc_fchaposteo, tc_horaposteo, tc_fchaefva,
+          tc_idcodcajero, tc_idcodtrans, tc_idterminal,
+          tc_cs_idusuario, tc_fchacambio, tc_fchaulttrans,
+          tc_fchappago, tc_referencia, tc_nocheque,
+          tc_ck_benef, tc_ctalm, tc_c0,
+          tc_c1, tc_c2, tc_c3,
+          tc_c4, tc_c5, tc_c6,
+          tc_c7, tc_c8, tc_c9,
+          tc_c10, tc_c11, tc_c12,
+          tc_c13, tc_c14, tc_c15,
+          tc_c16, tc_c17, tc_c18,
+          tc_c19, tc_c20, tc_desc,
+          cli_nosec, tc_digver, tc_tasacambio,
+          tc_ptmo_status, tc_ptmo_idgarantia, tc_ptmo_ftefinanc,
+          tc_notransac, idbanco, tc_reversada,
+          'PM' iddiariof, 7884 nopda
+   FROM sma.mac_i00_bk0
+   WHERE SUBSTR (tc_notransac, 1, 12) = '150718010009' and tc_idcodcajero in ('EPG','WRO');
+         
+--
+
+update  sma.mac_i00_hst
+set nopda= 8470
+   WHERE SUBSTR (tc_notransac, 1, 12) = '120421010001'
+         AND tc_idcodcajero IN ('BSF', 'DPD','DYM','OP','SJD');         
+         
+         
+--
+DELETE from sma.mac_i00_hst
+where SUBSTR (tc_notransac, 1, 12) = '131230010002';
+
+
+DELETE from sma.mac_i00_hst
+where tc_notransac = '14040501000900004';

@@ -1,0 +1,26 @@
+Remesa duplicada con distinto numero de transaccion.
+------------------------------------------
+
+1. Conectarse a la base de datos con el TOAD
+2. Seleccionar Schema Browser y seleccionar el esquema SMA
+3. En la seccion de tablas, ver la tabla MAC_I00 -  Transacciones diarias
+4. Identificar las transacciones duplicadas, como son con distinto numero de trx es necesario buscar las dos
+5. Revisar que las dos transacciones contienen casi los mismos valores.
+   Las diferencias serán en la hora de posteo y el numero de trx.
+6. El cajero debió imprimir un comprobante, asegurarse de eliminar la transaccion distinta a la del comprobante.
+   Ejemplo:
+	COMPROBANTE IMPRESO:   
+		No. Transaccion    19072401000200214
+
+	RESUMEN DIARIO DE MOVIMIENTOS DE CAJA:
+		No. Transaccion    19072401000200213
+		No. Transaccion    19072401000200214
+
+	Eliminar de la tabla MAC_I00 la transaccion: 
+		No. Transaccion    19072401000200213
+
+7. Identificar la transaccion y eliminarla, tomar en cuenta el ejemplo anterior.
+8. Generar nuevamente el reporte de RESUMEN DIARIO DE MOVIMIENTOS DE CAJA y verificar la transaccion ya no aparece
+
+
+LISTO

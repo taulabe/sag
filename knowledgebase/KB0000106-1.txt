@@ -1,0 +1,7 @@
+realizar respaldo de los datos del software DET, eso se hace en la aplicacion
+
+desinstalar el programa det 5.5
+
+Bajar la version mas reciente del aplicativo e instalarla.
+
+restaurar el respaldo de datos.

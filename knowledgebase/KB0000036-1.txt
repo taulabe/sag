@@ -1,0 +1,1 @@
+Se creo el rol en la BD llamado CUMPLI.

@@ -1,0 +1,8 @@
+1- Verificar si la impresora es reconocida por el equipo.
+2- Verificar cola de impresion.
+3- Ir a la impresora, clic derecho en propiedades de impresora
+4- ir a la pestaña puertos.
+5- probar los puertos USB que tiene configurado para saber por cual se esta conectando.
+6- probar imprimir.
+
+NOTA: Posiblemente se necesite reiniciar la impresora cada que se cambia puerto e iliminar la cola de impresion.

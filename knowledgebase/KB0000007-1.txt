@@ -1,0 +1,5 @@
+Al iniciar por primera vez el MEE, es necesario que el usuario haga lo siguiente:
+1- Ingrese el usuario de windows, seguido de clic en Logon
+2- Ingrese la clave 12345
+3- Hacer el cambio de clave.
+4- contestar las preguntas de seguridad

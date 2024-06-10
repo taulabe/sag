@@ -1,0 +1,4 @@
+Esta es la ruta donde se encuentran los fuentes para modificar
+Estos archivos RDF se modifican con el Report Builder de Oracle
+
+\\172.28.0.71\smav3\SMA\MAC\RDF

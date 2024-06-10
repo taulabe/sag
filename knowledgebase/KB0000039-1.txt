@@ -1,0 +1,4 @@
+- se necesita crear un usuario de dominio para el nuevo buzon.
+- al crearlo es necesario que el usuario de dominio quede con @cooperativataulabe.hn, esto se puede ver en la pestaña cuenta de las propiedades del usuario.
+- Esperar que sincronice el dominio con office 365 (5 minutos)
+- asignar la licencia de office al usuario.

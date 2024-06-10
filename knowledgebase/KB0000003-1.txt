@@ -1,0 +1,19 @@
+Asignar Roles de Caja:
+
+1- verificar solicitud, que cumpla con los campos requeridos y los roles.
+2- entrar a TOAD.
+3- entrar al schema browser.
+4- buscar el usuario y dar doble click
+5- ir a la pestaña de roles y buscar los roles indicados en la solicitud. (o indicados previamente por TH o TIC).
+6- marcar las casillas correspondientes al rol.
+7- dar clic en aceptar.
+8- abrir SMA.
+9- seleccionar la seccion de seguridad -> usuarios de SMA -> Definir usuario de SMA.
+10- ingresar el usuario a asignar roles.
+11- selecionar la pestaña laborales y cambiar el espacio Puesto.
+12- dar clic en guardar.
+13- consultar el usuario nuevamente
+14- ir a la secccion "otros accesos" y dar clic en Modulos - SMA
+15- entrar en accesos a modulos y dar clic en el boton de opciones de MAC.
+16- establecer los accesos, y parametros necesarios para el rol
+17- dar clic en grabiar y luego en guardar.
