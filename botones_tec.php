@@ -1,7 +1,7 @@
 <div class="botones_i">
 <?php if ($idrol == 1){?>    <!-- Tecnico -->
     <?php if ($e == 5){?>
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" disabled="disabled" data-target="#tecnico">
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" disabled="disabled" data-target="#tecnico" >
             <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Asignar incidente
         </button>
     <?php } ?>
@@ -27,7 +27,7 @@
     </form>
     <?php }?>
     <?php if ($e == 9 || $e == 10){?>
-        <button type="submit" class="btn btn-default btn-sm" disabled="disabled">
+        <button type="submit" class="btn btn-default btn-sm" >
             <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
         </button>
     <?php }?>
@@ -129,12 +129,12 @@
 <?php } ?>  
 <?php if ($idrol == 4){?>     <!-- Helpdesk -->
     <?php if ($e == 5){?>
-        <button type="button" class="btn btn-default btn-sm" disabled="disabled" data-toggle="modal" data-target="#tecnico">
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico">
             <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Asignar incidente
         </button>
     <?php } ?>
     <?php if (($e == 6 || $e == 7) && $_SESSION["id"] <> $row['idtecnico']){?>
-        <button type="button" class="btn btn-default btn-sm" disabled="disabled"  >
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
             <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
         </button>
     <?php }?>
@@ -153,7 +153,7 @@
 </div>
 <div class="col-sm-6">
     <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm"  disabled="disabled" >
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
             <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
         </button>
         <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
@@ -178,7 +178,7 @@
 </div>
         <div class="col-sm-6">
         <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm"  disabled="disabled">
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
             <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
         </button>
         <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
@@ -202,7 +202,7 @@
 </div>
         <div class="col-sm-6">
         <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm"  disabled="disabled" >
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
             <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
         </button>
         <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
@@ -228,7 +228,7 @@
     </div>
         <div class="col-sm-6">
         <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm"  disabled="disabled" >
+        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
             <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
         </button>
         <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
