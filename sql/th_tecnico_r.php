@@ -1,4 +1,20 @@
 <?php
+header("Access-Control-Allow-Origin: http://localhost");
+// Opcional: Si deseas permitir solicitudes de otros métodos, como POST, GET, OPTIONS, etc.
+header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
+// Opcional: Si deseas permitir ciertos encabezados en las solicitudes CORS.
+header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+
+
+//include ("seguridad.php");
+include("conexion.php");
+$link=Conectarse();
+error_reporting(E_PARSE);
+
+// Permitir solicitudes desde cualquier origen
+header("Access-Control-Allow-Origin: *");
+// Establecer el tipo de contenido como JSON
+header("Content-Type: application/json");
 //include ("seguridad.php");
 include("conexion.php");
 $link=Conectarse();

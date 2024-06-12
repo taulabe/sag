@@ -1,6 +1,7 @@
  <?php
 session_start();
 include("conexion.php");
+require_once("../enviomail.php");
 $link=Conectarse();
 /* En esta pagina se procesaran varios procesos */
 /* -------------------------------------------- */
@@ -18,6 +19,12 @@ $sec = "SELECT cli.cliemail as cliemail FROM actividades.v_incidente cli where c
 $sr = mysqli_query($link,$sec);
 $remail = mysqli_fetch_array($sr);
 $cliemail = $remail['cliemail'];
+
+$usuariocorreo=$_SESSION['email'];
+$usuariopass=$_SESSION['password'];
+
+$usuariocorreo1=$_SESSION['email'];
+$usuariopass1=$_SESSION['password'];
 
 /* Seleccion de procesos */
 /* -------------------------------------------- */
@@ -197,8 +204,8 @@ if ($pro == md5('bit')){
 						   		$texto4;
 					$cabeceras1 = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
-					mail($para1, $asunto1, $mensaje1, $cabeceras1);
-
+					$res1=Correo::Asignacion($para1, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo,$usuariopass);//cliente
+					var_dump($res1);
 					/* Enviar correo de confirmacion de creacion de incidente */
 					$texto9 = html_entity_decode("Estimado Ing. ".$rtec['nomtecnico'].".", ENT_QUOTES, "ISO-8859-1");
 					$texto5 = html_entity_decode("Se le ha asignado un nuevo incidente, puede ver el detalle ingresando al SAI.", 	ENT_QUOTES, "ISO-8859-1");
@@ -213,13 +220,13 @@ if ($pro == md5('bit')){
 						   		$texto7;
 					$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
-					mail($para, $asunto, $mensaje, $cabeceras);
-
+					$res2=Correo::Asignacion($para, $asunto, $mensaje, $cabeceras,$usuariocorreo,$usuariopass);//tecnico
+				
 					mysqli_query($link,$QIA);
 					mysqli_commit($link);						// Ejecucion de COMMIT
 					mysqli_query($link,'UNLOCK TABLES');		// Desbloqueo de tablas
 					mysqli_close($link);						// Cerrar la conexion a la base de datos
-					header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc&msj=$msj");
+					 header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc&msj=$msj");
 				} else {
 					$msj = md5('020');						// Error: El tecnico esta mal asignado usar auto-completar
 					mysqli_rollback($link);					// Ejecutar rollback
@@ -244,6 +251,7 @@ if ($pro == md5('bit')){
 									   SET   idestatus = 8, inc_ftrabajado = '$di' 
 									   WHERE idincidente = '$idinc';";
 					mysqli_query($link,$QAI);
+					
 
 					/* Obtiene el id del tecnico en la gestion asignada */
 					$tec = "SELECT concat(tecnombres, ' ', tecapellidos) as nomtecnico FROM actividades.v_tecnicos where idtecnico='$idt'";
@@ -273,6 +281,7 @@ if ($pro == md5('bit')){
 					'X-Mailer: PHP/' . phpversion();
 					mail($para, $asunto, $mensaje, $cabeceras);
 
+					$msj = md5('017');	
 					mysqli_commit($link);						// Ejecucion de COMMIT
 					mysqli_query($link,'UNLOCK TABLES');		// Desbloqueo de tablas
 					mysqli_close($link);						// Cerrar la conexion a la base de datos
@@ -313,11 +322,12 @@ if ($pro == md5('bit')){
 								(idincidente,idcliente,incact_fecha,incact_desc)
 								VALUES
 								('$idinc','sys','$di','Se ha agregado una solución ($skb) a su incidente $idinc.')";
+								$msj = md5('017');	
 						mysqli_query($link,$QIA);
 						mysqli_commit($link);						// Ejecucion de COMMIT
 						mysqli_query($link,'UNLOCK TABLES');		// Desbloqueo de tablas
 						mysqli_close($link);						// Cerrar la conexion a la base de datos
-						header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc&msj=$msj");
+						header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc $msj= md5('017'));
 					} else{
 						/* Cerrar solucion */
 						if ($pro == md5('clo')){
@@ -403,7 +413,7 @@ if ($pro == md5('bit')){
 									$tec = "SELECT concat(tecnombres, ' ', tecapellidos) as nomtecnico, tecemail FROM actividades.v_tecnicos where idtecnico='$idt'";
 									$tecr = mysqli_query($link,$tec);
 									$rtec = mysqli_fetch_array($tecr);
-									$tecemail = $rtec['tecemail'];
+									$tecemail = $rtec['tecemail'];//correo del tecnico
 									$tecnom = 'El incidente se ha re-asign&oacute; al Ing. '. $rtec['nomtecnico']; 		// Correlativo documento
 									
 									/* Actualizacion de bitacora del incidente */
@@ -417,7 +427,7 @@ if ($pro == md5('bit')){
 									$texto2 = html_entity_decode($tecnom.", pronto recibir&aacute; actualizaciones.", ENT_QUOTES, "ISO-8859-1");
 									$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
 									$texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
-									$para1 = $cliemail;
+									// $para1 = $cliemail;
 									$asunto1 = $texto1;
 									$mensaje1 = $texto2 . "\r\n" .
 											   $texto3 . "\r\n" .
@@ -425,7 +435,8 @@ if ($pro == md5('bit')){
 											   $texto4;
 									$cabeceras1 = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 									'X-Mailer: PHP/' . phpversion();
-									mail($para1, $asunto1, $mensaje1, $cabeceras1);
+									$res3=Correo::Asignacion($cliemail, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo1,$usuariopass1);//cliente
+								
 
 									/* Enviar correo de confirmacion de creacion de incidente */
 									$texto9 = html_entity_decode("Estimado Ing. ".$rtec['nomtecnico'].".", ENT_QUOTES, "ISO-8859-1");
@@ -441,7 +452,8 @@ if ($pro == md5('bit')){
 											   $texto7;
 									$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 									'X-Mailer: PHP/' . phpversion();
-									mail($para, $asunto, $mensaje, $cabeceras);
+									$res4=Correo::Asignacion($para, $asunto, $mensaje, $cabeceras,$usuariocorreo1,$usuariopass1);//tecnico
+									
 
 									mysqli_query($link,$QIA);
 									mysqli_commit($link);						// Ejecucion de COMMIT
@@ -477,8 +489,9 @@ if ($pro == md5('bit')){
 											VALUES
 											('$idinc','sys','$di','El incidente $idinc ha sido cerrado por el usuario.')";
 									mysqli_query($link,$QIA);
+									
 
-									/* Enviar correo de confirmacion de cierre de incidente sin solucion del tecnico*/
+									/* Enviar correo de confirmacion de cierre de incidente con solucion del tecnico*/
 									$texto1 = html_entity_decode("SAI - Cierre de incidente.", ENT_QUOTES, "ISO-8859-1");
 									$texto2 = html_entity_decode("El incidente ha sido cerrado por el usuario.", ENT_QUOTES, "ISO-8859-1");
 									$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
@@ -491,7 +504,7 @@ if ($pro == md5('bit')){
 											   $texto4;
 									$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 									'X-Mailer: PHP/' . phpversion();
-									mail($para, $asunto, $mensaje, $cabeceras);
+									$res4=Correo::Asignacion($para, $asunto, $mensaje, $cabeceras,$usuariocorreo1,$usuariopass1);
 									
 									/* Desbloqueo de tablas */
 									$msj = md5('019');
@@ -499,6 +512,7 @@ if ($pro == md5('bit')){
 									mysqli_query($link,'UNLOCK TABLES');		// Desbloqueo de tablas
 									mysqli_close($link);						// Cerrar la conexion a la base de datos
 									header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc&msj=$msj");
+									
 									
 								} else{
 									/* Asignacion de cliente al incidente */

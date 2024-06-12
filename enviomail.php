@@ -10,7 +10,7 @@ require 'PHPMailer/src/SMTP.php';
 
 class Correo {
 
-    static public function envio($categodesc,$scategodesc,$descincidente,$email,$pass) {
+    static public function envio($categodesc,$scategodesc,$descincidente,$email,$pass,$fn=1) {
         
         //Create an instance; passing `true` enables exceptions
         $mail = new PHPMailer(true);
@@ -67,6 +67,68 @@ class Correo {
             return $d->getMessage();
         }
     }
+
+    static public function Asignacion($para1, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo,$usuariopass) {
+        $mail = new PHPMailer(true);
+        try {
+            //Server settings
+            $mail->SMTPDebug = 0;                      //Enable verbose debug output
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = $usuariocorreo;                     //SMTP username
+            $mail->Password   = $usuariopass;                               //SMTP password
+            $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
+            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+            //Recipients
+            $mail->setFrom($usuariocorreo, "Enviado por: ");
+            // $mail->addAddress('enpempresa@gmail.com', 'Proyecto Empresa');
+            $mail->addAddress($para1, 'SAG');//Add a recipient
+        
+        
+            //Content
+         
+            $mail->Subject = $asunto1;
+            $mail->Body    = $mensaje1;
+            
+            $mail->send();
+            
+        } catch(Exception $d) {
+            return $d->getMessage();
+        }
+    }
+    // static public function Asignacion1($para1, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo1,$usuariopass1) {
+    //     $mail = new PHPMailer(true);
+    //     try {
+    //         //Server settings
+    //         $mail->SMTPDebug = 0;                      //Enable verbose debug output
+    //         $mail->isSMTP();                                            //Send using SMTP
+    //         $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
+    //         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+    //         $mail->Username   = $usuariocorreo1;                     //SMTP username
+    //         $mail->Password   = $usuariopass1;                               //SMTP password
+    //         $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
+    //         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+    //         //Recipients
+    //         $mail->setFrom($usuariocorreo1, "Enviado por: ");
+    //         // $mail->addAddress('enpempresa@gmail.com', 'Proyecto Empresa');
+    //         $mail->addAddress($para1, 'SAG');//Add a recipient
+        
+        
+    //         //Content
+         
+    //         $mail->Subject = $asunto1;
+    //         $mail->Body    = $mensaje1;
+            
+    //         $mail->send();
+            
+    //     } catch(Exception $d) {
+    //         return $d->getMessage();
+    //     }
+    // }
 }
+
 
 ?>

@@ -148,7 +148,7 @@ $a = $_GET['a'];
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times; disabled</button>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
         <h3 class="modal-title">Asignar t&eacute;cnico al incidente</h3>
       </div>
       <div class="modal-body">
@@ -324,7 +324,7 @@ $a = $_GET['a'];
         <tr>
           <td class="text-right"><strong>Prioridad:</strong></td>
           <td><?php 
-           //  echo $row['descprioridad'];
+           echo $row['descprioridad'];
             $categoria = $row['idcategoria'];
             switch ($categoria) {
              case "Crítico":
@@ -384,7 +384,7 @@ $a = $_GET['a'];
    </tr>
    <tr>
     <td width="25%" class="text-right"><strong>KB Solucion:</strong></td>
-    <td width="75%"><?php echo $kbsol;?></td> 
+    <td width="75%"><?php echo $kbso;?></td> 
   </tr>
 </tbody>
 </table>

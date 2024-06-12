@@ -165,11 +165,19 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
                     
                     // Asignacion de tipo de cliente y rol
                     if($data[$i]["department"][0] == 'Departamento de TIC'){
-                        $idtcliente = 'T';  // Cliente tipo: Tecnico
-                        $idrol = 4;         // Rol: HelpDesk
+                        if ($data[$i]["title"][0]=="Soporte Tecnico") {
+                            $idtcliente = 'A';  // Cliente tipo: Administrador
+                            $idrol = 3;
+                            $puesto=$data[$i]["title"][0];
+                        }else{
+                            $idtcliente = 'T';  // Cliente tipo: Tecnico
+                            $idrol = 1;         // Rol: HelpDesk
+                            $puesto=$data[$i]["title"][0];
+                        }
                     } else{
                         $idtcliente = 'N';  // Cliente tipo: Normal
                         $idrol = 2;         // Rol: Usuario normal
+                        $puesto=$data[$i]["title"][0];
                     }
 
                     $idestatus = 1; // Activo en la consola
@@ -201,8 +209,17 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
                             $_SESSION["idoficina"] = $idoficina;
                             $_SESSION["fecha"] = date("j/m/Y"); // Ej. 12/30/2011
                             $_SESSION["login"] = $login;
+                            $_SESSION["puesto"] = $puesto;
+
                         }
                     }
+                    // if ($data[$i]["title"][0]=="Oficial de Soporte Tecnico") {
+                    //     $nuevo=4;
+                    // }else{
+                    //     $nuevo=5;
+                    // }
+                    // echo $idrol;
+                
                 }    
             }
             
@@ -210,7 +227,6 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
             mysqli_commit($link);                       // Ejecucion de COMMIT
             mysqli_query($link,'UNLOCK TABLES');        // Desbloqueo de tablas
             mysqli_close($link); 
-            
             header("Location: ../procesos.php?a=c4ca4238a0b923820dcc509a6f75849b");
         
         } else {
