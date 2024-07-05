@@ -17,13 +17,13 @@ $err = $_GET['err'];
   <section class="container">
       <section class="login-form">
         <form method="post" action="sql/control_ldap.php" role="login">
-          <img src="img/logo_login.png" class="img-responsive" alt="" />
+          <img src="img/logo_login2.png" class="img-responsive" alt="" />
           <h2 style="text-align:center;">Sistema de Administraci&oacute;n de Incidentes</h2>
           <input type="text" name="usuario" placeholder="Usuario" required tabindex="1" class="form-control input-lg" autofocus />
           <input type="password" name="password" placeholder="Contraseña" required tabindex="2" class="form-control input-lg" autofocus />
           <button type="submit" name="go" class="btn btn-lg btn-primary btn-block">Iniciar Sesi&oacute;n</button>
           <div>
-            <a href="#">Cambiar contraseña</a>
+            <!-- <a href="#">Cambiar contraseña</a> -->
           </div>
         </form>
         <div class="form-links">

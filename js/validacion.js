@@ -55,7 +55,7 @@ if (campo ==='sub'){
 						success: function(opciones){
 							$("#subcategoria").html(opciones);
 						}
-					})
-				});
+					});
+				})
 			});
 		</script>

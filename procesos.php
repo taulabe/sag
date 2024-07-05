@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html>
 <head>
@@ -10,22 +11,42 @@
   <link rel="stylesheet" href="css/sortable.css">
   <link rel="stylesheet" href="css/typeahead.css">
   <script src="js/jquery-1.12.3.min.js"></script>
+
   <script src="js/bootstraps.js"></script>
   <script src="js/typeahead_bundle.js"></script>
+  <link rel="stylesheet" href="fontawesome/css/all.min.css">
   <link rel="stylesheet" href="/table/css/bootstrap-table-expandable.css">
   <script src="/table/js/bootstrap-table-expandable.js"></script>
   <script type="text/javascript">
-    (function($){
-  $(document).ready(function(){
+(function($) {
+  $(document).ready(function() {
     $('ul.dropdown-menu [data-toggle=dropdown]').on('click', function(event) {
-      event.preventDefault(); 
-      event.stopPropagation(); 
+      event.preventDefault();
+      event.stopPropagation();
       $(this).parent().siblings().removeClass('open');
       $(this).parent().toggleClass('open');
     });
+
+    // Verifica que el elemento 'descargar_pdf' exista antes de agregar el event listener
+    var botonDescargarPdf = document.getElementById('descargar_pdf');
+    if (botonDescargarPdf) {
+      botonDescargarPdf.addEventListener('click', function() {
+        // Construye la URL con la variable
+        var id = this.getAttribute('idsql');
+        console.log(id);
+        var url = 'pdf_tecnicoa.php?idtecnico=' + encodeURIComponent(id);
+
+        // Abre pdf_inctecnico.php con la variable en una nueva pestaña
+        window.open(url, '_blank');
+      });
+    } else {
+      console.error("Elemento con ID 'descargar_pdf' no encontrado.");
+    }
   });
 })(jQuery);
-  </script>
+</script>
+
+
   <style type="text/css">
     .marginBottom-0 {margin-bottom:0;}
 
@@ -49,7 +70,14 @@
         <div class="container-fluid cuerpo_prin" style="padding-top:60px;">
           <section class="main">
             <article>
-              <div style="font-size:16px;"><strong>Listado de Incidentes Actuales</strong></div>
+              <div style="font-size:16px;">
+         <strong>Listado de Incidentes Actuales</strong>
+         <a id="descargar_pdf" target="_blank" class="btn btn-danger ml-2" idsql="<?php echo $_SESSION["id"];?>">
+    <i class="fa-solid fa-file-pdf"></i> 
+</a>
+
+</div>
+
               <div style="font-size:12px;">Help Desk \ Incidentes</div>
             </article>
             <?php include ("inc_listado.php");?>
@@ -133,3 +161,4 @@
     </footer>
   </body>
 </html>
+      

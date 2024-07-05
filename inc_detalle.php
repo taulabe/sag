@@ -1,4 +1,5 @@
 <?php
+// date_default_timezone_set('America/Tegucigalpa');
 include ("sql/seguridad.php");
 $id = $_GET['i'];
 $a = $_GET['a'];
@@ -24,7 +25,7 @@ $a = $_GET['a'];
     remote: 'http://sai.cooperativataulabe.hn/sql/th_cliente.php?query=%QUERY'
   });
  })
-
+ 
   function documentoKB(){
     if ($(".adddockb:checked").val() != null){
       var doc = $(".adddockb:checked").val();
@@ -78,7 +79,10 @@ $a = $_GET['a'];
   }
   return false;
 }
+
 </script>
+
+
 <?php include ("errores.php");?>
 <div id="adjunto" class="modal fade" role="dialog">
   <div class="modal-dialog">
@@ -176,7 +180,7 @@ $a = $_GET['a'];
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h3 class="modal-title">Asignar usuario al incidente</h3>
+        <h3 class="modal-title">Asignar cliente al incidente</h3>
       </div>
       <div class="modal-body">
         <form action="sql/pro_incidentes.php" role="form" method="post">
@@ -190,7 +194,7 @@ $a = $_GET['a'];
           <input type="hidden" name="id" value="<?php echo $id;?>">
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-default btn-sm">Asignar Usuario</button>
+          <button type="submit" class="btn btn-default btn-sm">Asignar Cliente</button>
         </div>
       </form>
     </div>
@@ -202,8 +206,8 @@ $a = $_GET['a'];
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" >&times;</button>
-      <h3 class="modal-title">Re-Asignar t&eacute;cnico al incidente</h3>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h3 class="modal-title">Re-Asignar t&eacute;cnico al incidente</h3>
       </div>
       <div class="modal-body">
         <form action="sql/pro_incidentes.php" role="form" method="post">
@@ -241,7 +245,7 @@ $a = $_GET['a'];
             $kbsol = $row['idkbsolucion'];
             ?>
             <tr>
-              <td class="text-right"><strong>Usuario:</strong></td>
+              <td class="text-right"><strong>Cliente:</strong></td>
               <td>
                <abbr title="<?php echo "Correo: ".$row['cliemail']." - Cel: ".$row['clicel'];?>">
                  <?php echo $row['clinombres'].' '.$row['cliapellidos'];?>
@@ -264,104 +268,243 @@ $a = $_GET['a'];
             <td class="text-right"><strong>Categoria:</strong></td> 
             <td><?php echo $row['categodesc'];?></td>
           </tr>
-          <tr>
-            <td class="text-right"><strong>Sub-Categoria:</strong></td>
-            <td><?php echo $row['scategodesc'];?></td> 
-          </tr>
-          <tr>
-            <td class="text-right"><strong>Problema:</strong></td>
-            <td><?php echo $row['descincidente'];?></td> 
-          </tr>
-          <tr>
-            <td class="text-right"><strong>Descripci&oacute;n:</strong></td>
-            <td><?php echo $row['incdesc'];?></td> 
-          </tr>
-        </tbody>
-      </table>
-     
-    </div>
-  </div>
-  <!-- DETALLES TECNICOS -->
-  <div class="col-md-6">
-   <strong style="font-size:14px;">Detalles T&eacute;cnicos</strong>
-   <div class="recuadro">
-     <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-condensed table-striped" style="margin-bottom:0px;">
-      <tbody>
-        <tr class="dl-horizontal">
-          <td class="text-right"><strong>Estatus:</strong></td> 
-          <td><?php echo $row['estdesc']; $e=$row['idestatus']; 
-              if($e == 9){
-                echo " <span class=\"glyphicon glyphicon-ok\" style=\"color:#090; font-size:12px;\"></span>";
-              }
-              if($e == 10){
-                echo " <span class=\"glyphicon glyphicon-ban-circle\" style=\"color:#F00000; font-size:12px;\"></span>";
-              }
-              ?>
-          </td>
-       </tr>
-       
-       <tr>
-        <td class="text-right"><strong>T&eacute;cnico asignado:</strong></td>
+          <tr class="dl-horizontal">
+          <tr class="dl-horizontal">
+<tr class="dl-horizontal">
+<td class="text-right"><strong>Tiempo Estimado:</strong></td>
         <td>
-          <?php if ($row['tecnicoasig'] == '-- Sin Asignar --'){?>
-           <?php echo $row['tecnicoasig'];?>
+            <?php echo $row['tiempo_estimado']; ?> horas
+            <div id="cronometro"></div>
+        </td>
+     
+    
+<script>
+    var startTime = new Date("<?php echo date('c', strtotime($row['asigfecha'])); ?>");
+    var estimatedTimeSeconds = <?php echo json_encode($tiempoEstimadoSegundos); ?>;
+
+    function updateCronometro() {
+        var now = new Date();
+        var elapsedTime = (now - startTime) / 1000 + estimatedTimeSeconds; // Añadir el tiempo estimado en segundos
+
+        var hours = Math.floor(elapsedTime / 3600);
+        var minutes = Math.floor((elapsedTime % 3600) / 60);
+        var seconds = Math.floor(elapsedTime % 60);
+
+        hours = ('0' + hours).slice(-2);
+        minutes = ('0' + minutes).slice(-2);
+        seconds = ('0' + seconds).slice(-2);
+
+        document.getElementById('cronometro').innerText = hours + "h " + minutes + "m " + seconds + "s";
+    }
+
+    setInterval(updateCronometro, 1000);
+    updateCronometro();
+</script>
+</tr>
+
+<tr>
+  <td class="text-right"><strong>Sub-Categoria:</strong></td>
+  <td><?php echo $row['scategodesc'];?></td> 
+</tr>
+<tr>
+  <td class="text-right"><strong>Problema:</strong></td>
+  <td><?php echo $row['descincidente'];?></td> 
+</tr>
+<tr>
+  <td class="text-right"><strong>Descripci&oacute;n:</strong></td>
+  <td><?php echo $row['incdesc'];?></td> 
+</tr>
+</tbody>
+</table>
+<?php if ($idrol == 4){?>    <!-- HelpDesk -->
+<div class="botones_i">
+  <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#cliente">
+      <span class="glyphicon glyphicon-refresh" style="margin-right:7px;"></span>Asignar cliente
+  </button>
+</div>
+<?php } ?>
+</div>
+</div>
+<!-- DETALLES TECNICOS -->
+<div class="col-md-6">
+ <strong style="font-size:14px;">Detalles T&eacute;cnicos</strong>
+ <div class="recuadro">
+   <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-condensed table-striped" style="margin-bottom:0px;">
+    <tbody>
+    <?php
+            $sdi = "SELECT * FROM actividades.v_incidente where idincidente='$id'";
+            $result = mysqli_query($link,$sdi);
+            $row = mysqli_fetch_array($result);
+            $kbsol = $row['idkbsolucion'];
+
+if (!$row) {
+  die("No se encontraron datos para el incidente especificado.");
+}
+
+// Convierte el tiempo estimado en segundos
+list($horas, $minutos, $segundos) = explode(':', $row['tiempo_estimado']);
+$tiempoEstimadoSegundos = $horas * 3600 + $minutos * 60 + $segundos;
+?>
+          
+            
+      <tr class="dl-horizontal">
+        <td class="text-right"><strong>Estatus:</strong></td> 
+        <td><?php echo $row['estdesc']; $e=$row['idestatus']; 
+            if($e == 9){
+              echo " <span class=\"glyphicon glyphicon-ok\" style=\"color:#090; font-size:12px;\"></span>";
+            }
+            if($e == 10){
+              echo " <span class=\"glyphicon glyphicon-ban-circle\" style=\"color:#F00000; font-size:12px;\"></span>";
+            }
+            ?>
+        </td>
+     </tr>
+     
+     <tr>
+      <td class="text-right"><strong>T&eacute;cnico asignado:</strong></td>
+      <td>
+        <?php if ($row['tecnicoasig'] == '-- Sin Asignar --'){?>
+         <?php echo $row['tecnicoasig'];?>
+         <?php }?>
+         <?php if ($row['tecnicoasig'] <> '-- Sin Asignar --'){?>
+           <abbr title="<?php echo "Correo: ".$row['tecemail']." - Cel: ".$row['teccel'];?>">
+             <?php echo $row['tecnicoasig'];?>
+           </abbr>
            <?php }?>
-           <?php if ($row['tecnicoasig'] <> '-- Sin Asignar --'){?>
-             <abbr title="<?php echo "Correo: ".$row['tecemail']." - Cel: ".$row['teccel'];?>">
-               <?php echo $row['tecnicoasig'];?>
-             </abbr>
-             <?php }?>
-           </td>  
-         </tr>
-         <tr>
-          <td class="text-right"><strong>Fecha asignado:</strong></td>
-          <td><?php echo substr($row['asigfecha'], 0, 19);?></td> 
+         </td>  
+       </tr>
+       <tr>
+       <td class="text-right"><strong>Fecha asignado:</strong></td>
+       <td><?php echo substr($row['asigfecha'], 0, 19); ?></td>
+       
+    
+<!-- <script>
+    var startTime = new Date("<?php echo date('c', strtotime($row['asigfecha'])); ?>");
+    var estimatedTimeSeconds = <?php echo json_encode($tiempoEstimadoSegundos); ?>;
+
+    function updateCronometro() {
+        var now = new Date();
+        var elapsedTime = (now - startTime) / 1000 + estimatedTimeSeconds; // Añadir el tiempo estimado en segundos
+
+        var hours = Math.floor(elapsedTime / 3600);
+        var minutes = Math.floor((elapsedTime % 3600) / 60);
+        var seconds = Math.floor(elapsedTime % 60);
+
+        hours = ('0' + hours).slice(-2);
+        minutes = ('0' + minutes).slice(-2);
+        seconds = ('0' + seconds).slice(-2);
+
+        document.getElementById('cronometro').innerText = hours + "h " + minutes + "m " + seconds + "s";
+    }
+
+    setInterval(updateCronometro, 1000);
+    updateCronometro();
+</script> -->
+
+</tr>
+
+
+        <tr>
+        <td class="text-right"><strong>Inicio solución:</strong></td>
+        <td><?php echo substr($row['inc_ftrabajado'], 0, 19);?></td> 
         </tr>
         <tr>
-          <td class="text-right"><strong>Inicio solucion:</strong></td>
-          <td><?php echo substr($row['inc_ftrabajado'], 0, 19);?></td> 
-        </tr>
-        <tr>
-          <td class="text-right"><strong>Prioridad:</strong></td>
-          <td><?php 
-           echo $row['descprioridad'];
-            $categoria = $row['idcategoria'];
-            switch ($categoria) {
-             case "Crítico":
-                  $p = 1;
-                  break;
-             case "Medio":
-                  $p = 2;
-                 break;
-            case "Bajo":
-                 $p = 3;
-                  break;
-             default:
-                  $p = 3; // Prioridad predeterminada para cualquier otra categoría desconocida
-                  break;
-          }
-            $p=$row['idprioridad'];
-            if($p == 1){
-             echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F00000; font-size:12px;\"></span>";
-           }else{
-             if($p==2){
-              echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F9ED06; font-size:12px;\"></span>";
-            }else {
-              if($p==3){
-               echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#0F0; font-size:12px;\"></span>";
-             }
-           }
-         }
-         ?> 
-       </td> 
+        <td class="text-right"><strong>Prioridad:</strong></td>
+<td>
+    <?php 
+    // Obtener la categoría
+    $categoria = $row['categodesc'];
+
+    // Inicializar la prioridad original
+    $p_original = $row['idprioridad'];
+    $p_reasignada = $p_original;
+
+    // Clasificar la prioridad según la categoría
+    switch ($categoria) {
+        case 'Software (Programas, Aplicaciones, Sistemas Operativos)':
+            if ($p_original == 1) {
+                $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+            } else if ($p_original == 3) {
+                $p_reasignada = 1; // Reasignar a Prioridad Alta (Rojo)
+            }
+            break;
+        case 'Hardware (Equipos, Computadoras, Impresoras)':
+            if ($p_original == 1) {
+                $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+            } else if ($p_original == 3) {
+                $p_reasignada = 1; // Reasignar a Prioridad Alta (Rojo)
+            }
+            break;
+        case 'Networking':
+            if ($p_original == 1) {
+                $p_reasignada = 1; // Mantener Prioridad Alta (Rojo)
+            } else if ($p_original == 2) {
+                $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+            } else if ($p_original == 3) {
+                $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+            }
+            break;
+        case 'Requerimientos especiales':
+        case 'Usuarios, roles y accesos':
+        case 'Actividades Diarias (Solo Tecnología)':
+        case 'Internet(Navegación, vídeo, wifi)':
+        case 'Fallas en hardware o componentes del centro de datos':
+            if ($p_original == 1) {
+                $p_reasignada = 1; // Mantener Prioridad Alta (Rojo)
+            } else if ($p_original == 2) {
+                $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+            } else if ($p_original == 3) {
+                $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+            }
+            break;
+        default:
+            break;
+    }
+
+    // Definir la descripción de la prioridad reasignada
+    $desc_prioridad = '';
+    switch ($p_reasignada) {
+        case 1:
+            $desc_prioridad = 'Alta';
+            break;
+        case 2:
+            $desc_prioridad = 'Media';
+            break;
+        case 3:
+            $desc_prioridad = 'Baja';
+            break;
+        default:
+            $desc_prioridad = 'Desconocida';
+            break;
+    }
+
+    // Mostrar la descripción de la prioridad y el icono basado en el valor final de $p_reasignada
+    echo $desc_prioridad;
+    switch ($p_reasignada) {
+        case 1:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F00000; font-size:12px;\"></span>"; // Rojo
+            break;
+        case 2:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F9ED06; font-size:12px;\"></span>"; // Amarillo
+            break;
+        case 3:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#0F0; font-size:12px;\"></span>"; // Verde
+            break;
+        default:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#000; font-size:12px;\"></span>"; // Negro (por defecto)
+            break;
+    }
+    ?>
+</td>
+
      </tr>
      <tr>
-      <td width="25%" class="text-right"><strong>Tiempo transcurrido:</strong></td>
+      <td width="25%" class="text-right"><strong>Tiempo Gestionado:</strong></td>
       <td width="75%">
        <?php
        $e = $row['idestatus'];
        if ($e >= 9 && $e <= 10 ){ 
-         $date1 = date_create($row['inc_finicio']);
+         $date1 = date_create($row['asigfecha']);
          $date2 = date_create($row['inc_ffinal']);
          $dt1 = date_format($date1, 'Y-m-d H:i:s');
          $dt2 = date_format($date2, 'Y-m-d H:i:s');
@@ -371,7 +514,7 @@ $a = $_GET['a'];
          echo $interval->format('%a dias %H horas %I minutos %S segundos');
        }
        if ($e >= 5 && $e <= 8){ 
-         $date1 = date_create($row['inc_finicio']);
+         $date1 = date_create($row['asigfecha']);
          $dt1 = date_format($date1, 'Y-m-d H:i:s');
          $dt2 = date('Y-m-d H:i:s');
          $datetime1 = new DateTime($dt1);
@@ -384,10 +527,36 @@ $a = $_GET['a'];
    </tr>
    <tr>
     <td width="25%" class="text-right"><strong>KB Solucion:</strong></td>
-    <td width="75%"><?php echo $kbso;?></td> 
+    <td width="75%"><?php echo $kbsol;?></td> 
   </tr>
 </tbody>
 </table>
+<script>
+//   // Función para el cronómetro
+//   function startCronometro() {
+//     var tiempoEstimado = <?php echo $row['tiempo_estimado']; ?> * 3600;
+//     var inicio = new Date("<?php echo $row['asigfecha']; ?>").getTime();
+//     var ahora = new Date().getTime();
+//     var tiempoPasado = Math.floor((ahora - inicio) / 1000);
+//     var tiempoRestante = tiempoEstimado - tiempoPasado;
+
+//     var horas = Math.floor(tiempoRestante / 3600);
+//     var minutos = Math.floor((tiempoRestante % 3600) / 60);
+//     var segundos = tiempoRestante % 60;
+
+//     document.getElementById("cronometro").innerHTML = horas + "h " + minutos + "m " + segundos + "s ";
+
+//     if (tiempoRestante <= 0) {
+//       clearInterval(cronometro);
+//       document.getElementById("cronometro").innerHTML = "Tiempo terminado";
+//     } else {
+//       tiempoRestante--;
+//     }
+//   }
+
+//   var cronometro = setInterval(startCronometro, 1000);
+// </script>
+
 <!-- BOTONES TECNICO -->
 <?php include ("botones_tec.php");?>
 <!-- *************** -->
@@ -469,7 +638,7 @@ $a = $_GET['a'];
                             <td style="padding-top:13px;"><?php echo $RADJ1['kbdf_modificado'];?></td>
                             <?php if($RADJ1['idtkbsolucion'] == 3){?>
                               <td style="padding-top:10px;" align="center">
-                                <a href="<?php echo $RADJ1['kbd_ruta'];?>" class="btn btn-default btn-xs" role="button" target="_blank">
+                                <a ="<?php echo $RADJ1['kbd_ruta'];?>" class="btn btn-default btn-xs" role="button" target="_blank">
                                   <span class="glyphicon glyphicon-download-alt" aria-hidden="true"></span> Ver Enlace
                                 </a>
                               </td>

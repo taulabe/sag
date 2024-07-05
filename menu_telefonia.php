@@ -7,10 +7,10 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
              </button>
-             <a href="http://www.cooperativataulabe.hn" target="_blank"><img class="logotipo" src="img/logotipo.fw.png"></a>
+             <a href="http://www.cooperativataulabe.hn" target="_blank"><img class="logotipo" src="img/logo2.png"></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-1">
-            <!--
+            <!
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
@@ -29,7 +29,7 @@
                         Administrar <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="procesos.php?a=<?php echo md5(8);?>">Clientes</a></li>
+                        <li><a href="procesos.php?a=<?php echo md5(8);?>">Usuarios</a></li>
                         <li><a href="#">T&eacute;cnicos</a></li>
                     </ul>
                 </li>
@@ -108,11 +108,11 @@
                             </ul>
                         </li>
                     </ul>
-                </li>-->
+                </li>
                 
 
             <!--</ul>-->
             <p style="padding-right:20px;" class="navbar-text navbar-right">Powered by <a href="mailto:depto_tic@cooperativataulabe.hn?Subject=Consultas%20y%20sugerencias" target="_top" class="navbar-link">Departamento de Tecnolog&iacute;a</a></p>
         </div>
     </div>
-</nav>
+</nav> 

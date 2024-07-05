@@ -40,6 +40,7 @@ if ($usuario == $row['cliusuario'] && $passwd == $row['clipwd']){
 		$_SESSION["id"] = $id;
 		$_SESSION["idoficina"] = $idoficina;
 		$_SESSION["fecha"] = date("j/m/Y"); // Ej. 12/30/2011
+		$_SESSION['idtecnico'] = $idtecnico;
 		$_SESSION["login"] = $row['clinombres']." (".$row['cliusuario'].")";    // Ej. David Edgardo (davidp)
 		//$D = date("D");   // Ej. Mon
 

@@ -196,7 +196,7 @@ if ($pro == md5('bit')){
 					$texto2 = html_entity_decode($tecnom.", pronto recibir&aacute; actualizaciones.", ENT_QUOTES, "ISO-8859-1");
 					$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
 					$texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
-					$para1 = $cliemail;
+					// $para1 = $cliemail;
 					$asunto1 = $texto1;
 					$mensaje1 = $texto2 . "\r\n" .
 						   		$texto3 . "\r\n" .
@@ -204,11 +204,11 @@ if ($pro == md5('bit')){
 						   		$texto4;
 					$cabeceras1 = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
-					$res1=Correo::Asignacion($para1, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo,$usuariopass);//cliente
+					$res1=Correo::Asignacion($cliemail, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo,$usuariopass);//cliente
 					var_dump($res1);
 					/* Enviar correo de confirmacion de creacion de incidente */
 					$texto9 = html_entity_decode("Estimado Ing. ".$rtec['nomtecnico'].".", ENT_QUOTES, "ISO-8859-1");
-					$texto5 = html_entity_decode("Se le ha asignado un nuevo incidente, puede ver el detalle ingresando al SAI.", 	ENT_QUOTES, "ISO-8859-1");
+					$texto5 = html_entity_decode("Se le ha asignado un nuevo incidente, puede ver el  ingresando al SAI.", 	ENT_QUOTES, "ISO-8859-1");
 					$texto6 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
 					$texto7 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
 					$para = $tecemail;
@@ -271,7 +271,7 @@ if ($pro == md5('bit')){
 					$texto2 = html_entity_decode($tecnom, ENT_QUOTES, "ISO-8859-1");
 					$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
 					$texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
-					$para = $cliemail;
+					// $para = $cliemail;
 					$asunto = $texto1;
 					$mensaje = $texto2 . "\r\n" .
 							   $texto3 . "\r\n" .
@@ -279,7 +279,8 @@ if ($pro == md5('bit')){
 							   $texto4;
 					$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 					'X-Mailer: PHP/' . phpversion();
-					mail($para, $asunto, $mensaje, $cabeceras);
+					$res6=Correo::Asignacion($cliemail, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo,$usuariopass);//cliente
+					var_dump($res1);
 
 					$msj = md5('017');	
 					mysqli_commit($link);						// Ejecucion de COMMIT
@@ -327,7 +328,8 @@ if ($pro == md5('bit')){
 						mysqli_commit($link);						// Ejecucion de COMMIT
 						mysqli_query($link,'UNLOCK TABLES');		// Desbloqueo de tablas
 						mysqli_close($link);						// Cerrar la conexion a la base de datos
-						header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc $msj= md5('017'));
+						header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc&msj=$msj");
+
 					} else{
 						/* Cerrar solucion */
 						if ($pro == md5('clo')){
@@ -365,7 +367,7 @@ if ($pro == md5('bit')){
 									$texto2 = html_entity_decode("El incidente se ha solucionado satisfactoriamente.", ENT_QUOTES, "ISO-8859-1");
 									$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
 									$texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
-									$para = $cliemail;
+									//$para = $cliemail;
 									$asunto = $texto1;
 									$mensaje = $texto2 . "\r\n" .
 											   $texto3 . "\r\n" .
@@ -373,7 +375,8 @@ if ($pro == md5('bit')){
 											   $texto4;
 									$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 									'X-Mailer: PHP/' . phpversion();
-									mail($para, $asunto, $mensaje, $cabeceras);
+									$res5=Correo::Asignacion($cliemail, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo,$usuariopass);//cliente
+									var_dump($res1);
 									
 									/* Desbloqueo de tablas */
 									$msj = md5('010');
@@ -440,7 +443,7 @@ if ($pro == md5('bit')){
 
 									/* Enviar correo de confirmacion de creacion de incidente */
 									$texto9 = html_entity_decode("Estimado Ing. ".$rtec['nomtecnico'].".", ENT_QUOTES, "ISO-8859-1");
-									$texto5 = html_entity_decode("Se le ha asignado un nuevo incidente, puede ver el detalle ingresando al SAI.", ENT_QUOTES, "ISO-8859-1");
+									$texto5 = html_entity_decode("Se le ha asignado un nuevo incidente, puede ver el  ingresando al SAI.", ENT_QUOTES, "ISO-8859-1");
 									$texto6 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
 									$texto7 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
 									$para = $tecemail;
@@ -496,7 +499,7 @@ if ($pro == md5('bit')){
 									$texto2 = html_entity_decode("El incidente ha sido cerrado por el usuario.", ENT_QUOTES, "ISO-8859-1");
 									$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
 									$texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
-									$para = $cliemail;
+									// $para = $cliemail;
 									$asunto = $texto1;
 									$mensaje = $texto2 . "\r\n" .
 											   $texto3 . "\r\n" .
@@ -504,7 +507,7 @@ if ($pro == md5('bit')){
 											   $texto4;
 									$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
 									'X-Mailer: PHP/' . phpversion();
-									$res4=Correo::Asignacion($para, $asunto, $mensaje, $cabeceras,$usuariocorreo1,$usuariopass1);
+									$res4=Correo::Asignacion($cliemail, $asunto, $mensaje, $cabeceras,$usuariocorreo1,$usuariopass1);
 									
 									/* Desbloqueo de tablas */
 									$msj = md5('019');
@@ -551,6 +554,31 @@ if ($pro == md5('bit')){
 										mysqli_close($link);					// Cerrar la conexion a la base de datos
 										header ("Location: procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&msj=$msj");
 									} 
+									if(isset($_POST['enviar_mensaje'])) {
+										// Procesar el formulario y enviar el correo electrónico
+										$msj_desc = $_POST['msj_desc'];
+										$id = $_POST['id'];
+										$pro = $_POST['pro'];
+									
+										/* Enviar correo de confirmacion de cierre de incidente con solucion del tecnico*/
+									$texto1 = html_entity_decode("El usuario agrego un nuevo mensaje sobre el incidentes.", ENT_QUOTES, "ISO-8859-1");
+									$texto2 = html_entity_decode($msj_desc, ENT_QUOTES, "ISO-8859-1");
+									$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
+									$texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
+									// $para = $cliemail;
+									$asunto = $texto1;
+									$mensaje = $texto2 . "\r\n" .
+											   $texto3 . "\r\n" .
+											   '' . "\r\n" .
+											   $texto4;
+									$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
+									'X-Mailer: PHP/' . phpversion();
+										// Aquí deberías llamar a la función Asignacion con los parámetros necesarios
+										// Por ejemplo:
+										$res4=Correo::Asignacion($cliemail, $asunto, $mensaje, $cabeceras,$usuariocorreo1,$usuariopass1);
+									
+										// Nota: Asegúrate de definir los valores correctos para $destinatario, $asunto y $cuerpo_del_mensaje
+									}
 								}
 							}
 						}
@@ -558,6 +586,7 @@ if ($pro == md5('bit')){
 				}
 			}
 		}
+		
 	}
 }
 ?>

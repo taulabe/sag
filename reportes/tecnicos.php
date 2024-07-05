@@ -1,4 +1,5 @@
 <?php
+// require ('../sql/conexion.php');
 require('../fpdf/fpdf.php');
 class PDF extends FPDF
 {
@@ -6,16 +7,16 @@ class PDF extends FPDF
    function Header()
    {
 
-      //$this -> Image('logotipo.fw.png',10,10,25);
+      $this -> Image('logo2.png',10,10,25);
 
       $this->SetFont('Arial','B',12);
 
-      //$this->Cell(30,10,'Title',1,0,'C');
+      $this->Cell(0,10,'DEPARTAMENTO DE TECNOLOGIA',0,0,'C');
 
    }
 }
 //Connect to your database
-/*include("../sql/conexion.php");
+include("../sql/conexion.php");
 $link=Conectarse();
 
 //Select the Products you want to show in your PDF file
@@ -55,11 +56,11 @@ while($row = mysqli_fetch_array($result))
 	$total = $total+1;
 }
 
-mysqli_close($link);*/
+mysqli_close($link);
 
 $pdf=new PDF('L','mm','A4');
 $pdf->AddPage();
-/*$Y_Fields_Name_position = 20;
+$Y_Fields_Name_position = 20;
 $Y_Table_Position = 26;
 $pdf->SetFillColor(232,232,232);
 
@@ -110,10 +111,11 @@ while ($i < $number_of_products)
 	$pdf->MultiCell(265,6,'',0);
 	$i = $i +1;
 }
-*/
+
+
 $pdf->SetXY(10,10);          // Primero establece Donde estará la esquina superior izquierda donde estará tu celda 
 $pdf->SetTextColor(255,255,255);  // Establece el color del texto (en este caso es blanco) 
 $pdf->SetFillColor(108, 108, 108); // establece el color del fondo de la celda (en este caso es AZUL 
-$pdf->Cell(0, 10, 'LETRERO', 1, 0, 'C', True); // en orden lo que informan estos parametros es: 
+// $pdf->Cell(1, 10, 'DEPARTAMENTO DE TECNOLOGIA', 1, 0, 'C', True); // en orden lo que informan estos parametros es: 
 $pdf->Output();
 ?>

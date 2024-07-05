@@ -206,6 +206,7 @@ if(isset($_POST['usuario']) && isset($_POST['password'])){
                             $_SESSION["autenticado"] = "SI";
                             $_SESSION["password"]=$password;
                             $_SESSION["rol"] = $idrol;
+                            $_SESSION['id_tecnico'] = $idtecnico;
                             $_SESSION["idoficina"] = $idoficina;
                             $_SESSION["fecha"] = date("j/m/Y"); // Ej. 12/30/2011
                             $_SESSION["login"] = $login;

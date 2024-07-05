@@ -7,7 +7,7 @@ class PDF extends FPDF
    		$date=date('F j, Y');
    		$hour=date('H:i a');
    		$rpt='REPORTE GENERAL DE TECNICOS';
-    	$this->Image('logotipo.png',10,8,40);
+    	$this->Image('logo2.png',10,8,40);
       	$this->SetFont('Arial','',12);
       	$this->Cell(115);
       	$this->Cell(30,5,utf8_decode('COOPERATIVA DE AHORRO Y CRÉDITO TAULABÉ LTDA'),0,0,'C');

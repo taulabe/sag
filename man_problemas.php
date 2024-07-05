@@ -91,6 +91,7 @@ while($row1=mysqli_fetch_array($qry1)){
           <td width="100" align="center" valign="middle">Problema</td>
           <td width="70" align="center" valign="middle">Sub-Categor&iacute;a</td>
           <td width="70" align="center" valign="middle">Categor&iacute;a</td>
+          <td width="100" align="center" valign="middle">Tiempo Estimado</td>
           <td width="25" align="center" valign="middle">Opciones</td>
         </tr>
       </thead>
@@ -121,6 +122,7 @@ while($row1=mysqli_fetch_array($qry1)){
           <td><?php echo $row1['descincidente']; ?></td>
           <td><?php echo $row1['scategodesc']; ?></td>
           <td><?php echo $row1['categodesc']; ?></td>
+          <td><?php echo $row1['tiempoestimado'];?></td> 
           <td align="center">
             <form action="procesos.php" method="get">
               <button type="submit" class="btn btn-default btn-xs">

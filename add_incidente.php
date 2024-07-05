@@ -1,7 +1,6 @@
 <?php 
 session_start();								// Inicio de variables de sesion
 include("sql/conexion.php");
-require_once("enviomail.php");
 $link=Conectarse();								// Conexion a la base de datos
 
 /* deshabilitar autocommit */
@@ -23,9 +22,7 @@ $limkb = 10240;									// Tamaño permitido
 
 /* Variables de sesion */
 $idcli = $_SESSION["id"];						// Id del cliente que ingresa el incidente
-$idofi = $_SESSION["idoficina"];
-$email=$_SESSION["email"];
-$pass=$_SESSION["password"];		// Numero de oficina de la que se esta ingresando el incidente
+$idofi = $_SESSION["idoficina"];				// Numero de oficina de la que se esta ingresando el incidente
 
 /* Bloqueo de tablas de la base de datos */
 $LT = "LOCK TABLES actividades.inf_inc_correlativo, actividades.inf_incidentes, actividades.inf_inc_adjuntos, actividades.inf_inc_actualizaciones";
@@ -86,10 +83,6 @@ if ($_FILES["documento"]["error"] == 4){
 	$emailr = mysqli_query($link,$email_t);
 	$remail = mysqli_fetch_array($emailr);
 
-
-	// $res=Correo::envio();
-	$res=Correo::envio($remail['categodesc'],$remail['scategodesc'],$remail['descincidente'],$email,$pass);
-
 	/* Enviar correo de confirmacion de creacion de incidente */
 	$texto1 = html_entity_decode("SAI - Creaci&oacute;n de incidente satisfactoriamente.", ENT_QUOTES, "ISO-8859-1");
 	$texto2 = html_entity_decode("Su incidente ha sido creado satisfactoriamente, ingrese al Sistema de Administraci&oacute;n de Incidentes (SAI) para revisar el avance de la soluci&oacute;n.", ENT_QUOTES, "ISO-8859-1");
@@ -111,8 +104,8 @@ if ($_FILES["documento"]["error"] == 4){
 			   '' . "\r\n" .
 			   $texto4;
 	$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
-	// 'X-Mailer: PHP/' . phpversion();
-	// mail($para, $asunto, $mensaje, $cabeceras);
+	'X-Mailer: PHP/' . phpversion();
+	mail($para, $asunto, $mensaje, $cabeceras);
 
 	$msj = md5('005');							// Msj:	Se agregó el incidente satisfactoriamente
 	mysqli_commit($link);						// Ejecucion de COMMIT
@@ -219,36 +212,29 @@ if ($_FILES["documento"]["error"] == 4){
 					$emailr = mysqli_query($link,$email_t);
 					$remail = mysqli_fetch_array($emailr);
 
-					$res=Correo::envio($remail['categodesc'],$remail['scategodesc'],$remail['descincidente'],$email,$pass);
-
-
-					// ,$remail['descincidente'],$desc,$email,$pass
-
-
-					
 					/* Enviar correo de confirmacion de creacion de incidente */
-					// // $texto1 = html_entity_decode("SAI - Creaci&oacute;n de incidente satisfactoriamente.", ENT_QUOTES, "ISO-8859-1");
-					// $texto2 = html_entity_decode("Su incidente ha sido creado satisfactoriamente, ingrese al Sistema de Administraci&oacute;n de Incidentes (SAI) para revisar el avance de la soluci&oacute;n.", ENT_QUOTES, "ISO-8859-1");
-					// $t_cate = html_entity_decode("Categor&iacute;a   : ".$categodesc, ENT_QUOTES, "ISO-8859-1");
-					// $t_scat = html_entity_decode("Sub-categor&iacute;a   : ". $scategodesc, ENT_QUOTES, "ISO-8859-1");
-					// $t_prob = html_entity_decode("Problema   : ".$descincidente, ENT_QUOTES, "ISO-8859-1");
-					// $t_desc = html_entity_decode("Descripci&oacute   : ".$descincidente, ENT_QUOTES, "ISO-8859-1");
-					// $texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
-					// $texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
-					// // $para = $_SESSION["email"];
-					// $asunto = $texto1;
-					// $mensaje = $texto2 . "\r\n" .
-					// 		   '' . "\r\n" .
-					// 		   $t_cate . "\r\n" .
-					// 		   $t_scat . "\r\n" .
-					// 		   $t_prob . "\r\n" .
-					// 		   '' . "\r\n" .
-					// 		   $texto3 . "\r\n" .
-					// 		   '' . "\r\n" .
-					// 		   $texto4;
-					// // $cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
-					// // 'X-Mailer: PHP/' . phpversion();
-					// // mail($para, $asunto, $mensaje, $cabeceras);
+					$texto1 = html_entity_decode("SAI - Creaci&oacute;n de incidente satisfactoriamente.", ENT_QUOTES, "ISO-8859-1");
+					$texto2 = html_entity_decode("Su incidente ha sido creado satisfactoriamente, ingrese al Sistema de Administraci&oacute;n de Incidentes (SAI) para revisar el avance de la soluci&oacute;n.", ENT_QUOTES, "ISO-8859-1");
+					$t_cate = html_entity_decode("Categor&iacute;a   : ".$remail['categodesc'], ENT_QUOTES, "ISO-8859-1");
+					$t_scat = html_entity_decode("Sub-categor&iacute;a   : ". $remail['scategodesc'], ENT_QUOTES, "ISO-8859-1");
+					$t_prob = html_entity_decode("Problema   : ".$remail['descincidente'], ENT_QUOTES, "ISO-8859-1");
+					$t_desc = html_entity_decode("Descripci&oacute   : ".$desc, ENT_QUOTES, "ISO-8859-1");
+					$texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
+					$texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
+					$para = $_SESSION["email"];
+					$asunto = $texto1;
+					$mensaje = $texto2 . "\r\n" .
+							   '' . "\r\n" .
+							   $t_cate . "\r\n" .
+							   $t_scat . "\r\n" .
+							   $t_prob . "\r\n" .
+							   '' . "\r\n" .
+							   $texto3 . "\r\n" .
+							   '' . "\r\n" .
+							   $texto4;
+					$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
+					'X-Mailer: PHP/' . phpversion();
+					mail($para, $asunto, $mensaje, $cabeceras);
 
 					$msj = md5('005');							// Msj:	Se agregó el incidente satisfactoriamente
 					mysqli_commit($link);						// Ejecucion de COMMIT
@@ -260,7 +246,7 @@ if ($_FILES["documento"]["error"] == 4){
 					mysqli_rollback($link);					// Ejecutar rollback
 					mysqli_query($link,'UNLOCK TABLES');	// Desbloquear tablas
 					mysqli_close($link);					// Cerrar la conexion a la base de datos
-					 header ("Location: procesos.php?a=c4ca4238a0b923820dcc509a6f75849b&msj=$msj");
+					header ("Location: procesos.php?a=c4ca4238a0b923820dcc509a6f75849b&msj=$msj");
 				}
 			} else {
 				$msj = md5('003');						// Error: El archivo ya existe

@@ -1,4 +1,8 @@
-<!--<section class="main row">-->
+<!--<sectio<?php
+session_start(); // Asegúrate de iniciar la sesión si no lo has hecho aún
+$_SESSION['idcliente'] = $idtcliente; // Asigna el valor adecuadamente
+?>n class="main row">-->
+
 <section class="container-fluid">
     <article class="col-lg-12" style="margin-top:10px;">
       <table cellpadding="0" cellspacing="1" border="0" align="center" width="130%" id="table" class="sortable">
@@ -19,6 +23,7 @@
         <tbody>
         <?php
 		error_reporting(E_PARSE);
+    $idtcliente= $_SESSION['idtcliente']; 
 		$filial = $_GET['Filial'];
 		$id = $_SESSION["id"];
 		$idrol = $_SESSION["rol"];
@@ -56,23 +61,133 @@
             <td align="center">
             	<span class="badge"><?php echo $row1['msj']; ?></span>
             </td>
-            <td align="center">
-				<?php echo $row1['descprioridad']; ?>
-            	<?php
-					$p=$row1['idprioridad'];
-					if($p == 1){
-						echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F00000; font-size:12px;\"></span>";
-					}else{
-						if($p==2){
-							echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F9ED06; font-size:12px;\"></span>";
-						}else {
-							if($p==3){
-								echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#0F0; font-size:12px;\"></span>";
-							}
-						}
-					}
-				?>
-            </td>
+			<td align="center">
+    <?php
+    // Obtener la categoría
+    $categoria = $row1['categodesc'];
+
+    // Inicializar la prioridad original
+    $p_original = $row1['idprioridad'];
+    $p_reasignada = $p_original;
+
+    // Clasificar la prioridad según la categoría
+    switch ($categoria) {
+        case 'Software (Programas, Aplicaciones, Sistemas Operativos)':
+            if ($p_original == 1) {
+                $p_reasignada = 2; // Reasignar a Prioridad Baja (Verde)
+            } else if ($p_original == 3) {
+                $p_reasignada = 3; // Mantener Prioridad Media (Amarillo)
+            } else if ($p_original == 3) {
+                $p_reasignada = 1; // Reasignar a Prioridad Alta (Rojo)
+            }
+            break;
+        case 'Hardware (Equipos, Computadoras, Impresoras)':
+            if ($p_original == 1) {
+                $p_reasignada = 1; // Reasignar a Prioridad Media (Amarillo)
+            } else if ($p_original == 1) {
+                $p_reasignada = 2; // Reasignar a Prioridad Alta (Rojo)
+            } else if ($p_original == 3) {
+                $p_reasignada = 3; // Mantener Prioridad Baja (Verde)
+            }
+            break;
+        case 'Networking':
+            if ($p_original == 1) {
+                $p_reasignada = 1; // Mantener Prioridad Alta (Rojo)
+            } else if ($p_original == 2) {
+                $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+            } else if ($p_original == 3) {
+                $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+            }
+            break;
+        // Añadir más casos según las categorías
+        case 'Requerimientos especiales':
+          if ($p_original == 1) {
+              $p_reasignada = 1; // Mantener Prioridad Alta (Rojo)
+          } else if ($p_original == 2) {
+              $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+          } else if ($p_original == 3) {
+              $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+          }
+          break;
+          case 'Usuarios, roles y accesos':
+            if ($p_original == 1) {
+                $p_reasignada = 2; // Mantener Prioridad Alta (Rojo)
+            } else if ($p_original == 2) {
+                $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+            } else if ($p_original == 3) {
+                $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+            }
+            break;
+            case 'Actividades Diarias (Solo Técnología)':
+              if ($p_original == 1) {
+                  $p_reasignada = 2; // Mantener Prioridad Alta (Rojo)
+              } else if ($p_original == 2) {
+                  $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+              } else if ($p_original == 3) {
+                  $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+              }
+              break;
+              case 'Internet(Navegación, vídeo, wifi) ':
+                if ($p_original == 1) {
+                    $p_reasignada = 1; // Mantener Prioridad Alta (Rojo)
+                } else if ($p_original == 2) {
+                    $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+                } else if ($p_original == 3) {
+                    $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+                }
+                break;
+                break;
+                case 'Fallas en hardware o componentes del centro de datos ':
+                  if ($p_original == 1) {
+                      $p_reasignada = 1; // Mantener Prioridad Alta (Rojo)
+                  } else if ($p_original == 2) {
+                      $p_reasignada = 3; // Reasignar a Prioridad Baja (Verde)
+                  } else if ($p_original == 3) {
+                      $p_reasignada = 2; // Reasignar a Prioridad Media (Amarillo)
+                  }
+                  break;
+        default:
+            break;
+    }
+
+    // Definir la descripción de la prioridad reasignada
+    $desc_prioridad = '';
+    switch ($p_reasignada) {
+        case 1:
+            $desc_prioridad = 'Alta';
+            break;
+        case 2:
+            $desc_prioridad = 'Media';
+            break;
+        case 3:
+            $desc_prioridad = 'Baja';
+            break;
+        default:
+            $desc_prioridad = 'Desconocida';
+            break;
+    }
+
+    // Mostrar la descripción de la prioridad y el icono basado en el valor final de $p_reasignada
+    echo $desc_prioridad;
+    switch ($p_reasignada) {
+        case 1:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F00000; font-size:12px;\"></span>"; // Rojo
+            break;
+        case 2:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#F9ED06; font-size:12px;\"></span>"; // Amarillo
+            break;
+        case 3:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#0F0; font-size:12px;\"></span>"; // Verde
+            break;
+        default:
+            echo " <span class=\"glyphicon glyphicon-adjust\" style=\"color:#000; font-size:12px;\"></span>"; // Negro (por defecto)
+            break;
+    }
+    ?>
+</td>
+
+
+
             <td><?php echo $row1['categodesc']; ?></td>
             <td><?php echo $row1['scategodesc']; ?></td>
             <td>
