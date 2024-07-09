@@ -70,7 +70,7 @@ $a = isset($_GET['a']) ? $_GET['a'] : null;
           <td height="6" align="center"><?php echo $row1['idprioridad']; ?></td>
           <td><?php echo $row1['descprioridad']; ?></td>
           <td align="center"> 
-            <form action="editar_prioridad.php" method="get">
+            <form action="editar_pri.php" method="get">
               <button type="submit" class="btn btn-default btn-xs">
                 <input type="hidden" value="<?php echo $row1['idprioridad']; ?>" name="i" />
                 <input type="hidden" value="<?php echo md5(4); ?>" name="a" />

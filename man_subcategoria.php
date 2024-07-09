@@ -72,83 +72,76 @@ while($row1 = mysqli_fetch_array($qry1)){
       </div>
     </div>
   </article>
-  <!-- TABLA DE SUBCATEGORIAS -->
-  <article class="col-lg-12" style="margin-top:10px;">
-    <table cellpadding="0" cellspacing="1" border="0" align="center" width="130%" id="table" class="sortable">
-      <thead>
-        <tr class="encabezado">
-          <td width="25" height="10" align="center" valign="middle">#</td>
-          <td width="100" align="center" valign="middle">Sub-Categor&iacute;a</td>
-          <td width="70" align="center" valign="middle">Categor&iacute;a</td>
-          <td width="25" align="center" valign="middle">Opciones</td>
-        </tr>
-      </thead>
-      <tbody>
-      <?php
-        $color = array("#ffffff", "#F0F0F0");
-        $cont = 0;
+ <!-- TABLA DE SUBCATEGORIAS -->
+<article class="col-lg-12" style="margin-top:10px;">
+  <table cellpadding="0" cellspacing="1" border="0" align="center" width="130%" id="table" class="sortable">
+    <thead>
+      <tr class="encabezado">
+        <td width="25" height="10" align="center" valign="middle">#</td>
+        <td width="100" align="center" valign="middle">Sub-Categoría</td>
+        <td width="70" align="center" valign="middle">Categoría</td>
+        <!-- <td width="25" align="center" valign="middle">Editar</td> -->
+      </tr>
+    </thead>
+    <tbody>
+    <?php
+      $color = array("#ffffff", "#F0F0F0");
+      $cont = 0;
 
-        $hq = "SELECT count(*) as total FROM actividades.man_subcategoria";
-        $rhq = mysqli_query($link, $hq);
-        $hqr = mysqli_fetch_array($rhq);
-        $trhq = $hqr['total'];
+      $hq = "SELECT count(*) as total FROM actividades.man_subcategoria";
+      $rhq = mysqli_query($link, $hq);
+      $hqr = mysqli_fetch_array($rhq);
+      $trhq = $hqr['total'];
 
-        if ($trhq > 0) {
-          $qry1 = mysqli_query($link, "SELECT a.scategodesc, b.idcatego, b.categodesc, a.idsubcatego FROM actividades.man_subcategoria a, actividades.man_categoria b WHERE a.idcatego = b.idcatego"); 
-          while ($row1 = mysqli_fetch_array($qry1)) {
-            $cont++;
-      ?>
-        <tr style="font-size:12px;" bgcolor="<?php echo $color[$cont % 2]; ?>">
-          <td height="10" align="center"><?php echo $row1['idsubcatego']; ?></td>
-          <td><?php echo $row1['scategodesc']; ?></td>
-          <td><?php echo $row1['categodesc']; ?></td>
-          <td align="center">
-            <form action="procesos.php" method="get">
-              <button type="submit" class="btn btn-default btn-xs">
-                <input type="hidden" value="<?php echo $row1['idincidente']; ?>" name="i" />
-                <input type="hidden" value="<?php echo md5(4); ?>" name="a" />
-                <span class="glyphicon glyphicon-eye-open" title="Ver incidente" aria-hidden="true"></span>
-              </button>
-            </form>
-          </td>
-        </tr>
-      <?php }
-        } else { ?>
-        <tr bgcolor="<?php echo $color[$cont % 2]; ?>">
-          <td colspan="4" align="center">*** No hay registros para mostrar ***</td>
-        </tr>
-      <?php } ?>
-      </tbody>
-    </table>
-    <div id="controls">
-      <div id="perpage">
-        <select onchange="sorter.size(this.value)">
-          <option value="10">10</option>
-          <option value="15">15</option>
-        </select>
-        <span>Items por p&aacute;gina</span> 
-      </div>
-      <div id="navigation"> 
-        <img src="img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" /> 
-        <img src="img/previous.gif" width="16" height="16" alt="Previous Page" onclick="sorter.move(-1)" /> 
-        <img src="img/next.gif" width="16" height="16" alt="Next Page" onclick="sorter.move(1)" /> 
-        <img src="img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" /> 
-      </div>
-      <div id="text">P&aacute;gina <span id="currentpage"></span> de <span id="pagelimit"></span></div>
+      if ($trhq > 0) {
+        $qry1 = mysqli_query($link, "SELECT a.scategodesc, b.idcatego, b.categodesc, a.idsubcatego FROM actividades.man_subcategoria a, actividades.man_categoria b WHERE a.idcatego = b.idcatego"); 
+        while ($row1 = mysqli_fetch_array($qry1)) {
+          $cont++;
+    ?>
+      <tr style="font-size:12px;" bgcolor="<?php echo $color[$cont % 2]; ?>">
+  <td height="10" align="center"><?php echo $row1['idsubcatego']; ?></td>
+  <td><?php echo $row1['scategodesc']; ?></td>
+  <td><?php echo $row1['categodesc']; ?></td>
+  <!-- Eliminando la columna de Editar -->
+</tr>
+    <?php }
+      } else { ?>
+      <tr bgcolor="<?php echo $color[$cont % 2]; ?>">
+        <td colspan="4" align="center">*** No hay registros para mostrar ***</td>
+      </tr>
+    <?php } ?>
+    </tbody>
+  </table>
+  <!-- Controles de paginación -->
+  <div id="controls">
+    <div id="perpage">
+      <select onchange="sorter.size(this.value)">
+        <option value="10">10</option>
+        <option value="15">15</option>
+      </select>
+      <span>Items por página</span> 
     </div>
-    <script type="text/javascript">
-      var sorter = new TINY.table.sorter("sorter");
-      sorter.head = "head";
-      sorter.asc = "asc";
-      sorter.desc = "desc";
-      sorter.even = "evenrow";
-      sorter.odd = "oddrow";
-      sorter.evensel = "evenselected";
-      sorter.oddsel = "oddselected";
-      sorter.paginate = true;
-      sorter.currentid = "currentpage";
-      sorter.limitid = "pagelimit";
-      sorter.init("table", 0);
-    </script> 
-  </article>   
-</section>
+    <div id="navigation"> 
+      <img src="img/first.gif" width="16" height="16" alt="First Page" onclick="sorter.move(-1,true)" /> 
+      <img src="img/previous.gif" width="16" height="16" alt="Previous Page" onclick="sorter.move(-1)" /> 
+      <img src="img/next.gif" width="16" height="16" alt="Next Page" onclick="sorter.move(1)" /> 
+      <img src="img/last.gif" width="16" height="16" alt="Last Page" onclick="sorter.move(1,true)" /> 
+    </div>
+    <div id="text">Página <span id="currentpage"></span> de <span id="pagelimit"></span></div>
+  </div>
+  <script type="text/javascript">
+    var sorter = new TINY.table.sorter("sorter");
+    sorter.head = "head";
+    sorter.asc = "asc";
+    sorter.desc = "desc";
+    sorter.even = "evenrow";
+    sorter.odd = "oddrow";
+    sorter.evensel = "evenselected";
+    sorter.oddsel = "oddselected";
+    sorter.paginate = true;
+    sorter.currentid = "currentpage";
+    sorter.limitid = "pagelimit";
+    sorter.init("table", 0);
+  </script> 
+</article>   
+

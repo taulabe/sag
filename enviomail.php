@@ -98,6 +98,40 @@ class Correo {
             return $d->getMessage();
         }
     }
+    static public function enviarAlerta($mensaje, $email, $pass) {
+        $mail = new PHPMailer(true);
+
+        try {
+            // Configuración del servidor
+            $mail->SMTPDebug = 0;                      // Habilitar salida de depuración
+            $mail->isSMTP();                                            // Enviar usando SMTP
+            $mail->Host       = 'smtp-mail.outlook.com';                     // Servidor SMTP
+            $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
+            $mail->Username   = $email;                     // Usuario SMTP
+            $mail->Password   = $pass;                               // Contraseña SMTP
+            $mail->SMTPSecure = "tls";            // Habilitar encriptación TLS implícita
+            $mail->Port       = 587;                                    // Puerto TCP
+
+            // Recipientes
+            $mail->setFrom($email, "Enviado por: ");
+            $mail->addAddress('eescobar@cooperativataulabe.hn', 'SAG'); // Destinatario
+
+            // Contenido del correo
+            $asunto = "Alerta de Tiempo Estimado";
+            $mensaje = $mensaje;
+            
+            $mail->Subject = $asunto;
+            $mail->Body    = $mensaje;
+            
+            $mail->send();
+            return 5;
+             
+            
+        } catch(Exception $d) {
+            error_log("No se pudo enviar el mensaje. Error de Mailer: {$mail->ErrorInfo}", 3, 'error_log.txt');
+            return "No se pudo enviar el mensaje. Error de Mailer: {$mail->ErrorInfo}";
+        }
+    }
     // static public function Asignacion1($para1, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo1,$usuariopass1) {
     //     $mail = new PHPMailer(true);
     //     try {

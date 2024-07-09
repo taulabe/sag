@@ -92,7 +92,7 @@ while($row1=mysqli_fetch_array($qry1)){
           <td width="70" align="center" valign="middle">Sub-Categor&iacute;a</td>
           <td width="70" align="center" valign="middle">Categor&iacute;a</td>
           <td width="100" align="center" valign="middle">Tiempo Estimado</td>
-          <td width="25" align="center" valign="middle">Opciones</td>
+          <!-- <td width="25" align="center" valign="middle">Editar</td> -->
         </tr>
       </thead>
       <tbody>
@@ -118,21 +118,14 @@ while($row1=mysqli_fetch_array($qry1)){
           $num++;
       ?>
         <tr style="font-size:12px;" bgcolor="<?php echo $color[$cont%2]; ?>">
-          <td height="10" align="center"><?php echo $row1['idproblema']; ?></td>
-          <td><?php echo $row1['descincidente']; ?></td>
-          <td><?php echo $row1['scategodesc']; ?></td>
-          <td><?php echo $row1['categodesc']; ?></td>
-          <td><?php echo $row1['tiempoestimado'];?></td> 
-          <td align="center">
-            <form action="procesos.php" method="get">
-              <button type="submit" class="btn btn-default btn-xs">
-                <input type="hidden" value="<?php echo $row1['idincidente']; ?>" name="i" />
-                <input type="hidden" value="<?php echo md5(4);?>" name="a" />
-                <span class="glyphicon glyphicon-eye-open" title="Ver insidente" aria-hidden="true"></span>
-              </button>
-            </form>
-          </td>
-        </tr>
+    <td height="10" align="center"><?php echo $row1['idproblema']; ?></td>
+    <td><?php echo $row1['descincidente']; ?></td>
+    <td><?php echo $row1['scategodesc']; ?></td>
+    <td><?php echo $row1['categodesc']; ?></td>
+    <td><?php echo $row1['tiempoestimado'];?></td> 
+    <!-- Elimina la columna de editar -->
+</tr>
+
       <?php }
         } else {?>
         <tr bgcolor="<?php echo $color[$cont%2]; ?>">

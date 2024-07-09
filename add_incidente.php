@@ -2,6 +2,8 @@
 session_start();								// Inicio de variables de sesion
 include("sql/conexion.php");
 $link=Conectarse();								// Conexion a la base de datos
+$usuariocorreo=$_SESSION['email'];
+$usuariopass=$_SESSION['password'];
 
 /* deshabilitar autocommit */
 mysqli_autocommit($link, FALSE);				// Set autocommit to off

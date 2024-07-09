@@ -36,7 +36,7 @@ $a = $_GET['a'];
         <tr class="encabezado">
           <td width="25" height="10" align="center" valign="middle">#</td>
           <td width="100" align="center" valign="middle">Categor&iacute;a</td>
-          <td width="25" align="center" valign="middle">Ver</td>
+          <td width="25" align="center" valign="middle">Editar</td>
         </tr>
       </thead>
       <tbody>
@@ -61,19 +61,15 @@ $a = $_GET['a'];
             $cont++;
             $num++;
       ?>
-        <tr style="font-size:12px;" bgcolor="<?php echo $color[$cont % 2]; ?>">
-          <td height="10" align="center"><?php echo $cont; ?></td>
-          <td><?php echo $row1['categodesc']; ?></td>
-          <td align="center"> 
-            <form action="procesos.php" method="get">
-              <button type="submit" class="btn btn-default btn-xs">
-                <input type="hidden" value="<?php echo $row1['idincidente']; ?>" name="i" />
-                <input type="hidden" value="<?php echo md5(4); ?>" name="a" />
-                <span class="glyphicon glyphicon-wrench" title="Ver incidente" aria-hidden="true"></span>
-              </button>
-            </form>
-          </td>
-        </tr>
+         <tr style="font-size:12px;" bgcolor="<?php echo $color[$cont % 2]; ?>">
+        <td height="10" align="center"><?php echo $cont; ?></td>
+        <td><?php echo $row1['categodesc']; ?></td>
+        <td align="center"> 
+          <a href="editar_cat.php?id=<?php echo $row1['idcatego']; ?>" class="btn btn-default btn-xs">
+            <span class="glyphicon glyphicon-pencil" title="Editar categoría" aria-hidden="true"></span>
+          </a>
+        </td>
+      </tr>
       <?php }
         } else { ?>
         <tr bgcolor="<?php echo $color[$cont % 2]; ?>">

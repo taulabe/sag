@@ -1,9 +1,12 @@
 <?php
+$usuariocorreo=$_SESSION['email'];
+$usuariopass=$_SESSION['password'];
 // date_default_timezone_set('America/Tegucigalpa');
 include ("sql/seguridad.php");
 $id = $_GET['i'];
 $a = $_GET['a'];
 ?>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
   $(document).ready(function() {
    $('#tec').typeahead({  
@@ -266,43 +269,125 @@ $a = $_GET['a'];
           </tr>
           <tr class="dl-horizontal">
             <td class="text-right"><strong>Categoria:</strong></td> 
-            <td><?php echo $row['categodesc'];?></td>
+            <td><?php  echo $row['categodesc'];?></td>
           </tr>
           <tr class="dl-horizontal">
           <tr class="dl-horizontal">
 <tr class="dl-horizontal">
+
+<?php
+$tiempoEstimadoSegundos = $row['tiempo_estimado'] * 3600; // Si 'tiempo_estimado' está en horas
+?>
+
 <td class="text-right"><strong>Tiempo Estimado:</strong></td>
-        <td>
-            <?php echo $row['tiempo_estimado']; ?> horas
-            <div id="cronometro"></div>
-        </td>
-     
-    
+<td>
+    <?php echo $row['tiempo_estimado']; ?> horas
+    <div id="cronometro"></div>
+</td>
+
 <script>
     var startTime = new Date("<?php echo date('c', strtotime($row['asigfecha'])); ?>");
     var estimatedTimeSeconds = <?php echo json_encode($tiempoEstimadoSegundos); ?>;
+    var alertSent = false; // Variable para evitar múltiples alertas
 
     function updateCronometro() {
+        // Crear un objeto URLSearchParams con la URL actual
+        let searchParams = new URLSearchParams(window.location.search);
+
+        // Obtener el valor del parámetro 'i'
+        let parametroI = searchParams.get('i');
         var now = new Date();
-        var elapsedTime = (now - startTime) / 1000 + estimatedTimeSeconds; // Añadir el tiempo estimado en segundos
+        var elapsedTime = (now - startTime) / 1000; // Convertir milisegundos a segundos
+        var remainingTime = estimatedTimeSeconds - elapsedTime;
 
-        var hours = Math.floor(elapsedTime / 3600);
-        var minutes = Math.floor((elapsedTime % 3600) / 60);
-        var seconds = Math.floor(elapsedTime % 60);
+        if (remainingTime <= 0) {
+            document.getElementById('cronometro').innerText = "00h 00m 00s";
+            if (!alertSent) {
+                console.log("Tiempo estimado alcanzado, enviando alerta...");
+                let mensaje = `El tiempo estimado para el incidente con ID ${parametroI} ha sido alcanzado.`;
+                enviarAlerta(mensaje);
+                alertSent = true; // Evitar múltiples envíos
+            }
+        } else if (remainingTime <= 1800 && !alertSent) {
+            // Enviar alerta si el tiempo restante es menor a 30 minutos (1800 segundos)
+                console.log("Tiempo estimado a punto de terminar, enviando alerta...");
+                let mensaje = `El tiempo estimado para el incidente con ID ${parametroI} esta a punto de terminar.`;
+                enviarAlerta(mensaje);
+                alertSent = true; // Evitar múltiples envíos
+            
 
-        hours = ('0' + hours).slice(-2);
-        minutes = ('0' + minutes).slice(-2);
-        seconds = ('0' + seconds).slice(-2);
+            var hours = Math.floor(remainingTime / 3600);
+            var minutes = Math.floor((remainingTime % 3600) / 60);
+            var seconds = Math.floor(remainingTime % 60);
 
-        document.getElementById('cronometro').innerText = hours + "h " + minutes + "m " + seconds + "s";
+            hours = ('0' + hours).slice(-2);
+            minutes = ('0' + minutes).slice(-2);
+            seconds = ('0' + seconds).slice(-2);
+
+            document.getElementById('cronometro').innerText = hours + "h " + minutes + "m " + seconds + "s";
+        }
     }
+
+    function enviarAlerta(mensaje) {
+        // Realizar la solicitud AJAX con jQuery
+        $.ajax({
+            url: 'correo.php',  // URL a la que haces la solicitud
+            method: 'POST',
+            data: { mensaje: mensaje },  // Método de la solicitud (GET, POST, etc.)
+            success: function(data) {
+                // Manejar la respuesta exitosa
+                console.log(data);
+                if (data == 5) {
+                    Swal.fire({
+                        title: "Enviado",
+                        text: "Se envió una alerta de vencimiento de incidente",
+                        icon: "success"
+                    });
+                } else {
+                    Swal.fire({
+                        title: "Ocurrió un error",
+                        text: data,
+                        icon: "error"
+                    });
+                }
+            },
+            
+        error: function(jqXHR, textStatus, errorThrown) {
+            // Manejar errores de la solicitud
+            console.error('Error al realizar la solicitud:', textStatus, errorThrown);
+            Swal.fire({
+                title: "Ocurrió un error",
+                text: "Error al realizar la solicitud: " + textStatus,
+                icon: "error"
+            });
+        }
+    });
+}
+    setInterval(updateCronometro, 1000); // Actualizar el cronómetro cada segundo
+
+
+
+        // var xhr = new XMLHttpRequest();
+        // xhr.open("POST", "enviomail.php", true);
+        // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // xhr.onreadystatechange = function() {
+        //     if (xhr.readyState === 4) {
+        //         if (xhr.status === 200) {
+        //             console.log("Alerta enviada correctamente: " + xhr.responseText);
+        //         } else {
+        //             console.log("Error al enviar la alerta: " + xhr.status + " - " + xhr.statusText);
+        //         }
+        //     }
+        // };
+        // console.log("Enviando solicitud de alerta al servidor...");
+        // xhr.send("incident_id=<?php echo $row['id_incidente']; ?>");
+    
 
     setInterval(updateCronometro, 1000);
     updateCronometro();
 </script>
-</tr>
 
-<tr>
+  </tr>
   <td class="text-right"><strong>Sub-Categoria:</strong></td>
   <td><?php echo $row['scategodesc'];?></td> 
 </tr>
@@ -348,7 +433,7 @@ $tiempoEstimadoSegundos = $horas * 3600 + $minutos * 60 + $segundos;
           
             
       <tr class="dl-horizontal">
-        <td class="text-right"><strong>Estatus:</strong></td> 
+        <td class="text-right"><strong>Estatus: </strong></td> 
         <td><?php echo $row['estdesc']; $e=$row['idestatus']; 
             if($e == 9){
               echo " <span class=\"glyphicon glyphicon-ok\" style=\"color:#090; font-size:12px;\"></span>";
@@ -504,7 +589,7 @@ $tiempoEstimadoSegundos = $horas * 3600 + $minutos * 60 + $segundos;
        <?php
        $e = $row['idestatus'];
        if ($e >= 9 && $e <= 10 ){ 
-         $date1 = date_create($row['asigfecha']);
+         $date1 = date_create($row['inc_ftrabajado']);
          $date2 = date_create($row['inc_ffinal']);
          $dt1 = date_format($date1, 'Y-m-d H:i:s');
          $dt2 = date_format($date2, 'Y-m-d H:i:s');
@@ -514,7 +599,7 @@ $tiempoEstimadoSegundos = $horas * 3600 + $minutos * 60 + $segundos;
          echo $interval->format('%a dias %H horas %I minutos %S segundos');
        }
        if ($e >= 5 && $e <= 8){ 
-         $date1 = date_create($row['asigfecha']);
+         $date1 = date_create($row['inc_ftrabajado']);
          $dt1 = date_format($date1, 'Y-m-d H:i:s');
          $dt2 = date('Y-m-d H:i:s');
          $datetime1 = new DateTime($dt1);
