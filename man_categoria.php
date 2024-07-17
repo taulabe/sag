@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 $id = $_GET['i'];
 $a = $_GET['a'];
 ?>
@@ -52,6 +53,7 @@ $a = $_GET['a'];
 
         $hq = "SELECT count(*) as total FROM actividades.man_categoria";
         $rhq = mysqli_query($link, $hq);
+        $link->set_charset("utf8");
         $hqr = mysqli_fetch_array($rhq);
         $trhq = $hqr['total'];
 

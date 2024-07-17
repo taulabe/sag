@@ -276,12 +276,12 @@ $a = $_GET['a'];
 <tr class="dl-horizontal">
 
 <?php
-$tiempoEstimadoSegundos = $row['tiempo_estimado'] * 3600; // Si 'tiempo_estimado' está en horas
+$tiempoEstimadoSegundos = $row['tiempoestimado'] * 3600; // Si 'tiempo_estimado' está en horas
 ?>
 
 <td class="text-right"><strong>Tiempo Estimado:</strong></td>
 <td>
-    <?php echo $row['tiempo_estimado']; ?> horas
+    <?php echo $row['tiempoestimado']; ?> horas
     <div id="cronometro"></div>
 </td>
 
@@ -363,7 +363,7 @@ $tiempoEstimadoSegundos = $row['tiempo_estimado'] * 3600; // Si 'tiempo_estimado
         }
     });
 }
-    setInterval(updateCronometro, 1000); // Actualizar el cronómetro cada segundo
+    setInterval(updateCronometro, 1000); // Actualizar el cronómetro cada segundo -->
 
 
 
@@ -581,66 +581,24 @@ $tiempoEstimadoSegundos = $horas * 3600 + $minutos * 60 + $segundos;
     }
     ?>
 </td>
-
-     </tr>
-     <tr>
-      <td width="25%" class="text-right"><strong>Tiempo Gestionado:</strong></td>
-      <td width="75%">
-       <?php
-       $e = $row['idestatus'];
-       if ($e >= 9 && $e <= 10 ){ 
-         $date1 = date_create($row['inc_ftrabajado']);
-         $date2 = date_create($row['inc_ffinal']);
-         $dt1 = date_format($date1, 'Y-m-d H:i:s');
-         $dt2 = date_format($date2, 'Y-m-d H:i:s');
-         $datetime1 = new DateTime($dt1);
-         $datetime2 = new DateTime($dt2);
-         $interval = $datetime1->diff($datetime2);
-         echo $interval->format('%a dias %H horas %I minutos %S segundos');
-       }
-       if ($e >= 5 && $e <= 8){ 
-         $date1 = date_create($row['inc_ftrabajado']);
-         $dt1 = date_format($date1, 'Y-m-d H:i:s');
-         $dt2 = date('Y-m-d H:i:s');
-         $datetime1 = new DateTime($dt1);
-         $datetime2 = new DateTime($dt2);
-         $interval = $datetime1->diff($datetime2);
-         echo $interval->format('%a dias %H horas %I minutos %S segundos');
-       }
-       ?>
-     </td> 
-   </tr>
-   <tr>
-    <td width="25%" class="text-right"><strong>KB Solucion:</strong></td>
-    <td width="75%"><?php echo $kbsol;?></td> 
-  </tr>
+</tr>
+<tr>
+    <td width="25%" class="text-right"><strong>Tiempo Gestionado:</strong></td>
+    <td width="75%">
+        <?php 
+            include("tiempogestionado.php");
+            // echo $time_managed; 
+        ?>
+    </td> 
+</tr>
+<tr>
+    <td width="25%" class="text-right"><strong>KB Solución:</strong></td>
+    <td width="75%"><?php echo $row['kbsol']; ?></td> 
+</tr>
 </tbody>
 </table>
-<script>
-//   // Función para el cronómetro
-//   function startCronometro() {
-//     var tiempoEstimado = <?php echo $row['tiempo_estimado']; ?> * 3600;
-//     var inicio = new Date("<?php echo $row['asigfecha']; ?>").getTime();
-//     var ahora = new Date().getTime();
-//     var tiempoPasado = Math.floor((ahora - inicio) / 1000);
-//     var tiempoRestante = tiempoEstimado - tiempoPasado;
 
-//     var horas = Math.floor(tiempoRestante / 3600);
-//     var minutos = Math.floor((tiempoRestante % 3600) / 60);
-//     var segundos = tiempoRestante % 60;
 
-//     document.getElementById("cronometro").innerHTML = horas + "h " + minutos + "m " + segundos + "s ";
-
-//     if (tiempoRestante <= 0) {
-//       clearInterval(cronometro);
-//       document.getElementById("cronometro").innerHTML = "Tiempo terminado";
-//     } else {
-//       tiempoRestante--;
-//     }
-//   }
-
-//   var cronometro = setInterval(startCronometro, 1000);
-// </script>
 
 <!-- BOTONES TECNICO -->
 <?php include ("botones_tec.php");?>

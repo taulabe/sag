@@ -1,4 +1,4 @@
-var id='';
+var id = '';
 
 $(document).ready(function() {
   // Petición AJAX para obtener los técnicos al cargar la página
@@ -20,18 +20,39 @@ $(document).ready(function() {
     })
     .fail(function(jqXHR, textStatus, errorThrown) {
       console.log("Error al obtener los técnicos:", textStatus, errorThrown);
+      console.log("Respuesta del servidor:", jqXHR.responseText); // Mostrar la respuesta del servidor para debug
     });
 
   // Evento de cambio del selector de técnicos
   $('#tecnicoSelect').change(function() {
     var tecnicoId = $(this).val();
+    console.log(tecnicoId);
     id = tecnicoId;
     // Limpiar la tabla antes de cargar nuevos datos de incidentes
     $('#tablaIncidentes').DataTable().clear().destroy();
 
     // Verificar si se seleccionó un técnico válido
+    
     if (tecnicoId) {
       // Petición AJAX para obtener los incidentes del técnico seleccionado
+      // $.ajax({
+      //   url: 'sql/reporteincidente.php',
+      //   type: 'POST',
+      //   data: {
+      //     idtecnico: tecnicoId
+      //   },
+      //   dataType: 'html', // Esperamos JSON como respuesta del servidor
+      //   success: function(response) {
+      //     console.log(response); // Imprimir la respuesta en la consola
+  
+      //   },
+      //   error: function(xhr, status, error) {
+      //     alert('Error en la solicitud AJAX: ' + status + ', ' + error);
+      //   }
+      // });
+
+
+
       $.getJSON('sql/reporteincidente.php', { idtecnico: tecnicoId })
         .done(function(data) {
           console.log("Datos de incidentes recibidos:", data);
@@ -47,10 +68,10 @@ $(document).ready(function() {
           $.each(data, function(index, row) {
             var newRow = '<tr>' +
                          '<td>' + row.idincidente + '</td>' +
-                         '<td>' + row.asigfecha + '</td>' +
-                         '<td>' + row.tecnombres + '</td>' +
-                         '<td>' + row.clinombres + '</td>' +
-                         '<td>' + row.incdesc + '</td>' +
+                         '<td>' + row.asig_fecha + '</td>' +
+                         '<td>' + row.nombre_tecnico + '</td>' +
+                         '<td>' + row.nombre_cliente + '</td>' +
+                         '<td>' + row.descripcion + '</td>' +
                          '</tr>';
             rows.push(newRow);
           });
@@ -90,14 +111,19 @@ $(document).ready(function() {
           console.log("Error al obtener los incidentes:", textStatus, errorThrown);
           console.log("Respuesta del servidor:", jqXHR.responseText); // Mostrar la respuesta del servidor para debug
         });
+    }
+  });
 
-      document.getElementById('descargar_pdf').addEventListener('click', function() {
-        // Construye la URL con la variable
-        var url = 'pdf_inctecnico.php?variable=' + encodeURIComponent(id);
-
-        // Abre pdf_inctecnico.php con la variable en una nueva pestaña
-        window.open(url, '_blank');
-      });
+  // Evento click para descargar PDF
+  $('#descargar_pdf').on('click', function() {
+    // Verificar si hay un técnico seleccionado
+    if (id) {
+      // Construir la URL con el ID del técnico
+      var url = 'pdf_inctecnico.php?variable=' + encodeURIComponent(id);
+      // Abrir la URL en una nueva pestaña
+      window.open(url, '_blank');
+    } else {
+      console.log("Error: No se ha seleccionado ningún técnico.");
     }
   });
 });

@@ -1,4 +1,6 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
+
 $id = $_GET['i'];
 $a = $_GET['a'];
 ?>
@@ -31,6 +33,7 @@ $a = $_GET['a'];
 <?php
 error_reporting(E_PARSE);
 $qry1=mysqli_query($link,"SELECT idcatego, categodesc FROM actividades.man_categoria");
+$link->set_charset("utf8");
 $opciones = '<option value="0">Elige una categoria</option>'; 
 while($row1=mysqli_fetch_array($qry1)){
   $opciones.='<option value="'.$row1["idcatego"].'">'.$row1["categodesc"].'</option>';
@@ -71,6 +74,13 @@ while($row1=mysqli_fetch_array($qry1)){
                 <input type="text" name="problema" class="form-control" placeholder="Escriba un problema" aria-describedby="basic-addon1">
               </div>
               <input type="hidden" name="pro" value="<?php echo md5('pro'); ?>" >
+              <!-- Tiempo Estimado -->
+              <div class="input-group input-group-sm" style="margin-bottom:5px;">
+                  <span class="input-group-addon" id="basic-addon1">
+                      <span class="glyphicon glyphicon-time"></span>
+                  </span>
+                  <input type="text" name="tiempoestimado" class="form-control" placeholder="Escriba el tiempo estimado en horas" aria-describedby="basic-addon1">
+              </div>
             
             <div class="botones_i">
                 <button type="submit" id="btn_addsub" class="btn btn-default btn-sm" data-toggle="modal">
@@ -108,6 +118,7 @@ while($row1=mysqli_fetch_array($qry1)){
 
         $hq = "SELECT count(*) as total FROM actividades.v_problemas";
         $rhq = mysqli_query($link,$hq);
+        $link->set_charset("utf8");
         $hqr = mysqli_fetch_array($rhq);
         $trhq = $hqr['total'];
 
@@ -122,7 +133,7 @@ while($row1=mysqli_fetch_array($qry1)){
     <td><?php echo $row1['descincidente']; ?></td>
     <td><?php echo $row1['scategodesc']; ?></td>
     <td><?php echo $row1['categodesc']; ?></td>
-    <td><?php echo $row1['tiempoestimado'];?></td> 
+    <td><?php echo $row1['tiempoestimado'];?> horas</td> 
     <!-- Elimina la columna de editar -->
 </tr>
 

@@ -307,8 +307,8 @@ if ($_SESSION["rol"] == 1) { ?>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="Perfil.php">Perfil</a></li>
-                        <li><a href="#">Contrase&ntilde;a</a></li>
-                        <li><a href="#">Otros</a></li>
+                        <!-- <li><a href="#">Contrase&ntilde;a</a></li>
+                        <li><a href="#">Otros</a></li> -->
                         <li class="divider"></li>
                         <li><a href="salir.php">Salir</a></li>
                     </ul>

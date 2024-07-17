@@ -25,11 +25,12 @@ GROUP BY
     c.idcatego, c.categodesc, p.idproblema, p.descincidente
 ORDER BY
     cantidad DESC;
- ";
+";
 $result = mysqli_query($link, $query);
 
 if (!$result) {
-    die('Error en la consulta: ' . mysqli_error($link));
+    echo json_encode(['error' => 'Error en la consulta: ' . mysqli_error($link)]);
+    exit;
 }
 
 // Crear un array para almacenar los resultados de la consulta
@@ -38,8 +39,29 @@ while ($row = mysqli_fetch_assoc($result)) {
     $rows[] = $row;
 }
 
-// Devolver los datos como JSON
-echo json_encode($rows);
+// FUNCION MAGICA PARA REPARAR ARREGLOS UTF8 A JSON
+function fix_utf8($value) {
+    if (is_array($value)) {
+        foreach ($value as $key => $val) {
+            $value[$key] = fix_utf8($val);
+        }
+        return $value;
+    } elseif (is_string($value)) {
+        return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+    } else {
+        return $value;
+    }
+}
+
+// Reparar los datos antes de convertir a JSON
+$data_fixed = array_map('fix_utf8', $rows);
+
+$json = json_encode($data_fixed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+if ($json === false) {
+    echo json_last_error_msg(); // Mostrar el mensaje de error de JSON si falla la codificación
+} else {
+    echo $json;
+}
 
 // Cerrar la conexión a la base de datos
 mysqli_close($link);

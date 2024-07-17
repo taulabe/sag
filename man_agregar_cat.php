@@ -1,3 +1,4 @@
+
 <script type="text/javascript">
 			$(document).ready(function(){
 				$("#categoria").change(function(){
@@ -25,8 +26,10 @@
 			});
 		</script>
 <?php
+header('Content-Type: text/html; charset=utf-8');
 error_reporting(E_PARSE);
 $qry1=mysqli_query($link,"SELECT idcatego, categodesc FROM actividades.man_categoria");
+$link->set_charset("utf8");
 $opciones = '<option value="0">Elige una categoria</option>'; 
 while($row1=mysqli_fetch_array($qry1)){
 	$opciones.='<option value="'.$row1["idcatego"].'">'.$row1["categodesc"].'</option>';

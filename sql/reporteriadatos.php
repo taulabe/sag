@@ -1,10 +1,12 @@
 <?php
-include("conexion.php");
+include("conexion.php"); // Incluir archivo de conexión
+$link = Conectarse(); //
+header('Content-Type: application/json'); // Aseg
 
-$link = Conectarse();
 error_reporting(E_ALL); // Habilitar todos los errores para depuración
 
 $identificador = $_POST['identificador'] ?? null; // Manejar el caso de $_POST['identificador'] no definido
+header('Content-Type: application/json');
 
 switch ($identificador) {
     case 1:
@@ -68,13 +70,30 @@ switch ($identificador) {
         mysqli_free_result($result);
         mysqli_close($link);
 
-       
-        echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        
-        break;
+//FUNCION MAGICA PARA REPARAR ARREGLOS UTF8 A JSON
+function fix_utf8($value) {
+    if (is_array($value)) {
+        foreach ($value as $key => $val) {
+            $value[$key] = fix_utf8($val);
+        }
+        return $value;
+    } elseif (is_string($value)) {
+        return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+    } else {
+        return $value;
+    }
+}
 
-    default:
-        die('Identificador no válido.');
-        break;
+
+
+$data_fixed = array_map('fix_utf8', $data);
+
+       
+$json = json_encode($data_fixed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+if ($json === false) {
+    echo json_last_error_msg(); // Mostrar el mensaje de error de JSON si falla la codificación
+} else {
+    echo $json;
+}
 }
 ?>

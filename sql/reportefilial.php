@@ -3,6 +3,9 @@ include("conexion.php"); // Incluir archivo de conexión
 $link = Conectarse();
 header('Content-Type: application/json'); // Asegurarse de que la respuesta tenga el tipo de contenido correcto
 
+
+error_reporting(E_ALL); 
+
 // Seleccionar la base de datos
 $db_selected = mysqli_select_db($link, 'actividades');
 if (!$db_selected) {
@@ -45,5 +48,30 @@ while ($row = mysqli_fetch_assoc($result)) {
 mysqli_free_result($result);
 mysqli_close($link);
 
-echo json_encode($data);
+//FUNCION MAGICA PARA REPARAR ARREGLOS UTF8 A JSON
+function fix_utf8($value) {
+    if (is_array($value)) {
+        foreach ($value as $key => $val) {
+            $value[$key] = fix_utf8($val);
+        }
+        return $value;
+    } elseif (is_string($value)) {
+        return mb_convert_encoding($value, 'UTF-8', 'UTF-8');
+    } else {
+        return $value;
+    }
+}
+
+
+
+$data_fixed = array_map('fix_utf8', $data);
+
+       
+$json = json_encode($data_fixed, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
+if ($json === false) {
+    echo json_last_error_msg(); // Mostrar el mensaje de error de JSON si falla la codificación
+} else {
+    echo $json;
+}
+
 ?>

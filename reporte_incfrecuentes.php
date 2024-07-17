@@ -52,7 +52,7 @@
         <h3 class="mt-4 mb-0"><strong> Incidentes Más Frecuentes</h3></strong>
       </div>
       <div class="col-md-4 text-right">
-        <button id="descargar_pdf" class="btn btn-danger"><i class="fas fa-file-pdf"></i></button>
+      <a id="descargar_pdf" target=""class="btn btn-danger ml-2"><i class="fa-solid fa-file-pdf"></i></a>
       </div>
     </div>
 
@@ -60,6 +60,7 @@
       <thead class="thead-light">
         <tr>
           <th>Categoria de Incidente</th>
+          <!-- <th>Descripcion de Incidente</th> -->
           <th>Cantidad</th>
         </tr>
       </thead>
@@ -77,6 +78,7 @@
   <script src="js/typeahead_bundle.js"></script>
   <script src="/table/js/bootstrap-table-expandable.js"></script>
   <script src="fontawesome/js/all.min.js"></script>
+
   <script src="js/reporte_infrecu.js"></script>
 </body>
 </html>

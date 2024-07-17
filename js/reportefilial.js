@@ -71,6 +71,7 @@ $(document).ready(function() {
             dataType: 'json',
             data: { filial: filial },
             success: function(data) {
+                console.log(data); 
                 tablaIncidentes.clear().draw();
 
                 if (data.length > 0) {

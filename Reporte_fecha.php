@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="css/sortable.css">
   <link rel="stylesheet" href="css/typeahead.css">
   <link rel="stylesheet" href="fontawesome/css/all.min.css">
+  
   <!-- CSS de DataTables -->
   <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
   <style type="text/css">
@@ -55,11 +56,11 @@
       <div class="col-md-10">
         <div class="row">
           <div class="col-md-3">
-            <h3><strong>Fecha inicio:</h4></strong> 
+            <h3><strong>Fecha inicio:</h3></strong> 
             <input type="date" id="fecha_inicio" class="form-control" required>
           </div>
           <div class="col-md-3">
-            <h3><strong>Fecha final:</h4></strong>
+            <h3><strong>Fecha final:</h3></strong>
             <input type="date" id="fecha_final" class="form-control" required>
           </div>
           <div class="col-md-1 d-flex align-items-end" style="margin-top: 66px;">
@@ -109,52 +110,62 @@
   <script src="/table/js/bootstrap-table-expandable.js"></script>
   <script src="fontawesome/js/all.min.js"></script>
   <script src="js/reporteria.js"></script> <!-- Archivo JS para manejar la lógica del lado del cliente -->
-  <script>
-    // document.getElementById('buscar').addEventListener('click', function() {
-    //   var fechaInicio = document.getElementById('fecha_inicio').value;
-    //   var fechaFinal = document.getElementById('fecha_final').value;
-    //   var btnimp =   document.getElementById('btnpdf');
+  <!-- <script>
+    document.getElementById('buscar').addEventListener('click', function() {
+      var fechaInicio = document.getElementById('fecha_inicio').value;
+      var fechaFinal = document.getElementById('fecha_final').value;
+      var btnimp = document.getElementById('descargar_pdf');
 
-     
+      console.log("Fecha de inicio:", fechaInicio);
+      console.log("Fecha final:", fechaFinal);
 
-    //   $.ajax({
-    //     url: 'reporteriadatos.php',
-    //     type: 'POST',
-    //     data: {
-    //       identificador: 1,
-    //       FechaI: fechaInicio,
-    //       FechaF: fechaFinal
-    //     },
-    //     success: function(response) {
-    //       var data = JSON.parse(response);
-    //       var tbody = document.getElementById('body_table');
-    //       tbody.innerHTML = '';
+      $.ajax({
+        url: 'sql/reporteriadatos.php',
+        type: 'POST',
+        data: {
+          identificador: 1,
+          FechaI: fechaInicio,
+          FechaF: fechaFinal
+        },
+        success: function(response) {
+          console.log("Respuesta del servidor:", response);
+          try {
+            var data = JSON.parse(response);
+            var tbody = document.getElementById('body_table');
+            tbody.innerHTML = '';
 
-    //       data.forEach(function(row) {
-    //         var tr = document.createElement('tr');
-    //         tr.innerHTML = '<td>' + row.idincidente + '</td>' +
-    //                        '<td>' + row.cliente + '</td>' +
-    //                        '<td>' + row.inc_finicio + '</td>' +
-    //                        '<td>' + row.inc_ffinal + '</td>' +
-    //                        '<td>' + row.problema + '</td>' +
-    //                        '<td>' + row.status + '</td>' +
-    //                        '<td>' + row.categoria + '</td>' +
-    //                        '<td>' + row.subcategoria + '</td>';
-    //         tbody.appendChild(tr);
-    //       });
+            if (Array.isArray(data) && data.length > 0) {
+              data.forEach(function(row) {
+                var tr = document.createElement('tr');
+                tr.innerHTML = '<td>' + row.idincidente + '</td>' +
+                               '<td>' + row.cliente + '</td>' +
+                               '<td>' + row.inc_finicio + '</td>' +
+                               '<td>' + row.inc_ffinal + '</td>' +
+                               '<td>' + row.problema + '</td>' +
+                               '<td>' + row.status + '</td>' +
+                               '<td>' + row.categoria + '</td>' +
+                               '<td>' + row.subcategoria + '</td>';
+                tbody.appendChild(tr);
+              });
 
-    //       document.getElementById('tabla_oculta').style.display = 'block';
-        
-          
-    //     },
-    //     error: function(xhr, status, error) {
-    //       console.error('Error en la solicitud:', status, error);
-    //     }
-    //   });
-
-    //   btnimp.style.display='block';
-    // });
-
-  </script>
+              document.getElementById('tabla_oculta').style.display = 'block';
+              btnimp.style.display = 'block';
+            } else {
+              console.log('No se encontraron datos para las fechas seleccionadas.');
+              alert('No se encontraron datos para las fechas seleccionadas.');
+            }
+          } catch (e) {
+            console.error('Error al parsear el JSON:', e);
+            console.error('Respuesta recibida:', response);
+            alert('Error al cargar datos.');
+          }
+        },
+        error: function(xhr, status, error) {
+          console.error('Error en la solicitud:', status, error);
+          alert('Error al cargar datos.');
+        }
+      });
+    });
+  </script> -->
 </body>
 </html>

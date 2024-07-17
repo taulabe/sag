@@ -38,7 +38,7 @@
         window.onload = () => {
             // Reemplaza estos valores con los recuperados de la base de datos
             const fechaAsignada = "<?php echo $fecha_asignada; ?>";
-            const tiempoEstimado = <?php echo $tiempo_estimado; ?>;
+            const tiempoEstimado = <?php echo $tiempoestimado; ?>;
 
             iniciarCronometro(fechaAsignada, tiempoEstimado);
         };

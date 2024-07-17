@@ -60,7 +60,7 @@ class PDF extends FPDF {
         $this->SetFont('','B');
         
         // Ajuste de anchos de las columnas
-        $w = array(60, 100, 60, 60);
+        $w = array(40, 60, 40, 40, 380, 40, 46); // Ajustar los anchos según sea necesario
         
         // Encabezados
         for($i = 0; $i < count($header); $i++) {
@@ -76,11 +76,13 @@ class PDF extends FPDF {
         $fill = false;
         foreach($data as $row) {
             $this->Cell($w[0], 6, $row['idincidente'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[1], 6, $row['asigfecha'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[2], 6, $row['tecnombres'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[3], 6, $row['clinombres'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[1], 6, $row['asig_fecha'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[2], 6, $row['nombre_tecnico'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[3], 6, $row['nombre_cliente'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[4], 6, $row['descripcion'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[5], 6, $row['tiempoestimado'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[6], 6, $row['inc_tgestionado'], 'LR', 0, 'L', $fill);
             $this->Ln();
-
             $fill = !$fill;
         }
 
@@ -89,7 +91,7 @@ class PDF extends FPDF {
     }
 }
 
-// Obtener datos de la consulta de incidentes frecuentes
+// Obtener datos de la consulta de incidentes
 $link = Conectarse();
 $db_selected = mysqli_select_db($link, 'actividades');
 if (!$db_selected) {
@@ -99,42 +101,44 @@ if (!$db_selected) {
 
 if ($idtecnico === 'todos') {
     $query = "SELECT
-        inc.idincidente AS idincidente,
-        IFNULL((SELECT tec.asig_fecha 
-                FROM inf_inc_tecnico tec 
-                WHERE inc.idincidente = tec.idincidente 
-                LIMIT 1), '0000-00-00 00:00:00.000000') AS asigfecha,
-        v_tecnicos.tecnombres,
-        usr_clientes1.clinombres,
-        inc.incdesc
+        i.idincidente,
+        at.asig_fecha,
+        t.clinombres AS nombre_tecnico,
+        c.clinombres AS nombre_cliente,
+        i.incdesc AS descripcion,
+        p.tiempoestimado,
+        i.inc_tgestionado
     FROM
-        inf_incidentes inc
+        inf_incidentes i
     JOIN
-        inf_inc_tecnico tec ON inc.idincidente = tec.idincidente
+        inf_inc_tecnico at ON i.idincidente = at.idincidente
     JOIN
-        v_tecnicos ON tec.idtecnico = v_tecnicos.idtecnico
+        usr_clientes1 t ON at.idtecnico = t.idcliente
     JOIN
-        usr_clientes1 ON inc.idcliente = usr_clientes1.idcliente";
+        usr_clientes1 c ON i.idcliente = c.idcliente
+    JOIN
+        man_problema p ON i.idproblema = p.idproblema";
 } else {
     $query = "SELECT
-        inc.idincidente AS idincidente,
-        IFNULL((SELECT tec.asig_fecha 
-                FROM inf_inc_tecnico tec 
-                WHERE inc.idincidente = tec.idincidente 
-                LIMIT 1), '0000-00-00 00:00:00.000000') AS asigfecha,
-        v_tecnicos.tecnombres,
-        usr_clientes1.clinombres,
-        inc.incdesc
+        i.idincidente,
+        at.asig_fecha,
+        t.clinombres AS nombre_tecnico,
+        c.clinombres AS nombre_cliente,
+        i.incdesc AS descripcion,
+        p.tiempoestimado,
+        i.inc_tgestionado
     FROM
-        inf_incidentes inc
+        inf_incidentes i
     JOIN
-        inf_inc_tecnico tec ON inc.idincidente = tec.idincidente
+        inf_inc_tecnico at ON i.idincidente = at.idincidente
     JOIN
-        v_tecnicos ON tec.idtecnico = v_tecnicos.idtecnico
+        usr_clientes1 t ON at.idtecnico = t.idcliente
     JOIN
-        usr_clientes1 ON inc.idcliente = usr_clientes1.idcliente
+        usr_clientes1 c ON i.idcliente = c.idcliente
+    JOIN
+        man_problema p ON i.idproblema = p.idproblema
     WHERE
-        tec.idtecnico = '$idtecnico'";
+        at.idtecnico = '$idtecnico'";
 }
 
 $result = mysqli_query($link, $query);
@@ -152,7 +156,7 @@ mysqli_free_result($result);
 mysqli_close($link);
 
 // Definir las dimensiones de 'A0'
-$ancho = 320; // Ancho en mm
+$ancho = 660; // Ancho en mm
 $alto = 341; // Alto en mm
 
 // Crear el PDF con el nombre del técnico
@@ -161,7 +165,7 @@ $pdf->SetFont('Arial', '', 12);
 $pdf->AddPage();
 
 // Encabezados de la tabla
-$header = array('ID Incidente', 'Fecha Asignado', 'Tecnico Asignado', 'Cliente');
+$header = array('ID Incidente', 'Fecha Asignado', 'Tecnico Asignado', 'Cliente', 'Descripción', 'Tiempo Estimado', 'Tiempo Gestionado');
 $pdf->FancyTable($header, $data);
 
 $pdf->Output();
