@@ -119,6 +119,7 @@ if ($idrol == 3 || $idrol == 4){
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="Perfil.php">Perfil</a></li>
+                        <li><a href="Manuales.php">Información</a></li>
                         <!-- <li><a href="contraseña.php">Contrase&ntilde;a</a></li> -->
                         <!-- <li><a href="#">Otros</a></li> -->
                         <li class="divider"></li>
@@ -130,7 +131,7 @@ if ($idrol == 3 || $idrol == 4){
     </div>
 </nav>
 <?php } else if ($_SESSION["rol"] == 2) { ?>
-<nav class="navbar navbar-default navbar-fixed-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
@@ -138,8 +139,8 @@ if ($idrol == 3 || $idrol == 4){
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
-             </button>
-             <a href="#"><img class="logotipo" src="img/logo2.png" style="width: 150px;"></a>
+            </button>
+            <a href="#"><img class="logotipo" src="img/logo2.png" style="width: 150px;"></a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-1">
             <ul class="nav navbar-nav navbar-right">
@@ -149,57 +150,28 @@ if ($idrol == 3 || $idrol == 4){
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="procesos.php?a=<?php echo md5(3);?>">Agregar incidente</a></li>
+                        <!-- <li><a href="procesos.php?a=<?php echo md5(5);?>">Agregar soluci&oacute;n</a></li> -->
                         <li class="divider"></li>
                         <li><a href="procesos.php?a=<?php echo md5(1);?>">Ver incidentes</a></li>
                         <li><a href="procesos.php?a=<?php echo md5(2);?>">Historial de incidentes</a></li>
                     </ul>
                 </li>
-                <li class="dropdown">
+                <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Reportes <span class="caret"></span>
-            
+                        Administrar <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown dropdown-submenu">
-                                <li><a href="Reporte_fecha.php" >Incidentes por fecha</a></li>
-                                <li><a href="reporteinc_tecnico.php">Incidentes por técnico</a></li>
-                                <li><a href="reporte_incfrecuentes.php">Incidentes frecuentes</a></li>
-                            
-                        </li>
+                        <li><a href="tecnicos_th.php">Tecnicos</a></li>
+                    </ul>
+                </li> -->
                 <!-- <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
                         Reportes <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 1</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 2</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 3</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 4</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
+                        <li><a href="Reporte_fecha.php">Incidentes por fecha</a></li>
+                        <li><a href="reporteinc_tecnico.php">Incidentes por técnico</a></li>
+                        <li><a href="reporte_incfrecuentes.php">Incidentes frecuentes</a></li>
                     </ul>
                 </li> -->
                 <li class="dropdown">
@@ -207,9 +179,8 @@ if ($idrol == 3 || $idrol == 4){
                         <strong>Usuario:</strong> <?php echo $_SESSION["login"]; ?> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Perfil</a></li>
-                        <li><a href="#">Contrase&ntilde;a</a></li>
-                        <li><a href="#">Otros</a></li>
+                        <li><a href="Perfil.php">Perfil</a></li>
+                        <li><a href="manualusuario.php">Información</a></li>
                         <li class="divider"></li>
                         <li><a href="salir.php">Salir</a></li>
                     </ul>
@@ -218,6 +189,7 @@ if ($idrol == 3 || $idrol == 4){
         </div>
     </div>
 </nav>
+
 <?php } else { 
 if ($_SESSION["rol"] == 1) { ?>
 <nav class="navbar navbar-default navbar-fixed-top">
@@ -307,8 +279,8 @@ if ($_SESSION["rol"] == 1) { ?>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="Perfil.php">Perfil</a></li>
-                        <!-- <li><a href="#">Contrase&ntilde;a</a></li>
-                        <li><a href="#">Otros</a></li> -->
+                         <li><a href="Manuales.php">Información</a></li>
+                        <!-- <li><a href="#">Otros</a></li> --> 
                         <li class="divider"></li>
                         <li><a href="salir.php">Salir</a></li>
                     </ul>

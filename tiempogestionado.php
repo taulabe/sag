@@ -4,7 +4,7 @@ include("conexion.php");
 $link = Conectarse(); // Conectar a la base de datos
 
 $e = $row['idestatus'];
-$interval_format = '%a dias %H horas %I minutos %S segundos';
+$interval_format = '%a dias %H horas %I min %S seg';
 $time_managed = '';
 
 if ($e >= 9 && $e <= 10) { 

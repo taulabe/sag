@@ -276,7 +276,7 @@ $a = $_GET['a'];
 <tr class="dl-horizontal">
 
 <?php
-$tiempoEstimadoSegundos = $row['tiempoestimado'] * 3600; // Si 'tiempo_estimado' está en horas
+$tiempoEstimadoSegundos = $row['tiempoestimado'] * 3600; // Si 'tiempoestimado' está en horas
 ?>
 
 <td class="text-right"><strong>Tiempo Estimado:</strong></td>
@@ -308,13 +308,14 @@ $tiempoEstimadoSegundos = $row['tiempoestimado'] * 3600; // Si 'tiempo_estimado'
                 enviarAlerta(mensaje);
                 alertSent = true; // Evitar múltiples envíos
             }
-        } else if (remainingTime <= 1800 && !alertSent) {
-            // Enviar alerta si el tiempo restante es menor a 30 minutos (1800 segundos)
+        } else {
+            if (remainingTime <= 1800 && !alertSent) {
+                // Enviar alerta si el tiempo restante es menor a 30 minutos (1800 segundos)
                 console.log("Tiempo estimado a punto de terminar, enviando alerta...");
-                let mensaje = `El tiempo estimado para el incidente con ID ${parametroI} esta a punto de terminar.`;
+                let mensaje = `El tiempo estimado para el incidente con ID ${parametroI} está a punto de terminar.`;
                 enviarAlerta(mensaje);
                 alertSent = true; // Evitar múltiples envíos
-            
+            }
 
             var hours = Math.floor(remainingTime / 3600);
             var minutes = Math.floor((remainingTime % 3600) / 60);
@@ -333,7 +334,7 @@ $tiempoEstimadoSegundos = $row['tiempoestimado'] * 3600; // Si 'tiempo_estimado'
         $.ajax({
             url: 'correo.php',  // URL a la que haces la solicitud
             method: 'POST',
-            data: { mensaje: mensaje },  // Método de la solicitud (GET, POST, etc.)
+            data: { mensaje: mensaje },  // Datos que se envían con la solicitud
             success: function(data) {
                 // Manejar la respuesta exitosa
                 console.log(data);
@@ -351,41 +352,22 @@ $tiempoEstimadoSegundos = $row['tiempoestimado'] * 3600; // Si 'tiempo_estimado'
                     });
                 }
             },
-            
-        error: function(jqXHR, textStatus, errorThrown) {
-            // Manejar errores de la solicitud
-            console.error('Error al realizar la solicitud:', textStatus, errorThrown);
-            Swal.fire({
-                title: "Ocurrió un error",
-                text: "Error al realizar la solicitud: " + textStatus,
-                icon: "error"
-            });
-        }
-    });
-}
-    setInterval(updateCronometro, 1000); // Actualizar el cronómetro cada segundo -->
+            error: function(jqXHR, textStatus, errorThrown) {
+                // Manejar errores de la solicitud
+                console.error('Error al realizar la solicitud:', textStatus, errorThrown);
+                Swal.fire({
+                    title: "Ocurrió un error",
+                    text: "Error al realizar la solicitud: " + textStatus,
+                    icon: "error"
+                });
+            }
+        });
+    }
 
-
-
-        // var xhr = new XMLHttpRequest();
-        // xhr.open("POST", "enviomail.php", true);
-        // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        // xhr.onreadystatechange = function() {
-        //     if (xhr.readyState === 4) {
-        //         if (xhr.status === 200) {
-        //             console.log("Alerta enviada correctamente: " + xhr.responseText);
-        //         } else {
-        //             console.log("Error al enviar la alerta: " + xhr.status + " - " + xhr.statusText);
-        //         }
-        //     }
-        // };
-        // console.log("Enviando solicitud de alerta al servidor...");
-        // xhr.send("incident_id=<?php echo $row['id_incidente']; ?>");
-    
-
-    setInterval(updateCronometro, 1000);
+    setInterval(updateCronometro, 1000); // Actualizar el cronómetro cada segundo
     updateCronometro();
 </script>
+
 
   </tr>
   <td class="text-right"><strong>Sub-Categoria:</strong></td>
@@ -427,7 +409,7 @@ if (!$row) {
 }
 
 // Convierte el tiempo estimado en segundos
-list($horas, $minutos, $segundos) = explode(':', $row['tiempo_estimado']);
+list($horas, $minutos, $segundos) = explode(':', $row['tiempoestimado']);
 $tiempoEstimadoSegundos = $horas * 3600 + $minutos * 60 + $segundos;
 ?>
           

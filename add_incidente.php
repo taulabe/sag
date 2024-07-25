@@ -1,4 +1,5 @@
 <?php 
+header('Content-Type: text/html; charset=utf-8');
 session_start();								// Inicio de variables de sesion
 include("sql/conexion.php");
 $link=Conectarse();								// Conexion a la base de datos

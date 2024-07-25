@@ -1,4 +1,5 @@
 <?php
+header('Content-Type: text/html; charset=utf-8');
 require('fpdf/fpdf.php');
 include("sql/conexion.php");
 
@@ -11,7 +12,7 @@ $db_selected = mysqli_select_db($link, 'actividades');
 if (!$db_selected) {
     echo json_encode(['error' => 'No se pudo seleccionar la base de datos: ' . mysqli_error($link)]);
     exit;
-}
+}$link->set_charset("utf8");
 
 if ($idtecnico === 'todos') {
     $tecnico =  utf8_decode('Todos los Técnicos');
@@ -60,7 +61,7 @@ class PDF extends FPDF {
         $this->SetFont('','B');
         
         // Ajuste de anchos de las columnas
-        $w = array(40, 60, 40, 40, 380, 40, 46); // Ajustar los anchos según sea necesario
+        $w = array(40, 60, 40, 40, 380, 40, 80); // Ajustar los anchos según sea necesario
         
         // Encabezados
         for($i = 0; $i < count($header); $i++) {
@@ -156,7 +157,7 @@ mysqli_free_result($result);
 mysqli_close($link);
 
 // Definir las dimensiones de 'A0'
-$ancho = 660; // Ancho en mm
+$ancho = 690; // Ancho en mm
 $alto = 341; // Alto en mm
 
 // Crear el PDF con el nombre del técnico
@@ -165,7 +166,7 @@ $pdf->SetFont('Arial', '', 12);
 $pdf->AddPage();
 
 // Encabezados de la tabla
-$header = array('ID Incidente', 'Fecha Asignado', 'Tecnico Asignado', 'Cliente', 'Descripción', 'Tiempo Estimado', 'Tiempo Gestionado');
+$header = array('ID Incidente', 'Fecha Asignado', 'Tecnico Asignado', 'Cliente',utf8_decode('Descripción'), 'Tiempo Estimado', 'Tiempo Gestionado');
 $pdf->FancyTable($header, $data);
 
 $pdf->Output();
