@@ -42,13 +42,12 @@ $a = isset($_GET['a']) ? $_GET['a'] : null;
   </article>
   <!-- TABLA DE CORRELATIVOS KBD -->
   <article class="col-lg-12" style="margin-top:10px;">
-    <table cellpadding="0" cellspacing="1" border="0" align="center" width="130%" id="table" class="sortable">
+    <table cellpadding="0" cellspacing="1" border="0" align="center" width="100%" id="table" class="sortable">
       <thead>
         <tr class="encabezado">
-          <td width="25" height="10" align="center" valign="middle">#</td>
-          <td width="100" align="center" valign="middle">ID KB Solución</td>
-          <td width="100" align="center" valign="middle">Correlativo KBD</td>
-          <td width="25" align="center" valign="middle">Ver</td>
+          <td width="5%" height="10" align="center" valign="middle">#</td>
+          <td width="20%" align="center" valign="middle">ID KB Solución</td>
+          <td width="20%" align="center" valign="middle">Correlativo KBD</td>
         </tr>
       </thead>
       <tbody>
@@ -71,20 +70,11 @@ $a = isset($_GET['a']) ? $_GET['a'] : null;
           <td height="10" align="center"><?php echo $cont; ?></td>
           <td><?php echo $row1['idkbsolucion']; ?></td>
           <td><?php echo $row1['correlativokbd']; ?></td>
-          <td align="center"> 
-            <form action="procesos.php" method="get">
-              <button type="submit" class="btn btn-default btn-xs">
-                <input type="hidden" value="<?php echo $row1['idkbsolucion']; ?>" name="i" />
-                <input type="hidden" value="<?php echo md5(4); ?>" name="a" />
-                <span class="glyphicon glyphicon-wrench" title="Ver correlativo" aria-hidden="true"></span>
-              </button>
-            </form>
-          </td>
         </tr>
       <?php }
         } else { ?>
         <tr bgcolor="<?php echo $color[$cont % 2]; ?>">
-          <td colspan="4" align="center">*** No hay registros para mostrar ***</td>
+          <td colspan="3" align="center">*** No hay registros para mostrar ***</td>
         </tr>
       <?php } ?>
       </tbody>

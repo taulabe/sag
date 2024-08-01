@@ -426,7 +426,7 @@ $tiempoEstimadoSegundos = $horas * 3600 + $minutos * 60 + $segundos;
             ?>
         </td>
      </tr>
-     
+      
      <tr>
       <td class="text-right"><strong>T&eacute;cnico asignado:</strong></td>
       <td>

@@ -51,7 +51,6 @@ $a = isset($_GET['a']) ? $_GET['a'] : null;
           <td width="100" align="center" valign="middle">Creado</td>
           <td width="100" align="center" valign="middle">Modificado</td>
           <td width="200" align="center" valign="middle">Técnico</td>
-          <td width="25" align="center" valign="middle">Ver</td>
         </tr>
       </thead>
       <tbody>
@@ -77,20 +76,11 @@ $a = isset($_GET['a']) ? $_GET['a'] : null;
           <td><?php echo $row1['kbf_creado']; ?></td>
           <td><?php echo $row1['kbf_modificado']; ?></td>
           <td><?php echo $row1['tecnombres'] . ' ' . $row1['tecapellidos']; ?></td>
-          <td align="center"> 
-            <form action="procesos.php" method="get">
-              <button type="submit" class="btn btn-default btn-xs">
-                <input type="hidden" value="<?php echo $row1['idkbsolucion']; ?>" name="i" />
-                <input type="hidden" value="<?php echo md5(4); ?>" name="a" />
-                <span class="glyphicon glyphicon-wrench" title="Ver solución" aria-hidden="true"></span>
-              </button>
-            </form>
-          </td>
         </tr>
       <?php }
         } else { ?>
         <tr bgcolor="<?php echo $color[$cont % 2]; ?>">
-          <td colspan="7" align="center">*** No hay registros para mostrar ***</td>
+          <td colspan="6" align="center">*** No hay registros para mostrar ***</td>
         </tr>
       <?php } ?>
       </tbody>

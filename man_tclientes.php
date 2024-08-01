@@ -42,12 +42,11 @@ $a = isset($_GET['a']) ? $_GET['a'] : null;
   </article>
   <!-- TABLA DE TIPOS DE CLIENTES -->
   <article class="col-lg-12" style="margin-top:10px;">
-    <table cellpadding="0" cellspacing="1" border="0" align="center" width="130%" id="table" class="sortable">
+    <table cellpadding="0" cellspacing="1" border="0" align="center" width="100%" id="table" class="sortable">
       <thead>
         <tr class="encabezado">
-          <td width="25" height="10" align="center" valign="middle">#</td>
-          <td width="100" align="center" valign="middle">Tipo de Cliente</td>
-          <td width="25" align="center" valign="middle">Ver</td>
+          <td width="10%" height="10" align="center" valign="middle">#</td>
+          <td width="90%" align="center" valign="middle">Tipo de Cliente</td>
         </tr>
       </thead>
       <tbody>
@@ -69,20 +68,11 @@ $a = isset($_GET['a']) ? $_GET['a'] : null;
         <tr style="font-size:12px;" bgcolor="<?php echo $color[$cont % 2]; ?>">
           <td height="10" align="center"><?php echo $cont; ?></td>
           <td><?php echo $row1['tcliente_desc']; ?></td>
-          <td align="center"> 
-            <form action="procesos.php" method="get">
-              <button type="submit" class="btn btn-default btn-xs">
-                <input type="hidden" value="<?php echo $row1['idtcliente']; ?>" name="i" />
-                <input type="hidden" value="<?php echo md5(4); ?>" name="a" />
-                <span class="glyphicon glyphicon-wrench" title="Ver tipo de cliente" aria-hidden="true"></span>
-              </button>
-            </form>
-          </td>
         </tr>
       <?php }
         } else { ?>
         <tr bgcolor="<?php echo $color[$cont % 2]; ?>">
-          <td colspan="3" align="center">*** No hay registros para mostrar ***</td>
+          <td colspan="2" align="center">*** No hay registros para mostrar ***</td>
         </tr>
       <?php } ?>
       </tbody>
