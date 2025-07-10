@@ -99,11 +99,7 @@ $md5_3 = md5("3");      // Nuevo ticket
     Reportes
   </a>
 
-  <a  href="MenuCategorias.php"  class="menu-btn categorias">
-    <i class="fa fa-cogs"></i>
-    Categorías
-  </a>
-
+ 
   <!-- Cerrar sesión corregido -->
   <a href="salir.php" class="menu-btn cerrar">
     <i class="fa fa-times-circle"></i>

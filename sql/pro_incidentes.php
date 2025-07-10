@@ -378,58 +378,7 @@ if ($pro == md5('bit')){
 								}
 							}
 							
-							/*else{
-								/* Cerrar solucion */
-							/*	if ($pro == md5('clou')){
-									/* Bloqueo de la base de datos 
-									$di = date('Y-m-d H:i:s.u');
-									$idest = 10;
-
-									$LT = "LOCK TABLES actividades.inf_incidentes, actividades.man_kbsoluciones";
-									mysqli_query($link,$LT);
-							
-									/* Cerrar incidente ya solucionado 
-									$QAI = "UPDATE actividades.inf_incidentes
-											SET   inc_ffinal = '$di', idestatus = '$idest'
-											WHERE idincidente = '$idinc';";
-									mysqli_query($link,$QAI);
-									
-																
-									/* Enviar correo de confirmacion de cierre de incidente con solucion del tecnico
-									$texto1 = html_entity_decode("SAI - Cierre de incidente.", ENT_QUOTES, "ISO-8859-1");
-									$texto2 = html_entity_decode("El incidente ha sido cerrado por el usuario.", ENT_QUOTES, "ISO-8859-1");
-								
-									// $para = $cliemail;
-									$asunto = $texto1;
-									$mensaje = $texto2 . "\r\n" ;
-									$cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
-									'X-Mailer: PHP/' . phpversion();
-									$res4=Correo::Asignacion($cliemail, $asunto, $mensaje, $cabeceras,$usuariocorreo1,$usuariopass1);
-									
-
-									/* Desbloqueo de tablas 
-									$msj = md5('019');
-									mysqli_commit($link);						// Ejecucion de COMMIT
-									mysqli_query($link,'UNLOCK TABLES');		// Desbloqueo de tablas
-									mysqli_close($link);						// Cerrar la conexion a la base de datos
-									header ("Location: ../procesos.php?a=a87ff679a2f3e71d9181a67b7542122c&i=$idinc&msj=$msj");
-									*/
-							/*		$mensaje ="
-									<html>
-									  <body>
-											<p>Estimado(a)  , El incidente ha sido cerrado por {$rtec['nomtecnico']}.</p>
-											<img src='https://enlinea.cooperativataulabe.hn/TaulabeWeb/resources/images/apa2.png' alt='Logo' width='150'><br><br>
-									
-									  </body>
-									</html>
-									";
-									$email = 'sai@cooperativataulabe.hn';
-									$password = 'Temporal0101';
-									$asunto = 'CIERRE DE TICKET';
-									$para =  'depto_TIC@cooperativataulabe.hn';
-									$resultado = Correo:: enviarAlerta($mensaje, $email, $password, $asunto,$para );
-			
-								}*/
+					
 								 else{
 									/* Asignacion de cliente al incidente */
 									if ($pro == md5('cli')){

@@ -128,36 +128,7 @@ $a = 'a87ff679a2f3e71d9181a67b7542122c';
           </table>
           <input type="hidden" name="pro" value="<?php echo md5('akb');?>">
           <input type="hidden" name="id" value="<?php echo $id;?>">
-          <div class="botones_i">
-          <?php 
-            if ( $kbc == 0 ){ ?>
-              <a class="btn btn-default btn-sm" href="procesos.php?i=<?php echo $id;?>&a=<?php echo md5(6);?>&b=<?php echo $row['idcategoria']?>&c=<?php echo $row['idsubcategoria']?>&d=<?php echo $row['idproblema']?>" role="button"><span class="glyphicon glyphicon-plus" style="margin-right:7px;"></span>Agregar Soluci&oacute;n</a>
-          <?php 
-				    } else{
-					    if( $kbc > 0 ){
-						    if($row['idkbsolucion'] == '-- sin asignar --'){		
-				  ?>			
-                	<a class="btn btn-default btn-sm" href="procesos.php?i=<?php echo $id;?>&a=<?php echo md5(6);?>&b=<?php echo $row['idcategoria']?>&c=<?php echo $row['idsubcategoria']?>&d=<?php echo $row['idproblema']?>" role="button">
-                    <span class="glyphicon glyphicon-plus" style="margin-right:7px;"></span>Agregar Soluci&oacute;n
-                  </a>
-                	<button type="submit" class="btn btn-default btn-sm" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;">
-                    <span class="glyphicon glyphicon-share" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;"></span>Asignar Soluci&oacute;n
-                  </button>
-          <?php 
-						    }
-						    if($row['idkbsolucion'] <> '-- sin asignar --'){	?>
-                  <a class="btn btn-default btn-sm disabled" href="procesos.php?a=<?php echo md5(6);?>&b=<?php echo $row['idcategoria']?>&c=<?php echo $row['idsubcategoria']?>&d=<?php echo $row['idproblema']?>" role="button">
-                    <span class="glyphicon glyphicon-plus" style="margin-right:7px;"></span>Agregar Soluci&oacute;n
-                  </a>
-                  <button type="submit" class="btn btn-default btn-sm" disabled="disabled" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;">
-                    <span class="glyphicon glyphicon-share" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;"></span>Asignar Soluci&oacute;n
-                  </button>
-				  <?php
-                }
-					    }
-				    }
-				  ?>
-          </div>
+    
         </form>
     	</div>
 	  </article>
