@@ -11,7 +11,9 @@ $link=Conectarse();
 	$sc = $_POST['subcate'];
 	$d = $_POST['descrip'];
 	$di = date('Y-m-d H:i:s.u');
-	$df = date('0000-00-00 00:00:00.000000');
+	$df = date('0000-01-01 00:00:00.000000
+        
+        ');
 	$idu=$_SESSION["id"];
 	$ids=5;
 // selecciona variable idcliente

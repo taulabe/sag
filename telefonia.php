@@ -53,7 +53,7 @@
     </section>
   </div>
   <footer>
-    <div class="container-fluid"> David E. P&eacute;rez &copy 2016 | Departamento de Tecnolog&iacute;a | <a target="_blank" style="text-decoration:none; color:#FFF;" href="http://www.cooperativataulabe.hn">www.cooperativataulabe.hn</a></div>
+    <div class="container-fluid"> &copy 2025| Departamento de Tecnolog&iacute;a | <a target="_blank" style="text-decoration:none; color:#FFF;" href="http://www.cooperativataulabe.hn">www.cooperativataulabe.hn</a></div>
   </footer>
 </body>
 </html>

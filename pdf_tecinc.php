@@ -103,7 +103,9 @@ if (!$db_selected) {
         IFNULL((SELECT tec.asig_fecha 
                 FROM inf_inc_tecnico tec 
                 WHERE inc.idincidente = tec.idincidente 
-                LIMIT 1), '0000-00-00 00:00:00.000000') AS asigfecha,
+                LIMIT 1), '0000-01-01 00:00:00.000000
+        
+        ') AS asigfecha,
         v_tecnicos.tecnombres,
         usr_clientes1.clinombres,
         inc.incdesc

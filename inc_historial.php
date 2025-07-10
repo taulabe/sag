@@ -2,16 +2,16 @@
     <article class="col-lg-12" style="margin-top:10px;">
       <table cellpadding="0" cellspacing="1" border="0" align="center" width="130%" id="table" class="sortable">
         <thead>
-          <tr class="encabezado">
+        <tr class="encabezado" style="background-color: #0a3d86;font-size: 12px; font-weight: bold;">
             <td width="25" height="10" align="center" valign="middle">#</td>
-            <td width="50" align="center" valign="middle">Prioridad</td>
-            <td width="100" align="center" valign="middle">Categor&iacute;a</td>
-            <td width="150" align="center" valign="middle">Sub-Categor&iacute;a</td>
-            <td width="80" align="center" valign="middle">Nombre Usuario</td>
-            <td width="80" align="center" valign="middle">Asignado a</td>
-            <td width="60" align="center" valign="middle">Estatus</td>
-            <td width="70" align="center" valign="middle">Fecha Creado</td>
-            <td width="25" align="center" valign="middle">Ver</td>
+            <td width="50" align="center" valign="middle">PRIORIDADDD</td>
+            <td width="100" align="center" valign="middle">CATEGORIA</td>
+            <td width="150" align="center" valign="middle">SUBCATEGORIA</td>
+            <td width="80" align="center" valign="middle">ENVIADO POR 2</td>
+            <td width="80" align="center" valign="middle">TECNICO</td>
+            <td width="60" align="center" valign="middle">ESTADO</td>
+            <td width="70" align="center" valign="middle">CREACION</td>
+            <td width="25" align="center" valign="middle"></td>
           </tr>
         </thead>
         <tbody>
@@ -20,7 +20,7 @@
     $filial = $_GET['Filial'];
     $id = $_SESSION["id"];
     $idrol = $_SESSION["rol"];
-    $color=array("#ffffff","#F0F0F0");
+    $color=array("#ffffff","#ffffff");
     $contador=0;
     $suma=0;
     $num=0;
@@ -51,7 +51,7 @@
     ?>
           <tr bgcolor="<?php echo $color[$cont%2]; ?>">
             <td height="10" align="center"><?php echo $cont;?></td>
-            <td align="center">
+            <td align="center" style="font-size:14px;">
         <?php echo $row1['descprioridad']; ?>
               <?php
           $p=$row1['idprioridad'];
@@ -68,18 +68,19 @@
           }
         ?>
             </td>
-            <td><?php echo $row1['categodesc']; ?></td>
-            <td><?php echo $row1['scategodesc']; ?></td>
-            <td><?php echo $nombre = $row1['clinombres'].' '.$row1['cliapellidos']; ?></td>
+            <td style="font-size:14px;"><?php echo $row1['categodesc']; ?></td>
+            <td style="font-size:14px;"><?php echo $row1['scategodesc']; ?></td>
+            <td style="font-size:14px;"><?php echo $nombre = $row1['clinombres'].' '.$row1['cliapellidos']; ?></td>
 
-              <?php
-              if($row1['idestatus'] == 5){
-                echo "<td align=\"center\"><strong>".$row1['tecnicoasig']."</strong></td>";
-              } else{
-                echo "<td align=\"center\">".$row1['tecnicoasig']."</td>";
-              }
-              ?>
-            <td align="center">
+            <?php
+if($row1['idestatus'] == 5){
+    echo "<td align=\"center\" style=\"font-size:14px;\"><strong>".$row1['tecnicoasig']."</strong></td>";
+} else {
+    echo "<td align=\"center\" style=\"font-size:14px;\">".$row1['tecnicoasig']."</td>";
+}
+?>
+
+            <td align="center" style="font-size:14px;">
               
               <?php echo $row1['estdesc']; 
                 $e=$row1['idestatus']; 
@@ -97,7 +98,7 @@
               <button type="submit" class="btn btn-default btn-xs">
                   <input type="hidden" value="<?php echo $row1['idincidente']; ?>" name="i" />
                   <input type="hidden" value="<?php echo md5(4);?>" name="a" />
-            <span class="glyphicon glyphicon-eye-open" title="Ver insidente" aria-hidden="true"></span>
+            <span class="glyphicon glyphicon-eye-open" title="Ver incidente" aria-hidden="true"></span>
         </button>
                 </form>
             </td>

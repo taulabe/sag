@@ -70,15 +70,14 @@
         <div class="container-fluid cuerpo_prin" style="padding-top:60px;">
           <section class="main">
             <article>
-              <div style="font-size:16px;">
-         <strong>Listado de Incidentes Actuales</strong>
+            <div style="font-size:20px;color:green; text-align:center;">
+         <strong>LISTADO DE INCIDENTES</strong>
          <a id="descargar_pdf" target="_blank" class="btn btn-danger ml-2" idsql="<?php echo $_SESSION["id"];?>">
     <i class="fa-solid fa-file-pdf"></i> 
 </a>
 
 </div>
 
-              <div style="font-size:12px;">Help Desk \ Incidentes</div>
             </article>
             <?php include ("inc_listado.php");?>
           </section>
@@ -89,8 +88,7 @@
         <div class="container-fluid cuerpo_prin" style="padding-top:60px;">
           <section class="main">
             <article>
-              <div style="font-size:16px;"><strong>Historial de Incidentes Gestionados</strong></div>
-              <div style="font-size:12px;">Help Desk \ Historial</div>
+            <div style="font-size:20px;color:#0a3d86; text-align:center;"><strong>HISTORIAL DE INCIDENTES</strong></div>
             </article>
             <?php include ("inc_historial.php");?> 
           </section>
@@ -101,8 +99,7 @@
         <div class="container cuerpo_prin" style="padding-top:60px;">
           <section class="main row">
             <article>
-              <div style="font-size:16px;"><strong>Agregar Incidente Nuevo</strong></div>
-              <div style="font-size:12px;">Help Desk \ Agregar incidente</div>
+             
             </article>
             <?php include ("inc_agregar.php");?>
           </section>
@@ -113,8 +110,7 @@
         <div class="container cuerpo_prin" style="padding-top:60px;">
           <section class="main row">
             <article>
-              <div style="font-size:16px;"><strong>Detalle de Incidente <?php echo $_GET['i'];?></strong></div>
-              <div style="font-size:12px;">Help Desk \ Ver incidente</div>
+            <div style="font-size:20px; text-align:center;"><strong>DETALLE DE INCIDENTE</strong></div>
             </article>
             <?php include ("inc_detalle.php");?>
           </section>
@@ -125,10 +121,9 @@
         <div class="container cuerpo_prin" style="padding-top:60px;">
           <section class="main row">
             <article>
-              <div style="font-size:16px;"><strong>Agregar Knowledge Base</strong></div>
-              <div style="font-size:12px;">Help Desk \ Agregar solucion</div>
+            <div style="font-size:18px;color:#0a3d86; text-align:center;"><strong>AGREGAR BASE DE CONOCIMIENTO</strong></div>
             </article>
-            <?php include ("kbs_agregar.php");?>
+            <?php include ("kbs_agregar.php");?> 
           </section>
         </div>
       <?php }?>
@@ -137,8 +132,7 @@
         <div class="container cuerpo_prin" style="padding-top:60px;">
           <section class="main row">
             <article>
-              <div style="font-size:16px;"><strong>Agregar Knowledge Base</strong></div>
-              <div style="font-size:12px;">Help Desk \ Agregar solucion</div>
+            <div style="font-size:20px;color:green; text-align:center;"><strong>Agregar Base de Conocimiento</strong></div>
             </article>
             <?php include ("kbs_agregar_f.php");?>
           </section>
@@ -149,15 +143,14 @@
         <div class="container cuerpo_prin" style="padding-top:60px;">
           <section class="main row">
             <article>
-              <div style="font-size:16px;"><strong>Agregar Documento a Knowledge Base</strong></div>
-              <div style="font-size:12px;">Help Desk \ Agregar documento a KB</div>
+            <div style="font-size:20px;color:green; text-align:center;"><strong>Agregar Documento a Base de Conocimiento</strong></div>
             </article>
             <?php include ("kbd_agregar_f.php");?>
           </section>
         </div>
       <?php }?>
     <footer>
-      <div class="container-fluid">Departamento de Tecnolog&iacute;a &copy 2024 | www.cooperativataulabe.hn</div>
+      <div class="container-fluid">Departamento de Tecnolog&iacute;a | www.cooperativataulabe.hn</div>
     </footer>
   </body>
 </html>

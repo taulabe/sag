@@ -5,7 +5,7 @@
 
 
 				$qry1=mysqli_query($link,"select idcatego, categodesc from actividades.man_categorias");
-				$opciones = '<option value="0"> Elige una categoria</option>'; 
+				$opciones = '<option value="0"> Categoria</option>'; 
 				while($row1=mysqli_fetch_array($qry1)){
 					$opciones.='<option value="'.$row1["idcatego"].'">'.$row1["categodesc"].'</option>';
 	
@@ -41,7 +41,7 @@
 		<div>
 			<label> Modelo:</label>
 			<select id="subcategoria">
-				<option value="0">Elige una subcategoria</option>
+				<option value="0">Subcategoria</option>
 			</select>
 		</div>
 

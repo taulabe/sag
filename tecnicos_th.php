@@ -78,6 +78,7 @@
       $.getJSON('sql/reporteria_tecnicos.php', function(data) {
         // Iterar sobre los datos recibidos y agregar filas a la tabla
         $.each(data, function(index, row) {
+          
           var newRow = '<tr>' +
                        '<td>' + row.idtecnico + '</td>' +
                        '<td>' + row.tecnombres + '</td>' +

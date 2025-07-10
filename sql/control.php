@@ -41,7 +41,7 @@ if ($usuario == $row['cliusuario'] && $passwd == $row['clipwd']){
 		$_SESSION["idoficina"] = $idoficina;
 		$_SESSION["fecha"] = date("j/m/Y"); // Ej. 12/30/2011
 		$_SESSION['idtecnico'] = $idtecnico;
-		$_SESSION["login"] = $row['clinombres']." (".$row['cliusuario'].")";    // Ej. David Edgardo (davidp)
+		$_SESSION["login"] = $row['clinombres']." (".$row['cliusuario'].")";    // sai
 		//$D = date("D");   // Ej. Mon
 
 		header ("Location: ../procesos.php?a=c4ca4238a0b923820dcc509a6f75849b");

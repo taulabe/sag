@@ -23,7 +23,7 @@ $(document).ready(function() {
 <?php
 error_reporting(E_PARSE);
 $qry1=mysqli_query($link,"select idcatego, categodesc from actividades.man_categorias");
-$opciones = '<option value="0"> Elige una categoria</option>'; 
+$opciones = '<option value="0"> Categoria</option>'; 
 while($row1=mysqli_fetch_array($qry1)){
 	$opciones.='<option value="'.$row1["idcatego"].'">'.$row1["categodesc"].'</option>';
 }
@@ -49,13 +49,13 @@ while($row1=mysqli_fetch_array($qry1)){
       <span class="input-group-addon" id="basic-addon1">
         <span class="glyphicon glyphicon-tags"></span> 
       </span>
-      <select name="subcate" id="subcategoria" class="form-control" aria-describedby="basic-addon1"><option value="0">Elige una subcategoria</option></select>
+      <select name="subcate" id="subcategoria" class="form-control" aria-describedby="basic-addon1"><option value="0">Subcategoria</option></select>
     </div>
     <div class="input-group input-group-sm" style="margin-bottom:5px;">
       <span class="input-group-addon" id="basic-addon1">
         <span class="glyphicon glyphicon-tags"></span> 
       </span>
-      <select name="subcate" id="subcategoria" class="form-control" aria-describedby="basic-addon1"><option value="0">Elige una subcategoria</option></select>
+      <select name="subcate" id="subcategoria" class="form-control" aria-describedby="basic-addon1"><option value="0">Subcategoria</option></select>
     </div>
     <div class="input-group input-group-sm">
       <span class="input-group-addon" id="basic-addon1">

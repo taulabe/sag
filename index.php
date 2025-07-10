@@ -7,6 +7,12 @@
   <link rel="icon" type="image/png" sizes="32x32" href="img/fav_icon/favicon-96x96.png">
   <link rel="stylesheet" href="css/bootstrap.css">
   <link rel="stylesheet" href="css/login.css" />
+  
+  <style>
+    body {
+      background-color: white;
+    }
+  </style>
 </head>
 <body>
 <?php 
@@ -49,12 +55,11 @@ $err = $_GET['err'];
   </div>
 </div>
 <script src="js/jquery-1.12.3.min.js"></script>
-  <script src="js/bootstraps.js"></script>
-  <?php if($err == md5('si')){ ?>
-        Hola
-        <script>
-          $('#err').modal('show')
-        </script>
+<script src="js/bootstraps.js"></script>
+<?php if($err == md5('si')){ ?>
+    <script>
+      $('#err').modal('show')
+    </script>
 <?php } ?> 
 </body>
 </html>

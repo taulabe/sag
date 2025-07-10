@@ -14,19 +14,19 @@
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Help Desk <span class="caret"></span>
+                       Incidentes <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="procesos.php?a=<?php echo md5(3);?>">Agregar incidente</a></li>
+                        <li><a href="procesos.php?a=<?php echo md5(3);?>">Nuevo incidente</a></li>
                         <li><a href="procesos.php?a=<?php echo md5(5);?>">Agregar soluci&oacute;n</a></li>
                         <li class="divider"></li>
-                        <li><a href="procesos.php?a=<?php echo md5(1);?>">Ver incidentes</a></li>
+                        <li><a href="procesos.php?a=<?php echo md5(1);?>">Incidentes</a></li>
                         <li><a href="procesos.php?a=<?php echo md5(2);?>">Historial de incidentes</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Administrar <span class="caret"></span>
+                        administrat SAG <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu">
                         <li><a href="procesos.php?a=<?php echo md5(8);?>">Usuarios</a></li>
@@ -112,7 +112,7 @@
                 
 
             <!--</ul>-->
-            <p style="padding-right:20px;" class="navbar-text navbar-right">Powered by <a href="mailto:depto_tic@cooperativataulabe.hn?Subject=Consultas%20y%20sugerencias" target="_top" class="navbar-link">Departamento de Tecnolog&iacute;a</a></p>
+            <p style="padding-right:20px;" class="navbar-text navbar-right">Powered by <a href="mailto:depto_TIC@cooperativataulabe.hn?Subject=Consultas%20y%20sugerencias" target="_top" class="navbar-link">Departamento de Tecnolog&iacute;a</a></p>
         </div>
     </div>
 </nav> 

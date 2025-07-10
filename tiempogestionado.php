@@ -5,23 +5,37 @@ $link = Conectarse(); // Conectar a la base de datos
 
 $e = $row['idestatus'];
 $interval_format = '%a dias %H horas %I min %S seg';
-$time_managed = '';
+$time_managed = '0 dias 0 horas 0 min 0 seg'; // Valor predeterminado
 
+// Validar fechas antes de intentar el cálculo
 if ($e >= 9 && $e <= 10) { 
-    $date1 = date_create($row['inc_ftrabajado']);
-    $date2 = date_create($row['inc_ffinal']);
+    if (!empty($row['inc_ftrabajado']) && !empty($row['inc_ffinal'])) {
+        $date1 = date_create($row['inc_ftrabajado']);
+        $date2 = date_create($row['inc_ffinal']);
+    }
 } elseif ($e >= 5 && $e <= 8) { 
-    $date1 = date_create($row['inc_ftrabajado']);
-    $date2 = date_create(date('Y-m-d H:i:s'));
-} 
-
-if (isset($date1) && isset($date2)) {
-    $datetime1 = new DateTime(date_format($date1, 'Y-m-d H:i:s'));
-    $datetime2 = new DateTime(date_format($date2, 'Y-m-d H:i:s'));
-    $interval = $datetime1->diff($datetime2);
-    $time_managed = $interval->format($interval_format);
-    echo $time_managed;
+    if (!empty($row['inc_ftrabajado'])) {
+        $date1 = date_create($row['inc_ftrabajado']);
+        $date2 = new DateTime(); // Fecha actual
+    }
 }
+
+// Verificar si ambas fechas son válidas antes de calcular el intervalo
+if (isset($date1) && isset($date2)) {
+    if ($date1 instanceof DateTime && $date2 instanceof DateTime) {
+        $interval = $date1->diff($date2);
+
+        // Verificar si el intervalo supera los 365 días
+        if ($interval->days <= 365) {
+            $time_managed = $interval->format($interval_format);
+        } else {
+            $time_managed = '0 dias 0 horas 0 min 0 seg'; // Límite de 365 días
+        }
+    }
+}
+
+// Mostrar el tiempo gestionado
+echo $time_managed;
 
 // Guardar el tiempo gestionado en la base de datos
 $id = $row['idincidente']; // Suponiendo que 'id_incidente' es el identificador del incidente
@@ -37,14 +51,7 @@ if (!$db_selected) {
 }
 
 $sql = "UPDATE inf_incidentes SET inc_tgestionado='$time_managed' WHERE idincidente='$id'";
-
-
-// if (mysqli_query($link, $sql)) {
-//     echo 'console.log("Tiempo gestionado guardado exitosamente.");';
-// } else {
-//     echo 'console.log("Error al guardar el tiempo gestionado: ' . mysqli_error($link) . '");';
-// }
-
-
-// mysqli_close($link);
+if (!mysqli_query($link, $sql)) {
+    die("Error al actualizar: " . mysqli_error($link));
+}
 ?>

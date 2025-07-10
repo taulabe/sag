@@ -3,8 +3,8 @@
 session_start();
 include("conexion.php");
 
-$_POST['username'] = 'davidp';
-$_POST['password'] = 'Ogame2017*';
+$_POST['username'] = 'sai';
+$_POST['password'] = 'Temporal0101';
 
 if(isset($_POST['username']) && isset($_POST['password'])){
     echo '<br/>los campos estan llenos';

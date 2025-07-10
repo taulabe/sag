@@ -98,8 +98,8 @@ if (!isset($_SESSION['autenticado']) || $_SESSION['autenticado'] !== "SI") {
   </div>
   <div class="header-images">
     <div class="manual-item">
-      <img src="img/iconomanual.jpg" alt="Manual de Usuario">
-      <a href="pdf/Manual_Tecnico.pdf" class="manual-link" target="_blank">Manual Técnico</a>
+    <img src="img/iconomanual.jpg" alt="Manual de Usuario">
+      <a href="pdf/SAI_Manual de Usuario.pdf" class="manual-link" target="_blank">Manual de Usuario</a>
     </div>
   </div>
 </div>

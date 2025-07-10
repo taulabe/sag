@@ -24,6 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         // Llamar a la función de la clase Correo para enviar la alerta
         $respuesta=Correo::enviarAlerta($mensaje, $usuariocorreo, $usuariopass);
+
         echo $respuesta;
     } else {
         // Manejar el caso en que no se encuentren los datos de sesión

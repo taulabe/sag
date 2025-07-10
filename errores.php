@@ -82,7 +82,7 @@
         <h4 class="modal-title" style="color:#FFF;">Mensaje de Confirmaci&oacuten</h4>
       </div>
       <div class="modal-body">
-        <p><strong>MSJ-010:</strong> El incidente fue creado satisfactoriamente, puede revisar actualizaciones al ver el detalle.</p>
+        <p><strong>MSJ-010:</strong> El incidente fue creado.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -90,6 +90,37 @@
     </div>
   </div>
 </div>
+
+<script>
+// Llamar a una función cuando el modal se muestra
+<script>
+// JavaScript: Llamada a la función de PHP usando AJAX al abrir el modal #error5
+$('#error5').on('shown.bs.modal', function () {
+    // Realizar la llamada a la función `envio` en PHP mediante AJAX
+    $.ajax({
+        url: 'ruta_del_archivo_php_que_contiene_la_funcion.php',
+        type: 'POST',
+        data: {
+            action: 'envio',
+            categodesc: 'Categoria de Ejemplo',
+            scategodesc: 'Subcategoria de Ejemplo',
+            descincidente: 'Descripción del incidente',
+            email: 'tuemail@example.com',
+            pass: 'tucontraseña'
+        },
+        success: function(response) {
+            console.log("Correo enviado: " + response);
+        },
+        error: function(error) {
+            console.error("Error al enviar el correo: ", error);
+        }
+    });
+});
+</script>
+
+</script>
+
+
 <!-- La solucion fue agregada satisfactoriamente - 006 -->
 <div id="error6" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -99,7 +130,7 @@
         <h4 class="modal-title" style="color:#FFF;">Mensaje de Confirmaci&oacuten</h4>
       </div>
       <div class="modal-body">
-        <p><strong>MSJ-010:</strong> El item de knowledge base fue agregado satisfactoriamente, ahora puede asignar la solucion al incidente.</p>
+        <p><strong>MSJ-010:</strong> Guardado Existosamente.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -167,7 +198,7 @@
         <h4 class="modal-title" style="color:#FFF;">Mensaje de Confirmaci&oacuten</h4>
       </div>
       <div class="modal-body">
-        <p><strong>MSJ-010:</strong> El incidente se ha solucionado y se cerro satisfactoriamente.</p>
+        <p><strong>MSJ-010:</strong> El incidente cerrado satisfactoriamente.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -175,7 +206,7 @@
     </div>
   </div>
 </div>
-<!-- El mensaje se ha agregado correctamente -->
+<!-- El mensaje se ha agregado correctamente 
 <div id="error11" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -191,7 +222,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- El adjunto se ha agregado correctamente -->
 <div id="error12" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -218,7 +249,7 @@
         <h4 class="modal-title" style="color:#FFF;">Mensaje de Confirmaci&oacuten</h4>
       </div>
       <div class="modal-body">
-        <p><strong>MSJ-012:</strong> Se ha agregado satisfactoriamente el documento de solucion al Knowledge base seleccionado.</p>
+        <p><strong>MSJ-012:</strong> Guardado Exitosamente</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -252,7 +283,7 @@
         <h4 class="modal-title" style="color:#FFF;">Mensaje de Confirmaci&oacuten</h4>
       </div>
       <div class="modal-body">
-        <p><strong>MSJ-015:</strong> El incidente fue asignado al tencico satisfactoriamente.</p>
+        <p><strong>MSJ-015:</strong> Incidente asignado.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
@@ -260,7 +291,7 @@
     </div>
   </div>
 </div>
-<!-- El id de proceso no existe -->
+<!-- El id de proceso no existe 
 <div id="error16" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -276,8 +307,8 @@
       </div>
     </div>
   </div>
-</div>
-<!-- El id de proceso no existe -->
+</div> -->
+<!-- El id de proceso no existe 
 <div id="error17" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -286,14 +317,14 @@
         <h4 class="modal-title" style="color:#FFF;">Mensaje de Confirmaci&oacuten</h4>
       </div>
       <div class="modal-body">
-        <p><strong>MSJ-017:</strong> Se asign&oacute una soluci&oacuten al incidente, con la asignaci&oacuten puede ver cuantas veces a sido util este item KB para un problema en especifico.</p>
+        <p><strong>MSJ-017:</strong> Se asign&oacute una soluci&oacuten al incidente.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!-- El id de proceso no existe -->
 <div id="error18" class="modal fade" tabindex="-1" role="dialog">
   <div class="modal-dialog">
@@ -303,7 +334,7 @@
         <h4 class="modal-title" style="color:#FFF;">Mensaje de Confirmaci&oacuten</h4>
       </div>
       <div class="modal-body">
-        <p><strong>MSJ-018:</strong> Se ha re-asignado el incidente a un nuevo ingeniero de soporte tecnico.</p>
+        <p><strong>MSJ-018:</strong> Se ha re-asignado el incidente.</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>

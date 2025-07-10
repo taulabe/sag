@@ -110,7 +110,7 @@
   <script src="/table/js/bootstrap-table-expandable.js"></script>
   <script src="fontawesome/js/all.min.js"></script>
   <script src="js/reporteria.js"></script> <!-- Archivo JS para manejar la lógica del lado del cliente -->
-  <!-- <script>
+   <script>
     document.getElementById('buscar').addEventListener('click', function() {
       var fechaInicio = document.getElementById('fecha_inicio').value;
       var fechaFinal = document.getElementById('fecha_final').value;
@@ -166,6 +166,6 @@
         }
       });
     });
-  </script> -->
+  </script> 
 </body>
 </html>

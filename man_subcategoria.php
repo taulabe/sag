@@ -31,7 +31,7 @@ $a = $_GET['a'];
 <?php
 include("conexion.php"); // Asegúrate de incluir la conexión a la base de datos
 $qry1 = mysqli_query($link,"SELECT idcatego, categodesc FROM actividades.man_categoria");
-$opciones = '<option value="0">Elige una categoria</option>'; 
+$opciones = '<option value="0">Categoria</option>'; 
 while($row1 = mysqli_fetch_array($qry1)){
   $opciones .= '<option value="'.$row1["idcatego"].'">'.$row1["categodesc"].'</option>';
 }
@@ -64,7 +64,7 @@ while($row1 = mysqli_fetch_array($qry1)){
             </div>
             <div class="botones_i">
               <button type="submit" id="btn_addsub" class="btn btn-default btn-sm" data-toggle="modal">
-                <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>GUARDAR
+                <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>GUARDAR8
               </button>
             </div>
           </form>

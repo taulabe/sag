@@ -1,4 +1,5 @@
 <?php
+
 include("conexion.php"); // Incluir archivo de conexión
 $link = Conectarse(); // Conectarse a la base de datos
 

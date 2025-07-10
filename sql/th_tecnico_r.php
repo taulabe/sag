@@ -6,21 +6,16 @@ header("Access-Control-Allow-Methods: GET, POST, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 
-//include ("seguridad.php");
-include("conexion.php");
-$link=Conectarse();
-error_reporting(E_PARSE);
+include("conexion.php"); // Incluir archivo de conexión
+$link = Conectarse(); // Conectarse a la base de datos
 
-// Permitir solicitudes desde cualquier origen
-header("Access-Control-Allow-Origin: *");
-// Establecer el tipo de contenido como JSON
-header("Content-Type: application/json");
-//include ("seguridad.php");
-include("conexion.php");
-$link=Conectarse();
-error_reporting(E_PARSE);
+header('Content-Type: application/json'); // Asegurarse de que la respuesta tenga el tipo de contenido correcto
 
-
+$db_selected = mysqli_select_db($link, 'actividades');
+if (!$db_selected) {
+    echo json_encode(['error' => 'No se pudo seleccionar la base de datos: ' . mysqli_error($link)]);
+    exit;
+}
 //CREATE QUERY TO DB AND PUT RECEIVED DATA INTO ASSOCIATIVE ARRAY
 if (isset($_REQUEST['query'])) {
     $query = $_REQUEST['query'];

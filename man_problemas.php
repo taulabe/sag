@@ -33,7 +33,7 @@ $(document).ready(function(){
 error_reporting(E_PARSE);
 $qry1 = mysqli_query($link, "SELECT idcatego, categodesc FROM actividades.man_categoria");
 $link->set_charset("utf8");
-$opciones = '<option value="0">Elige una categoria</option>'; 
+$opciones = '<option value="0">Categoria</option>'; 
 while($row1 = mysqli_fetch_array($qry1)){
     $opciones .= '<option value="'.$row1["idcatego"].'">'.$row1["categodesc"].'</option>';
 }
@@ -60,7 +60,7 @@ while($row1 = mysqli_fetch_array($qry1)){
                 <span class="glyphicon glyphicon-tags"></span>
               </span>
               <select name="idsubcategoria" id="subcategoria" class="form-control" aria-describedby="basic-addon1">
-                <option value="0">Elige una subcategoria</option>
+                <option value="0">Subcategoria</option>
               </select>
             </div>
             <!-- Problema -->
@@ -88,11 +88,11 @@ while($row1 = mysqli_fetch_array($qry1)){
               <span class="input-group-addon" id="basic-addon1">
                 <span class="glyphicon glyphicon-time"></span>
               </span>
-              <input type="text" name="tiempoestimado" class="form-control" placeholder="Escriba el tiempo estimado en formato hh:mm:ss" aria-describedby="basic-addon1">
+              <input type="text" name="tiempoestimado" class="form-control" placeholder="Escriba el tiempo estimado3 en formato hh:mm:ss" aria-describedby="basic-addon1">
             </div>
             <div class="botones_i">
               <button type="submit" id="btn_addsub" class="btn btn-default btn-sm" data-toggle="modal">
-                <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>GUARDAR
+                <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>GUARDAR7
               </button>
             </div>
           </form>

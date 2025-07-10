@@ -54,42 +54,123 @@ class PDF extends FPDF {
     }
 
     function FancyTable($header, $data) {
-        $this->SetFillColor(152, 192, 222); // Color
-        $this->SetTextColor(22, 22, 22);
-        $this->SetDrawColor(22, 22, 22);
-        $this->SetLineWidth(.3);
-        $this->SetFont('','B');
+        $this->SetFillColor(152, 192, 222); // Color de fondo
+        $this->SetTextColor(22, 22, 22); // Color de texto
+        $this->SetDrawColor(22, 22, 22); // Color de borde
+        $this->SetLineWidth(.3); // Grosor de línea
+        $this->SetFont('', 'B'); // Fuente en negrita
         
-        // Ajuste de anchos de las columnas
-        $w = array(40, 60, 40, 40, 380, 40, 80); // Ajustar los anchos según sea necesario
+        // Anchos de las columnas
+        $w = array(40, 60, 40, 40, 120, 40, 80); // Ajusta los anchos según sea necesario
         
-        // Encabezados
-        for($i = 0; $i < count($header); $i++) {
+        // Dibujar los encabezados
+        for ($i = 0; $i < count($header); $i++) {
             $this->Cell($w[$i], 7, $header[$i], 1, 0, 'C', true);
         }
         $this->Ln();
-
+    
         // Restaurar color y fuente para los datos
-        $this->SetFillColor(224,235,255);
+        $this->SetFillColor(224, 235, 255);
         $this->SetTextColor(0);
         $this->SetFont('');
-
+    
         $fill = false;
-        foreach($data as $row) {
-            $this->Cell($w[0], 6, $row['idincidente'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[1], 6, $row['asig_fecha'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[2], 6, $row['nombre_tecnico'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[3], 6, $row['nombre_cliente'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[4], 6, $row['descripcion'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[5], 6, $row['tiempoestimado'], 'LR', 0, 'L', $fill);
-            $this->Cell($w[6], 6, $row['inc_tgestionado'], 'LR', 0, 'L', $fill);
+        foreach ($data as $row) {
+            // Calcular la altura necesaria para la fila
+            $nb = max(
+                $this->NbLines($w[0], $row['idincidente']),
+                $this->NbLines($w[1], $row['asig_fecha']),
+                $this->NbLines($w[2], $row['nombre_tecnico']),
+                $this->NbLines($w[3], $row['nombre_cliente']),
+                $this->NbLines($w[4], $row['descripcion']),
+                $this->NbLines($w[5], $row['tiempoestimado']),
+                $this->NbLines($w[6], $row['inc_tgestionado'])
+            );
+            $h = 6 * $nb;
+    
+            // Comprobar si es necesario romper la página antes de dibujar la fila
+            $this->CheckPageBreak($h);
+    
+            // Dibujar las celdas de la fila
+            $this->Cell($w[0], $h, $row['idincidente'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[1], $h, $row['asig_fecha'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[2], $h, $row['nombre_tecnico'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[3], $h, $row['nombre_cliente'], 'LR', 0, 'L', $fill);
+            
+            // Descripción con MultiCell
+            $x = $this->GetX();
+            $y = $this->GetY();
+            $this->MultiCell($w[4], 6, $row['descripcion'], 'LR', 'L', $fill);
+            $this->SetXY($x + $w[4], $y);
+            
+            $this->Cell($w[5], $h, $row['tiempoestimado'], 'LR', 0, 'L', $fill);
+            $this->Cell($w[6], $h, $row['inc_tgestionado'], 'LR', 0, 'L', $fill);
             $this->Ln();
+    
             $fill = !$fill;
         }
-
+    
         // Línea inferior de la tabla
         $this->Cell(array_sum($w), 0, '', 'T');
     }
+    
+    // Función para calcular el número de líneas necesarias para un texto
+    function NbLines($w, $txt) {
+        $cw = &$this->CurrentFont['cw'];
+        if ($w == 0) {
+            $w = $this->w - $this->rMargin - $this->x;
+        }
+        $wmax = ($w - 2 * $this->cMargin) * 1000 / $this->FontSize;
+        $s = str_replace("\r", '', $txt);
+        $nb = strlen($s);
+        if ($nb > 0 and $s[$nb - 1] == "\n") {
+            $nb--;
+        }
+        $sep = -1;
+        $i = 0;
+        $j = 0;
+        $l = 0;
+        $nl = 1;
+        while ($i < $nb) {
+            $c = $s[$i];
+            if ($c == "\n") {
+                $i++;
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+                continue;
+            }
+            if ($c == ' ') {
+                $sep = $i;
+            }
+            $l += $cw[$c];
+            if ($l > $wmax) {
+                if ($sep == -1) {
+                    if ($i == $j) {
+                        $i++;
+                    }
+                } else {
+                    $i = $sep + 1;
+                }
+                $sep = -1;
+                $j = $i;
+                $l = 0;
+                $nl++;
+            } else {
+                $i++;
+            }
+        }
+        return $nl;
+    }
+    
+    // Función para verificar si es necesario un salto de página
+    function CheckPageBreak($h) {
+        if ($this->GetY() + $h > $this->PageBreakTrigger) {
+            $this->AddPage($this->CurOrientation);
+        }
+    }    
+    
 }
 
 // Obtener datos de la consulta de incidentes
@@ -157,8 +238,8 @@ mysqli_free_result($result);
 mysqli_close($link);
 
 // Definir las dimensiones de 'A0'
-$ancho = 690; // Ancho en mm
-$alto = 341; // Alto en mm
+$ancho = 450; // Ancho en mm
+$alto = 401; // Alto en mm
 
 // Crear el PDF con el nombre del técnico
 $pdf = new PDF('L', 'mm', array($ancho, $alto), $tecnico);

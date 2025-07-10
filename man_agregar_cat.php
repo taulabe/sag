@@ -30,7 +30,7 @@ header('Content-Type: text/html; charset=utf-8');
 error_reporting(E_PARSE);
 $qry1=mysqli_query($link,"SELECT idcatego, categodesc FROM actividades.man_categoria");
 $link->set_charset("utf8");
-$opciones = '<option value="0">Elige una categoria</option>'; 
+$opciones = '<option value="0">Categoria</option>'; 
 while($row1=mysqli_fetch_array($qry1)){
 	$opciones.='<option value="'.$row1["idcatego"].'">'.$row1["categodesc"].'</option>';
 }
@@ -56,7 +56,7 @@ while($row1=mysqli_fetch_array($qry1)){
                   <span class="glyphicon glyphicon-tags"></span> 
                 </span>
                 <select name="idsubcategoria" id="subcategoria" class="form-control" aria-describedby="basic-addon1">
-                  <option value="0">Elige una subcategoria</option>
+                  <option value="0">Subcategoria</option>
                 </select>
               </div>
               <!-- Incidente -->
@@ -65,7 +65,7 @@ while($row1=mysqli_fetch_array($qry1)){
                   <span class="glyphicon glyphicon-alert"></span> 
                 </span>
                 <select name="problema" id="problema" class="form-control" aria-describedby="basic-addon1">
-                  <option value="0">Elige un problema</option>
+                  <option value="0">Problema</option>
                 </select>
               </div>
               <!-- Descripcion -->
@@ -73,7 +73,7 @@ while($row1=mysqli_fetch_array($qry1)){
                 <span class="input-group-addon" id="basic-addon1">
                   <span class="glyphicon glyphicon-pencil"></span> 
                 </span>
-                <input type="text" name="descrip" class="form-control"  placeholder="Descripcion brevemente el problema" aria-describedby="basic-addon1">
+                <input type="text" name="descrip" class="form-control"  placeholder="Descripcion del Problema" aria-describedby="basic-addon1">
               </div>
               <!-- Documento adjunto -->
               <div class="input-group input-group-sm" style="margin-bottom:5px;">
@@ -92,7 +92,7 @@ while($row1=mysqli_fetch_array($qry1)){
               </div>
               <div class="botones_i">
               	<button type="submit" class="btn btn-default btn-sm">
-                  <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>Guardar
+                  <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>Guardar5
                 </button> 
                 <button type="reset" class="btn btn-default btn-sm" style="margin-left:5px;">
                   <span class="glyphicon glyphicon-repeat" style="margin-right:7px;"></span>Limpiar

@@ -1,0 +1,16 @@
+/* styles.css */
+/* Estilos de las filas según el estado */
+.row-green {
+    background-color: #d4edda;
+    color: #155724;
+}
+
+.row-gray {
+    background-color: #e2e3e5;
+    color: #6c757d;
+}
+
+/* Estilo al pasar el mouse */
+table tr:hover {
+    background-color: #f1f1f1;
+}

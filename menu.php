@@ -1,293 +1,123 @@
 <?php
-$idrol =  $_SESSION["rol"];
-if ($idrol == 3 || $idrol == 4){
+session_start();
+
+$idrol = $_SESSION["rol"] ?? null;
+$md5_1 = md5("1");      // Listado
+$md5_3 = md5("3");      // Nuevo ticket
 ?>
-<nav class="navbar navbar-default navbar-fixed-top">
-	<div class="container-fluid">
-    	<div class="navbar-header">
-        	<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
-            	<span class="sr-only">Menu</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-             </button>
-             <a href="#"><img class="logotipo" src="img/logo2.png" style="width: 150px;"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Help Desk <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="procesos.php?a=<?php echo md5(3);?>">Agregar incidente</a></li>
-                        <li><a href="procesos.php?a=<?php echo md5(5);?>">Agregar soluci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="procesos.php?a=<?php echo md5(1);?>">Ver incidentes</a></li>
-                        <li><a href="procesos.php?a=<?php echo md5(2);?>">Historial de incidentes</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Administrar <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                    <li><a href="usuarios.php">Usuarios</a></li>
-                        <li><a href="tecnicos_th.php" >T&eacute;cnicos</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Reportes <span class="caret"></span>
-            
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown dropdown-submenu">
-                                <li><a href="Reporte_fecha.php" >Incidentes por fecha</a></li>
-                                <li><a href="reporteinc_tecnico.php">Incidentes por técnico</a></li>
-                                <li><a href="reporte_incfrecuentes.php">Incidentes frecuentes</a></li>
-                                <li><a href="reporte_filia.php">Incidentes por filial</a></li>
-                                <li><a href="Reporte_graficos.php">Gráficos</a></li>
-                                <!-- <li><a href="Reporte_rendimiento.php">Rendimiento por tecnico</a></li> -->
-                        </li>
-                        <!-- <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 2</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 3</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 4</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul> -->
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Mantenimiento <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Correlativos</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="mantenimiento.php?a=<?php echo md5(16);?>">Correlativo KB</a></li>
-                                <!-- <li><a href="#">Correlativo KBD</a></li>
-                                <li><a href="#">Correlativo INC</a></li> -->
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Generales</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="mantenimiento.php?a=<?php echo md5(11);?>">Roles</a></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(12);?>">Oficinas</a></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(13);?>">Tipos de estatus</a></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(15);?>">Tipos de cliente</a></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(14);?>">Estatus</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Soluciones</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="mantenimiento.php?a=<?php echo md5(17);?>">Tipos de soluciones</a></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(18);?>">Tipos de archivos</a></li>
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Incidentes</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="mantenimiento.php?a=<?php echo md5(8);?>">Categorias</a></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(9);?>">Sub-Categorias</a></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(10);?>">Problemas</a></li>
-                                <li class="divider"></li>
-                                <li><a href="mantenimiento.php?a=<?php echo md5(19);?>">Prioridades</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <strong>Usuario:</strong> <?php echo $_SESSION["login"]; ?> <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Perfil.php">Perfil</a></li>
-                        <li><a href="Manuales.php">Información</a></li>
-                        <!-- <li><a href="contraseña.php">Contrase&ntilde;a</a></li> -->
-                        <!-- <li><a href="#">Otros</a></li> -->
-                        <li class="divider"></li>
-                        <li><a href="salir.php">Salir</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<?php } else if ($_SESSION["rol"] == 2) { ?>
-    <nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
-                <span class="sr-only">Menu</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="#"><img class="logotipo" src="img/logo2.png" style="width: 150px;"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Help Desk <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="procesos.php?a=<?php echo md5(3);?>">Agregar incidente</a></li>
-                        <!-- <li><a href="procesos.php?a=<?php echo md5(5);?>">Agregar soluci&oacute;n</a></li> -->
-                        <li class="divider"></li>
-                        <li><a href="procesos.php?a=<?php echo md5(1);?>">Ver incidentes</a></li>
-                        <li><a href="procesos.php?a=<?php echo md5(2);?>">Historial de incidentes</a></li>
-                    </ul>
-                </li>
-                <!-- <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Administrar <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="tecnicos_th.php">Tecnicos</a></li>
-                    </ul>
-                </li> -->
-                <!-- <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Reportes <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Reporte_fecha.php">Incidentes por fecha</a></li>
-                        <li><a href="reporteinc_tecnico.php">Incidentes por técnico</a></li>
-                        <li><a href="reporte_incfrecuentes.php">Incidentes frecuentes</a></li>
-                    </ul>
-                </li> -->
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <strong>Usuario:</strong> <?php echo $_SESSION["login"]; ?> <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Perfil.php">Perfil</a></li>
-                        <li><a href="manualusuario.php">Información</a></li>
-                        <li class="divider"></li>
-                        <li><a href="salir.php">Salir</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Menú Help Desk Simple</title>
+  <link
+    rel="stylesheet"
+    href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
+  <style>
+    /* Menú fijo en la parte superior */
+    nav.navbar {
+      background-color: white;
+      border-bottom: 1px solid #ccc;
+      height: 100px;
+      padding: 10px 20px;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    /* Botones */
+    .menu-btn {
+      background-color: #5ba20f;
+      color: white;
+      border-radius: 10px;
+      padding: 15px 25px;
+      margin: 0 10px;
+      font-size: 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none !important;
+      min-width: 140px;
+      transition: background-color 0.3s ease;
+    }
+    .menu-btn.listado {
+      background-color: #f39c12;
+    }
+    .menu-btn.reportes {
+      background-color: #316ccd;
+    }
+    .menu-btn.categorias {
+      background-color: #b1270e;
+    }
+    .menu-btn.cerrar {
+      background-color: #fa1f05;
+    }
+
+    
+    .menu-btn:hover {
+      opacity: 0.85;
+      text-decoration: none !important;
+    }
+    .menu-btn i {
+      font-size: 42px;
+      margin-bottom: 5px;
+    }
+
+    /* Espacio para el contenido abajo del menú */
+    .content {
+      margin-top: 120px; /* altura del navbar + algo extra */
+      padding: 20px;
+      background-color: white;
+      min-height: 80vh;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="procesos.php?a=<?= $md5_3 ?>" class="menu-btn">
+    <i class="fa fa-plus-circle"></i>
+    Nuevo Ticket
+  </a>
+  <a href="procesos.php?a=<?= $md5_1 ?>" class="menu-btn listado">
+    <i class="fa fa-edit"></i>
+    Listado Ticket
+  </a>
+
+  <a href="MenuReportes.php" class="menu-btn reportes">
+    <i class="fa fa-bar-chart"></i>
+    Reportes
+  </a>
+
+  <a  href="MenuCategorias.php"  class="menu-btn categorias">
+    <i class="fa fa-cogs"></i>
+    Categorías
+  </a>
+
+  <!-- Cerrar sesión corregido -->
+  <a href="salir.php" class="menu-btn cerrar">
+    <i class="fa fa-times-circle"></i>
+    Cerrar Sesión
+  </a>
 </nav>
 
-<?php } else { 
-if ($_SESSION["rol"] == 1) { ?>
-<nav class="navbar navbar-default navbar-fixed-top">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-1">
-                <span class="sr-only">Menu</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-             </button>
-             <a href="#"><img class="logotipo" src="img/logo2.png" style="width: 150px;"></a>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-1">
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Help Desk <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="procesos.php?a=<?php echo md5(3);?>">Agregar incidente</a></li>
-                        <li><a href="procesos.php?a=<?php echo md5(5);?>">Agregar soluci&oacute;n</a></li>
-                        <li class="divider"></li>
-                        <li><a href="procesos.php?a=<?php echo md5(1);?>">Ver incidentes</a></li>
-                        <li><a href="procesos.php?a=<?php echo md5(2);?>">Historial de incidentes</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Administrar <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="usuarios.php">Usuarios</a></li>
-                    </ul>
-                </li>
-                <!-- <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Reportes <span class="caret"></span>
-                    </a> -->
-                    <li class="dropdown">
-                    <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        Reportes <span class="caret"></span> -->
-            
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="dropdown dropdown-submenu">
-                                <!-- <li><a href="Reporte_fecha.php" >Incidentes por fecha</a></li>
-                                <li><a href="reporteinc_tecnico.php">Incidentes por técnico</a></li>
-                                <li><a href="reporte_incfrecuentes.php">Incidentes frecuentes</a></li> -->
-                            
-                        </li>
-                    <!-- <ul class="dropdown-menu"> -->
-                        <!-- <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 1</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 2</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 3</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li>
-                        <li class="divider"></li>
-                        <li class="dropdown dropdown-submenu"><a href="#" class="dropdown-toggle" data-toggle="dropdown">GRP Reporte 4</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#">G1 Reporte 1</a></li>
-                                <li><a href="#">G1 Reporte 2</a></li>
-                                <li><a href="#">G1 Reporte 3</a></li>
-                            </ul>
-                        </li> -->
-                    </ul>
-                </li> 
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <strong>Usuario:</strong> <?php echo $_SESSION["login"]; ?> <span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="Perfil.php">Perfil</a></li>
-                         <li><a href="Manuales.php">Información</a></li>
-                        <!-- <li><a href="#">Otros</a></li> --> 
-                        <li class="divider"></li>
-                        <li><a href="salir.php">Salir</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-<?php } 
-}?>
+
+  <!-- Aquí irá el contenido dinámico o las otras pantallas -->
+  <h2 style="margin-bottom: 30px;"></h2>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+</body>
+</html>

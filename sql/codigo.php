@@ -11,7 +11,7 @@
     <tr>
       <td>
       	<p></p>
-      	<h1 style="font-size:25px;" align="center" >Estimado Sr. <strong>David P&eacute;rez</strong></h1>
+      	<h1 style="font-size:25px;" align="center" >Tecnologia <strong></strong></h1>
 		<br/>
       </td>
     </tr>

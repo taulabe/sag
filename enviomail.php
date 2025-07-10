@@ -9,160 +9,78 @@ require 'PHPMailer/src/PHPMailer.php';
 require 'PHPMailer/src/SMTP.php';
 
 class Correo {
+    private static function configurarSMTP(PHPMailer $mail, $email, $pass) {
+        $mail->isSMTP();
+        $mail->Host       = 'smtp-mail.outlook.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = $email;
+        $mail->Password   = $pass;
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port       = 587;
+        $mail->CharSet    = 'UTF-8';
+    }
 
-    static public function envio($categodesc,$scategodesc,$descincidente,$email,$pass,$fn=1) {
-        
-        //Create an instance; passing `true` enables exceptions
+    static public function envio($mensaje, $email, $pass) {
         $mail = new PHPMailer(true);
         
         try {
-            //Server settings
-            $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = $email;                     //SMTP username
-            $mail->Password   = $pass;                               //SMTP password
-            $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
-            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        
-            //Recipients
-            $mail->setFrom($email, "Enviado por: ");
-            // $mail->addAddress('enpempresa@gmail.com', 'Proyecto Empresa');
-            $mail->addAddress('eescobar@cooperativataulabe.hn', 'SAG');//Add a recipient
-        
-        
-            //Content
-          $texto1 = html_entity_decode("SAI - Creaci&oacute;n de incidente satisfactoriamente.", ENT_QUOTES, "ISO-8859-1");
-		  $texto2 = html_entity_decode("Su incidente ha sido creado satisfactoriamente, ingrese al Sistema de Administraci&oacute;n de Incidentes (SAI) para revisar el avance de la soluci&oacute;n.", ENT_QUOTES, "ISO-8859-1");
-		  $t_cate = html_entity_decode("Categor&iacute;a   : ".$categodesc, ENT_QUOTES, "ISO-8859-1");
-		  $t_scat = html_entity_decode("Sub-categor&iacute;a   : ". $scategodesc, ENT_QUOTES, "ISO-8859-1");
-		  $t_prob = html_entity_decode("Problema   : ".$descincidente, ENT_QUOTES, "ISO-8859-1");
-		  $t_desc = html_entity_decode("Descripci&oacute   : ".$descincidente, ENT_QUOTES, "ISO-8859-1");
-		  $texto3 = html_entity_decode("Favor de NO responder sobre este correo.", ENT_QUOTES, "ISO-8859-1");
-		  $texto4 = html_entity_decode("Departamento de Tecnolog&iacute;a.", ENT_QUOTES, "ISO-8859-1");
-					
-            $asunto = $texto1;
-            $mensaje = $texto2 . "\r\n" .
-                       '' . "\r\n" .
-                       $t_cate . "\r\n" .
-                       $t_scat . "\r\n" .
-                       $t_prob . "\r\n" .
-                       '' . "\r\n" .
-                       $texto3 . "\r\n" .
-                       '' . "\r\n" .
-                       $texto4;
-            // $cabeceras = 'From: smtp@cooperativataulabe.hn' . "\r\n" .
-            // 'X-Mailer: PHP/' . phpversion();
-            // mail($para, $asunto, $mensaje, $cabeceras);
-        
-        
-            //Set email format to HTML
-            $mail->Subject = $asunto;
+            self::configurarSMTP($mail, $email, $pass);
+
+            // Configuración del remitente y destinatario
+            $mail->setFrom($email, "Sistema de Incidentes");
+            $mail->addAddress('sai@cooperativataulabe.hn', 'SAG');
+
+            // Configuración del correo
+            $mail->isHTML(false);
+            $mail->Subject = "SAI - Nuevo Incidente";
             $mail->Body    = $mensaje;
-            
+
             $mail->send();
-            
-        } catch(Exception $d) {
-            return $d->getMessage();
+        } catch (Exception $e) {
+            error_log("Error de Mailer: {$mail->ErrorInfo}", 3, 'error_log.txt');
+            return "No se pudo enviar el mensaje. Error: {$mail->ErrorInfo}";
         }
     }
 
-    static public function Asignacion($para1, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo,$usuariopass) {
+    static public function Asignacion($para, $asunto, $mensaje, $email, $pass) {
         $mail = new PHPMailer(true);
+        
         try {
-            //Server settings
-            $mail->SMTPDebug = 0;                      //Enable verbose debug output
-            $mail->isSMTP();                                            //Send using SMTP
-            $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
-            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-            $mail->Username   = $usuariocorreo;                     //SMTP username
-            $mail->Password   = $usuariopass;                               //SMTP password
-            $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
-            $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        
-            //Recipients
-            $mail->setFrom($usuariocorreo, "Enviado por: ");
-            // $mail->addAddress('enpempresa@gmail.com', 'Proyecto Empresa');
-            $mail->addAddress($para1, 'SAG');//Add a recipient
-        
-        
-            //Content
-         
-            $mail->Subject = $asunto1;
-            $mail->Body    = $mensaje1;
-            
-            $mail->send();
-            
-        } catch(Exception $d) {
-            return $d->getMessage();
-        }
-    }
-    static public function enviarAlerta($mensaje, $email, $pass) {
-        $mail = new PHPMailer(true);
+            self::configurarSMTP($mail, $email, $pass);
 
-        try {
-            // Configuración del servidor
-            $mail->SMTPDebug = 0;                      // Habilitar salida de depuración
-            $mail->isSMTP();                                            // Enviar usando SMTP
-            $mail->Host       = 'smtp-mail.outlook.com';                     // Servidor SMTP
-            $mail->SMTPAuth   = true;                                   // Habilitar autenticación SMTP
-            $mail->Username   = $email;                     // Usuario SMTP
-            $mail->Password   = $pass;                               // Contraseña SMTP
-            $mail->SMTPSecure = "tls";            // Habilitar encriptación TLS implícita
-            $mail->Port       = 587;                                    // Puerto TCP
+            $mail->setFrom($email, "Sistema de Incidentes 5");
+            $mail->addAddress($para, 'Destinatario');
 
-            // Recipientes
-            $mail->setFrom($email, "Enviado por: ");
-            $mail->addAddress('eescobar@cooperativataulabe.hn', 'SAG'); // Destinatario
-
-            // Contenido del correo
-            $asunto = "Alerta de Tiempo Estimado";
-            $mensaje = $mensaje;
-            
+            $mail->isHTML(false);
             $mail->Subject = $asunto;
             $mail->Body    = $mensaje;
-            
+
+            $mail->send();
+        } catch (Exception $e) {
+            error_log("Error de Mailer: {$mail->ErrorInfo}", 3, 'error_log.txt');
+            return "No se pudo enviar el mensaje. Error: {$mail->ErrorInfo}";
+        }
+    }
+
+    static public function enviarAlerta($mensaje, $email, $pass, $asunto, $para) {
+        $mail = new PHPMailer(true);
+
+        try {
+            self::configurarSMTP($mail, $email, $pass);
+
+            $mail->setFrom($email, "Sistema de Alertas 1");
+            $mail->addAddress($para, 'Destinatario');
+
+            $mail->isHTML(true);
+            $mail->Subject = $asunto;
+            $mail->Body    = $mensaje;
+
             $mail->send();
             return 5;
-             
-            
-        } catch(Exception $d) {
-            error_log("No se pudo enviar el mensaje. Error de Mailer: {$mail->ErrorInfo}", 3, 'error_log.txt');
-            return "No se pudo enviar el mensaje. Error de Mailer: {$mail->ErrorInfo}";
+        } catch (Exception $e) {
+            error_log("Error de Mailer: {$mail->ErrorInfo}", 3, 'error_log.txt');
+            return "No se pudo enviar el mensaje. Error: {$mail->ErrorInfo}";
         }
     }
-    // static public function Asignacion1($para1, $asunto1, $mensaje1, $cabeceras1,$usuariocorreo1,$usuariopass1) {
-    //     $mail = new PHPMailer(true);
-    //     try {
-    //         //Server settings
-    //         $mail->SMTPDebug = 0;                      //Enable verbose debug output
-    //         $mail->isSMTP();                                            //Send using SMTP
-    //         $mail->Host       = 'smtp-mail.outlook.com';                     //Set the SMTP server to send through
-    //         $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    //         $mail->Username   = $usuariocorreo1;                     //SMTP username
-    //         $mail->Password   = $usuariopass1;                               //SMTP password
-    //         $mail->SMTPSecure = "tls";            //Enable implicit TLS encryption
-    //         $mail->Port       = 587;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
-        
-    //         //Recipients
-    //         $mail->setFrom($usuariocorreo1, "Enviado por: ");
-    //         // $mail->addAddress('enpempresa@gmail.com', 'Proyecto Empresa');
-    //         $mail->addAddress($para1, 'SAG');//Add a recipient
-        
-        
-    //         //Content
-         
-    //         $mail->Subject = $asunto1;
-    //         $mail->Body    = $mensaje1;
-            
-    //         $mail->send();
-            
-    //     } catch(Exception $d) {
-    //         return $d->getMessage();
-    //     }
-    // }
 }
-
-
 ?>

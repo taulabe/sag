@@ -21,7 +21,7 @@ $a = 'a87ff679a2f3e71d9181a67b7542122c';
 </head>
 <?php
   include ("sql/seguridad.php");
-  include("sql/conexion.php");
+
   $link=Conectarse();
   error_reporting(E_PARSE);
 ?>
@@ -31,7 +31,7 @@ $a = 'a87ff679a2f3e71d9181a67b7542122c';
   <section class="main row" style="font-size:12px;">    	
     <!-- BASE DE CONOCIMIENTOS -->
     <article style="margin-top:10px; margin-left:15px;">
-		  <strong style="font-size:14px;">Knowledge Base</strong>
+		  <strong style="font-size:14px;">Base de Conocimiento</strong>
     	<div class="recuadro">
         <form action="sql/pro_incidentes.php" method="post" name="asignar_kb">
           <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table table-condensed table-expandable table-striped" style="margin-bottom:0px;">
@@ -140,8 +140,8 @@ $a = 'a87ff679a2f3e71d9181a67b7542122c';
                 	<a class="btn btn-default btn-sm" href="procesos.php?i=<?php echo $id;?>&a=<?php echo md5(6);?>&b=<?php echo $row['idcategoria']?>&c=<?php echo $row['idsubcategoria']?>&d=<?php echo $row['idproblema']?>" role="button">
                     <span class="glyphicon glyphicon-plus" style="margin-right:7px;"></span>Agregar Soluci&oacute;n
                   </a>
-                	<button type="submit" class="btn btn-default btn-sm" >
-                    <span class="glyphicon glyphicon-share" style="margin-right:7px;"></span>Asignar Soluci&oacute;n
+                	<button type="submit" class="btn btn-default btn-sm" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;">
+                    <span class="glyphicon glyphicon-share" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;"></span>Asignar Soluci&oacute;n
                   </button>
           <?php 
 						    }
@@ -149,8 +149,8 @@ $a = 'a87ff679a2f3e71d9181a67b7542122c';
                   <a class="btn btn-default btn-sm disabled" href="procesos.php?a=<?php echo md5(6);?>&b=<?php echo $row['idcategoria']?>&c=<?php echo $row['idsubcategoria']?>&d=<?php echo $row['idproblema']?>" role="button">
                     <span class="glyphicon glyphicon-plus" style="margin-right:7px;"></span>Agregar Soluci&oacute;n
                   </a>
-                  <button type="submit" class="btn btn-default btn-sm" disabled="disabled" >
-                    <span class="glyphicon glyphicon-share" style="margin-right:7px;"></span>Asignar Soluci&oacute;n
+                  <button type="submit" class="btn btn-default btn-sm" disabled="disabled" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;">
+                    <span class="glyphicon glyphicon-share" style="background-color: #28a745; color: white; font-size: 15px; font-weight: bold;"></span>Asignar Soluci&oacute;n
                   </button>
 				  <?php
                 }
@@ -164,7 +164,7 @@ $a = 'a87ff679a2f3e71d9181a67b7542122c';
   </section>
 </div>
 <footer>
-  <div class="container-fluid"> David E. Perez &copy 2016 | Departamento de Tecnolog&iacute;a | www.cooperativataulabe.hn</div>
+  <div class="container-fluid">   Departamento de Tecnolog&iacute;a | www.cooperativataulabe.hn</div>
 </footer>
 </body>
 </html>

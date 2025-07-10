@@ -21,19 +21,19 @@ $id = $_GET['i'];
 $a = $_GET['a'];
 /* Categorias */
 $qry1=mysqli_query($link,"SELECT kbtitulo FROM actividades.man_kbsoluciones where idkbsolucion='$idkb'");
-//$opciones = '<option value="0">Elige una categoria</option>'; 
+//$opciones = '<option value="0">Categoria</option>'; 
 while($row1=mysqli_fetch_array($qry1)){
 	$kbtit = $row1["kbtitulo"];
 }
 /* Sub-Categorias */
 $qry1=mysqli_query($link,"SELECT idsubcatego, scategodesc FROM actividades.man_subcategoria where idcatego='$idcatego' and idsubcatego='$idscatego'");
-//$opciones1 = '<option value="0">Elige una subcategoria</option>'; 
+//$opciones1 = '<option value="0">Subcategoria</option>'; 
 while($row1=mysqli_fetch_array($qry1)){
 	$opciones1.='<option value="'.$row1["idsubcatego"].'">'.$row1["scategodesc"].'</option>';
 }
 /* Problemas */
 $qry1=mysqli_query($link,"SELECT idproblema, descincidente FROM actividades.man_problema where idcatego='$idcatego' and idsubcatego='$idscatego' and idproblema='$idproblema'");
-//$opciones2 = '<option value="0">Elige un problema</option>'; 
+//$opciones2 = '<option value="0">Problema</option>'; 
 while($row1=mysqli_fetch_array($qry1)){
 	$opciones2.='<option value="'.$row1["idproblema"].'">'.$row1["descincidente"].'</option>';
 }
@@ -46,10 +46,9 @@ while($row1=mysqli_fetch_array($qry1)){
 ?>
 <section class="main row" style="font-size:12px;">
 	<article style="margin-top:10px; margin-left:15px;">
-		<strong style="font-size:14px;">Knowledge Base</strong> ( Base de conocimientos )
+		<strong style="font-size:14px;">Base de Conocimientos</strong> 
     		<div class="recuadro">
-        	Adjunta un documento, imagen o direccion url para crear la solucion a un incidente en especifico.
-            <br/><strong>Nota:</strong> Recuerda siempre adicionar informaci&oacute;n que realmente ayud&oacute; a solventar el incidente.
+        	
             <div style="margin-top:10px;">
             	<form method="post" action="add_kbdocumento.php" name="fcontacto" enctype="multipart/form-data">
               		<!-- Codigo de KB -->
@@ -122,7 +121,7 @@ while($row1=mysqli_fetch_array($qry1)){
                     	<input type="hidden" name="i" value="<?php echo $id; ?>">
                         <input type="hidden" name="a" value="<?php echo md5(4)?>">
               			<button type="submit" class="btn btn-default btn-sm">
-                      <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>Guardar
+                      <span class="glyphicon glyphicon-floppy-save" style="margin-right:7px;"></span>Guardar2
                     </button> 
                     <button type="reset" class="btn btn-default btn-sm" style="margin-left:5px;">
                       <span class="glyphicon glyphicon-repeat" style="margin-right:7px;"></span>Limpiar

@@ -56,7 +56,7 @@ if (!$result) {
 <body>
   <?php
     include("sql/seguridad.php");
-    include("sql/conexion.php");
+  
     $link = Conectarse();
     error_reporting(E_PARSE);
     include("menu.php");

@@ -1,218 +1,81 @@
-<div class="botones_i">
+<div class="botones_i mt-3 p-3 bg-light border rounded shadow-sm">
+  <?php
+    function boton($texto, $icono, $color, $disabled = false, $extra = '', $size = 'btn-lg') {
+      return "<button class='btn $color $size w-100 mb-2' $extra " . ($disabled ? "disabled" : "") . ">
+                <i class='fas $icono me-2'></i>$texto
+              </button>";
+    }
 
-<?php if ($idrol == 1){?>    <!-- Tecnico -->
-    <?php if ($e == 5){?>
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" disabled="disabled" data-target="#tecnico" >
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Asignar incidente
-        </button>
-    <?php } ?>
-    <?php if ($e == 6 || $e == 7){?>
-    <form action="sql/pro_incidentes.php" method="post">
-        <button type="submit" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-cog" style="margin-right:7px;"></span>Trabajar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
-            <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idt" value="<?php echo $row['idtecnico']; ?>">
-    </form>
-    <?php }?>
-    <?php if ($e == 8){
-                /*if ( $kbsol == '-- sin asignar --'){*/ ?>
-    <form action="sql/pro_incidentes.php" method="post">
-        <button type="submit" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('clo');?>">
-        <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idkb" value="<?php echo $row['idkbsolucion'];?>">
-    </form>
-    <?php }?>
-    <?php if ($e == 9 || $e == 10){?>
-        <button type="submit" class="btn btn-default btn-sm" >
-            <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-    <?php }?>
-<?php } ?>  
-<?php if ($idrol == 2){?>    <!-- Usuario -->
-    <?php if ($e >= 5 && $e <= 8){?>
-    <form action="sql/pro_incidentes.php" method="post">
-        <button type="submit" class="btn btn-default btn-sm">
-        	<span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('clou');?>">
-  		<input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idkb" value="<?php echo $row['idkbsolucion'];?>">
-    </form>
-    <?php }?>
-    <?php if ($e == 9 || $e == 10){?>
-        <button type="submit" class="btn btn-default btn-sm" disabled="disabled">
-        	<span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-    <?php }?>
-<?php } ?>
-<?php if ($idrol == 3){?>    <!-- Administrador -->
-    <?php if ($e == 5){?>
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Asignar incidente
-        </button>
-    <?php } ?>
-    <?php if ($e == 6 || $e == 7){ 
-            if ($_SESSION["id"] == $row['idtecnico']) {?>
-        <form action="sql/pro_incidentes.php" method="post">
-            <button type="submit" class="btn btn-default btn-sm">
-                <span class="glyphicon glyphicon-cog" style="margin-right:7px;"></span>Trabajar incidente
-            </button>
-            <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
-            <input type="hidden" name="id" value="<?php echo $id;?>">
-            <input type="hidden" name="idt" value="<?php echo $row['idtecnico']; ?>">
-        </form>
-    <?php } else { ?>
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
-        </button>
-    <?php }} ?>
-    <?php if ($e == 8){
-            if ($kbsol == '-- sin asignar --'){ ?>
-                <form action="sql/pro_incidentes.php" method="post">
-                    <button type="submit" class="btn btn-default btn-sm" disabled="disabled">
-                        <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-                    </button>
-                    <input type="hidden" name="pro" value="<?php echo md5('clo');?>">
-                    <input type="hidden" name="id" value="<?php echo $id;?>">
-                    <input type="hidden" name="idkb" value="<?php echo $row['idkbsolucion'];?>">
-                </form>
-            <?php } else { ?>
-                <form action="sql/pro_incidentes.php" method="post">
-                    <button type="submit" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-                    </button>
-                    <input type="hidden" name="pro" value="<?php echo md5('clo');?>">
-                    <input type="hidden" name="id" value="<?php echo $id;?>">
-                    <input type="hidden" name="idkb" value="<?php echo $row['idkbsolucion'];?>">
-                </form>
-    <?php }}?>
-    <?php if ($e == 9 || $e == 10){?>
-        <button type="submit" class="btn btn-default btn-sm" disabled="disabled">
-            <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-    <?php }?>
-<?php } ?>
+    function formBoton($proceso, $id, $idt = '', $idkb = '', $texto, $icono, $color, $enabled = true) {
+      $hidden = "
+        <input type='hidden' name='pro' value='" . md5($proceso) . "'>
+        <input type='hidden' name='id' value='$id'>";
+      if ($idt !== '') $hidden .= "<input type='hidden' name='idt' value='$idt'>";
+      if ($idkb !== '') $hidden .= "<input type='hidden' name='idkb' value='$idkb'>";
+      $disabled = $enabled ? "" : "disabled";
+      return "
+        <form action='sql/pro_incidentes.php' method='post' class='mb-2'>
+          $hidden
+          <button type='submit' class='btn $color btn-lg w-100' $disabled>
+            <i class='fas $icono me-2'></i>$texto
+          </button>
+        </form>";
+    }
 
-<?php if ($idrol == 4){?>     <!-- Helpdesk -->
-    <?php if ($e == 5){?>
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Asignar incidente
-        </button>
-    <?php } ?>
-    <?php if (($e == 6 || $e == 7) && $_SESSION["id"] <> $row['idtecnico']){?>
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
-        </button>
-    <?php }?>
-    <?php if (($e == 6 || $e == 7) && $_SESSION["id"] == $row['idtecnico']){?>
-    <div class="row">
-        <div class="col-sm-6">
-    <form action="sql/pro_incidentes.php" method="post">
-        <button type="submit" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-cog" style="margin-right:7px;"></span>Trabajar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
-            <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idt" value="<?php echo $row['idtecnico']; ?>">
-    </form>
-    
-</div>
-<div class="col-sm-6">
-    <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
-        <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idt" value="<?php echo $row['idtecnico']; ?>">
-    </form>
-</div>
-    </div>
-    <?php }?>
-    <?php if ($e == 8 && $_SESSION["id"] == $row['idtecnico']){
-            if ( $kbsol == '-- sin asignar --'){ ?>
-            <div class="row">
-        <div class="col-sm-6">
-    <form action="sql/pro_incidentes.php" method="post">
-        <button type="submit" class="btn btn-default btn-sm" disabled="disabled">
-            <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('clo');?>">
-            <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idkb" value="<?php echo $row['idkbsolucion'];?>">
-    </form>
-</div>
-        <div class="col-sm-6">
-        <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
-        <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idt" value="<?php echo $row['idtecnico']; ?>">
-    </form>
-</div>
-</div>
-    <?php }
-            if ( $kbsol <> '-- sin asignar --'){ ?>
-            <div class="row">
-        <div class="col-sm-6">
-                <form action="sql/pro_incidentes.php" method="post">
-        <button type="submit" class="btn btn-default btn-sm">
-            <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('clo');?>">
-            <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idkb" value="<?php echo $row['idkbsolucion'];?>">
-    </form>
-</div>
-        <div class="col-sm-6">
-        <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
-        <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idt" value="<?php echo $row['idtecnico']; ?>">
-    </form>
-</div>
-</div>
-    <?php
-            }            
-        }    ?>
-    <?php if ($e == 8 && $_SESSION["id"] <> $row['idtecnico']){?>
-     <div class="row">
-        <div class="col-sm-6">
-    <form action="sql/pro_incidentes.php" method="post">
-        <button type="submit" class="btn btn-default btn-sm" disabled="disabled">
-            <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('clo');?>">
-            <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idkb" value="<?php echo $row['idkbsolucion'];?>">
-    </form>
-    </div>
-        <div class="col-sm-6">
-        <form action="sql/pro_incidentes.php" method="post">
-        <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#tecnico2">
-            <span class="glyphicon glyphicon-user" style="margin-right:7px;"></span>Re-Asignar incidente
-        </button>
-        <input type="hidden" name="pro" value="<?php echo md5('wor');?>">
-        <input type="hidden" name="id" value="<?php echo $id;?>">
-        <input type="hidden" name="idt" value="<?php echo $row['idtecnico']; ?>">
-    </form>
-</div>
-</div>
-    <?php }?>
-    <?php if ($e == 9 || $e == 10){?>
-        <button type="submit" class="btn btn-default btn-sm" disabled="disabled">
-            <span class="glyphicon glyphicon-retweet" style="margin-right:7px;"></span>Cerrar incidente
-        </button>
-    <?php }?>
-<?php } ?>                          
+    $solucionAsignada = $kbsol != '-- sin asignar --';
+  ?>
+
+  <?php if ($idrol == 1) { // Técnico ?>
+    <?php if ($e == 5): ?>
+      <?= boton('Asignar Técnico', 'fa-user-plus', 'btn-success', false, "onclick=\"abrirModalTecnico('asignar')\"") ?>
+  
+    <?php elseif (in_array($e, [6, 7])): ?>
+      <?= formBoton('wor', $id, $row['idtecnico'], '', 'Trabajar incidente', 'fa-cogs', 'btn-danger') ?>
+    <?php elseif ($e == 8): ?>
+      <?= formBoton('clo', $id, '', $row['idkbsolucion'], 'Cerrar incidente', 'fa-check-circle', 'btn-warning') ?>
+    <?php elseif (in_array($e, [9, 10])): ?>
+      <?= boton('Cerrar incidente', 'fa-ban', 'btn-outline-secondary', true) ?>
+    <?php endif; ?>
+  <?php } ?>
+
+  <?php if ($idrol == 2) { // Usuario ?>
+    <?php if ($e >= 5 && $e <= 8): ?>
+      <?= formBoton('clou', $id, '', $row['idkbsolucion'], 'Cerrar incidente', 'fa-check-double', 'btn-primary') ?>
+    <?php elseif (in_array($e, [9, 10])): ?>
+      <?= boton('Cerrar incidente', 'fa-ban', 'btn-outline-secondary', true) ?>
+    <?php endif; ?>
+  <?php } ?>
+
+  <?php if ($idrol == 3) { // Administrador ?>
+    <?php if ($e == 5): ?>
+      <?= boton('Asignar Técnico', 'fa-user-plus', 'btn-success', false, "onclick=\"abrirModalTecnico('asignar')\"") ?>
+    <?php elseif (in_array($e, [6, 7])): ?>
+      <?php if ($_SESSION["id"] == $row['idtecnico']): ?>
+        <?= formBoton('wor', $id, $row['idtecnico'], '', 'Trabajar incidente', 'fa-tools', 'btn-info') ?>
+      <?php else: ?>
+        <?= boton('Re-asignar Técnico', 'fa-user-edit', 'btn-warning', false, "onclick=\"abrirModalTecnico('reasignar')\"") ?>
+      <?php endif; ?>
+    <?php elseif ($e == 8): ?>
+      <?= formBoton('clo', $id, '', $row['idkbsolucion'], 'Cerrar incidente', 'fa-times-circle', $solucionAsignada ? 'btn-success' : 'btn-secondary', $solucionAsignada) ?>
+    <?php elseif (in_array($e, [9, 10])): ?>
+      <?= boton('Cerrar incidente', 'fa-times-circle', 'btn-outline-secondary', true) ?>
+    <?php endif; ?>
+  <?php } ?>
+
+  <?php if ($idrol == 4) { // Helpdesk ?>
+    <?php if ($e == 5): ?>
+      <?= boton('Asignar Técnico', 'fa-user-plus', 'btn-success', false, "onclick=\"abrirModalTecnico('asignar')\"") ?>
+    <?php elseif (($e == 6 || $e == 7) && $_SESSION["id"] != $row['idtecnico']): ?>
+      <?= boton('Re-asignar Técnico', 'fa-user-edit', 'btn-warning', false, "onclick=\"abrirModalTecnico('reasignar')\"") ?>
+    <?php elseif (($e == 6 || $e == 7) && $_SESSION["id"] == $row['idtecnico']): ?>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-between">
+        <?= formBoton('wor', $id, $row['idtecnico'], '', 'Trabajar incidente', 'fa-tools', 'btn-info') ?>
+        <?= boton('Re-asignar Técnico', 'fa-user-edit', 'btn-warning', false, "onclick=\"abrirModalTecnico('reasignar')\"") ?>
+      </div>
+    <?php elseif ($e == 8): ?>
+      <?= formBoton('clo', $id, '', $row['idkbsolucion'], 'Cerrar incidente', 'fa-times-circle', $solucionAsignada ? 'btn-success' : 'btn-secondary', $solucionAsignada) ?>
+    <?php elseif (in_array($e, [9, 10])): ?>
+      <?= boton('Cerrar incidente', 'fa-ban', 'btn-outline-secondary', true) ?>
+    <?php endif; ?>
+  <?php } ?>
 </div>
